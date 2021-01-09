@@ -70,10 +70,10 @@
           <div class="card card-primary text-white dashboard-box">
             <div class="card-body text-center">
               <div class="icon-background">
-                <i class="fas fa-plane icon"></i>
+                <i class="fas fa-plane-arrival icon"></i>
               </div>
-              <h3 class="header">{{ Widget::personalStats(['type' => 'tottime']) }}</h3>
-              <h5 class="description">Land Rate</h5>
+              <h3 class="header">{{ Widget::personalStats(['type' => 'avglanding']) }}</h3>
+              <h5 class="description">Average Landing Rate</h5>
             </div>
           </div>
         </div>
@@ -82,10 +82,10 @@
           <div class="card card-primary text-white dashboard-box">
             <div class="card-body text-center">
               <div class="icon-background">
-                <i class="far fa-clock icon"></i>
+                <i class="fas fa-chart-line icon"></i>
               </div>
-              <h3 class="header">@minutestotime($user->flight_time)</h3>
-              <h5 class="description">@lang('dashboard.totalhours')</h5>
+              <h3 class="header">{{ Widget::personalStats(['type' => 'avgscore']) }}</h3>
+              <h5 class="description">Average Flight Score</h5>
             </div>
           </div>
         </div>
@@ -93,10 +93,10 @@
           <div class="card card-primary text-white dashboard-box">
             <div class="card-body text-center">
               <div class="icon-background"> {{--110px font-size--}}
-                <i class="fas fa-money-bill-alt icon"></i>
+                <i class="fas fa-ruler icon"></i>
               </div>
-              <h3 class="header">{{ optional($user->journal)->balance ?? 0 }}</h3>
-              <h5 class="description">@lang('dashboard.yourbalance')</h5>
+              <h3 class="header">{{ Widget::personalStats(['type' => 'avgdistance']) }}</h3>
+              <h5 class="description">Average Distance</h5>
             </div>
           </div>
         </div>
@@ -105,16 +105,15 @@
           <div class="card card-primary text-white dashboard-box">
             <div class="card-body text-center">
               <div class="icon-background">
-                <i class="fas fa-map-marker icon"></i>
+                <i class="fas fa-globe-europe icon"></i>
               </div>
-              <h3 class="header">{{ $current_airport }}</h3>
-              <h5 class="description">@lang('airports.current')</h5>
+              <h3 class="header">{{ Widget::personalStats(['type' => 'totdistance']) }}</h3>
+              <h5 class="description">Total Distance</h5>
             </div>
           </div>
         </div>
 
       </div>
-
       <div class="nav nav-tabs" role="tablist" style="background: #067ec1; color: #FFF;">
         @lang('dashboard.yourlastreport')
       </div>
