@@ -2,8 +2,8 @@
 
 return [
     'latestnews' => [
-        'news'        => 'News',
-        'nonewsfound' => 'No News Found',
+        'news'        => 'NOTAMs',
+        'nonewsfound' => 'No NOTAMs Found',
     ],
 
     'livemap' => [
