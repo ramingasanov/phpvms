@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PreRegister\Providers;
+namespace Modules\Docs\Providers;
 
 use App\Contracts\Modules\ServiceProvider;
 
@@ -44,10 +44,10 @@ class AppServiceProvider extends ServiceProvider
     public function registerLinks(): void
     {
         // Show this link if logged in
-        // $this->moduleSvc->addFrontendLink('PreRegister', '/preregister', '', $logged_in=true);
+        // $this->moduleSvc->addFrontendLink('Docs', '/docs', '', $logged_in=true);
 
         // Admin links:
-        $this->moduleSvc->addAdminLink('PreRegister', '/admin/preregister');
+        $this->moduleSvc->addAdminLink('Docs', '/admin/docs');
     }
 
     /**
@@ -56,10 +56,10 @@ class AppServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('preregister.php'),
-        ], 'preregister');
+            __DIR__.'/../Config/config.php' => config_path('docs.php'),
+        ], 'docs');
 
-        $this->mergeConfigFrom(__DIR__.'/../Config/config.php', 'preregister');
+        $this->mergeConfigFrom(__DIR__.'/../Config/config.php', 'docs');
     }
 
     /**
@@ -67,14 +67,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/preregister');
+        $viewPath = resource_path('views/modules/docs');
         $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([$sourcePath => $viewPath],'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/modules/preregister';
-        }, \Config::get('view.paths')), [$sourcePath]), 'preregister');
+            return $path . '/modules/docs';
+        }, \Config::get('view.paths')), [$sourcePath]), 'docs');
     }
 
     /**
@@ -82,12 +82,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/preregister');
+        $langPath = resource_path('lang/modules/docs');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'preregister');
+            $this->loadTranslationsFrom($langPath, 'docs');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'preregister');
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'docs');
         }
     }
 }

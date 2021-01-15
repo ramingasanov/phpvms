@@ -1,9 +1,9 @@
-@extends('preregister::layouts.admin')
+@extends('docs::layouts.admin')
 
-@section('title', 'PreRegister')
+@section('title', 'Docs')
 @section('actions')
     <li>
-        <a href="{{ url('/preregister/admin/create') }}">
+        <a href="{{ url('/docs/admin/create') }}">
             <i class="ti-plus"></i>
             Add New</a>
     </li>
@@ -12,7 +12,7 @@
     <div class="card border-blue-bottom">
         <div class="header"><h4 class="title">Admin Scaffold!</h4></div>
         <div class="content">
-            <p>This view is loaded from module: {{ config('preregister.name') }}</p>
+            <p>This view is loaded from module: {{ config('docs.name') }}</p>
         </div>
     </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('preregister::layouts.frontend')
+@extends('docs::layouts.frontend')
 
 @section('title', 'PreRegister')
 
@@ -25,7 +25,7 @@
         <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="online" required><label for="online" class="control-label">If I am flying online(VATSIM/IVAO) I agree to fly following all the rules of VATSIM/IVAO.</label>      <div class="invalid-feedback">
             You must agree before submitting.
           </div></div>
-        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="30day" required><label for="30day" class="control-label">I will submit my first flight within 30 days of joining.</label>      <div class="invalid-feedback">
+        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="30day" required><label for="30day" class="control-label">I will submit my first flight within 30 days of joining, and at least one flight every 30 days thereafter.</label>      <div class="invalid-feedback">
             You must agree before submitting.
           </div></div>
         <div style="width: 100%; text-align: left; padding-top: 20px;"><a class="btn btn-primary continue" href="/register">Continue to form</a></div>

@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\PreRegister\Http\Controllers\Api;
+namespace Modules\Docs\Http\Controllers\Api;
 
 use App\Contracts\Controller;
 use Illuminate\Http\Request;
 
 /**
  * class ApiController
- * @package Modules\PreRegister\Http\Controllers\Api
+ * @package Modules\Docs\Http\Controllers\Api
  */
 class ApiController extends Controller
 {

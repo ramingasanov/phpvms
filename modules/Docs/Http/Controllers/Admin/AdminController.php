@@ -1,15 +1,14 @@
 <?php
 
-namespace Modules\PreRegister\Http\Controllers\Frontend;
+namespace Modules\Docs\Http\Controllers\Admin;
 
 use App\Contracts\Controller;
 use Illuminate\Http\Request;
 
 /**
- * Class $CLASS$
- * @package 
+ * Admin controller
  */
-class IndexController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class IndexController extends Controller
      */
     public function index(Request $request)
     {
-        return view('preregister::index');
+        return view('docs::admin.index');
     }
 
     /**
@@ -32,30 +31,16 @@ class IndexController extends Controller
      */
     public function create(Request $request)
     {
-        return view('preregister::create');
+        return view('docs::admin.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     *
-     * @return mixed
      */
     public function store(Request $request)
     {
-    }
-
-    /**
-     * Show the specified resource.
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    public function show(Request $request)
-    {
-        return view('preregister::show');
     }
 
     /**
@@ -67,7 +52,19 @@ class IndexController extends Controller
      */
     public function edit(Request $request)
     {
-        return view('preregister::edit');
+        return view('docs::admin.edit');
+    }
+
+    /**
+     * Show the specified resource.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function show(Request $request)
+    {
+        return view('docs::admin.show');
     }
 
     /**

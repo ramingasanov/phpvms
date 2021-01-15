@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PreRegister\Listeners;
+namespace Modules\Docs\Listeners;
 
 use App\Events\TestEvent;
 use Illuminate\Support\Facades\Log;

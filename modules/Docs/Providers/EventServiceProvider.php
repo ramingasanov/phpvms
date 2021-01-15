@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\PreRegister\Providers;
+namespace Modules\Docs\Providers;
 
 use App\Events\TestEvent;
-use Modules\PreRegister\Listeners\TestEventListener;
+use Modules\Docs\Listeners\TestEventListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

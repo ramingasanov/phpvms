@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PreRegister\Providers;
+namespace Modules\Docs\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Modules\PreRegister\Http\Controllers';
+    protected $namespace = 'Modules\Docs\Http\Controllers';
 
     /**
      * Called before routes are registered.
@@ -51,8 +51,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function registerWebRoutes(): void
     {
         $config = [
-            'as'         => 'preregister.',
-            'prefix'     => 'preregister',
+            'as'         => 'docs.',
+            'prefix'     => 'docs',
             'namespace'  => $this->namespace.'\Frontend',
             'middleware' => ['web'],
         ];
@@ -65,8 +65,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function registerAdminRoutes(): void
     {
         $config = [
-            'as'         => 'admin.preregister.',
-            'prefix'     => 'admin/preregister',
+            'as'         => 'admin.docs.',
+            'prefix'     => 'admin/docs',
             'namespace'  => $this->namespace.'\Admin',
             'middleware' => ['web', 'role:admin'],
         ];
@@ -82,8 +82,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function registerApiRoutes(): void
     {
         $config = [
-            'as'         => 'api.preregister.',
-            'prefix'     => 'api/preregister',
+            'as'         => 'api.docs.',
+            'prefix'     => 'api/docs',
             'namespace'  => $this->namespace.'\Api',
             'middleware' => ['api'],
         ];

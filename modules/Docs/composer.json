@@ -1,5 +1,5 @@
 {
-    "name": "VENDOR/preregister-module",
+    "name": "VENDOR/docs-module",
     "type": "phpvms-module",
     "description": "",
     "authors": [
@@ -14,9 +14,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\PreRegister\\Providers\\AppServiceProvider",
-                "Modules\\PreRegister\\Providers\\EventServiceProvider",
-                "Modules\\PreRegister\\Providers\\RouteServiceProvider"
+                "Modules\\Docs\\Providers\\AppServiceProvider",
+                "Modules\\Docs\\Providers\\EventServiceProvider",
+                "Modules\\Docs\\Providers\\RouteServiceProvider"
             ],
             "aliases": {
 
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\PreRegister\\": "."
+            "Modules\\Docs\\": "."
         }
     }
 }
