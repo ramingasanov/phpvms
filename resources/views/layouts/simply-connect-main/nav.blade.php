@@ -45,7 +45,7 @@
 
       @if(!Auth::check())
          <li class="nav-item">
-          <a class="nav-link" href="{{ url('/preregister') }}">
+          <a class="nav-link" href="{{ url('/docs/preregister') }}">
             <i class="far fa-id-card"></i>
             <p>@lang('common.register')</p>
           </a>
