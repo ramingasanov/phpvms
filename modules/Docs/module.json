@@ -1,0 +1,16 @@
+{
+    "name": "Docs",
+    "alias": "docs",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Docs\\Providers\\AppServiceProvider",
+        "Modules\\Docs\\Providers\\EventServiceProvider",
+        "Modules\\Docs\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
