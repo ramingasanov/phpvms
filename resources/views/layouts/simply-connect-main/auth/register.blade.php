@@ -7,7 +7,7 @@
     <div class="col-sm-6">
 
       {{ Form::open(['url' => '/register', 'class' => 'form-signin']) }}
-
+      <input type="hidden" id="airline_id" name="airline_id" value="1">
       <div class="panel periodic-login">
         <div class="panel-body">
           <h2>@lang('common.register')</h2>
@@ -27,13 +27,13 @@
             <p class="text-danger">{{ $errors->first('email') }}</p>
           @endif
 
-          <label for="airline" class="control-label">@lang('common.airline')</label>
+          {{-- <label for="airline" class="control-label">@lang('common.airline')</label>
           <div class="input-group form-group-no-border {{ $errors->has('airline') ? 'has-danger' : '' }}">
             {{ Form::select('airline_id', $airlines, null , ['class' => 'form-control select2']) }}
           </div>
           @if ($errors->has('airline_id'))
             <p class="text-danger">{{ $errors->first('airline_id') }}</p>
-          @endif
+          @endif --}}
 
           <label for="home_airport" class="control-label">@lang('airports.home')</label>
           <div class="input-group form-group-no-border {{ $errors->has('home_airport') ? 'has-danger' : '' }}">
