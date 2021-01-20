@@ -13,8 +13,10 @@
   <meta name="api-key" content="{!! Auth::check() ? Auth::user()->api_key: '' !!}">
   <meta name="csrf-token" content="{!! csrf_token() !!}">
   {{-- End the required lines block --}}
-
-  <link rel="shortcut icon" type="image/png" href="{{ public_asset('/assets/img/favicon.png') }}"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ public_asset('/assets/img/frontend/apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ public_asset('/assets/img/frontend/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ public_asset('/assets/img/frontend/favicon-16x16.png') }}">
+  <link rel="manifest" href="{{ public_asset('/assets/img/frontend/site.webmanifest') }}">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
   <link href="{{ public_asset('/assets/frontend/css/bootstrap.min.css') }}" rel="stylesheet"/>
   <link href="{{ public_mix('/assets/frontend/css/now-ui-kit.css') }}" rel="stylesheet"/>
