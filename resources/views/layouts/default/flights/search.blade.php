@@ -13,11 +13,11 @@
           {{ Form::select('airline_id', $airlines, null , ['class' => 'form-control select2']) }}
         </div>
       </div>
-
-      <div class="mt-1">
+      
+      {{-- <div class="mt-1">
         <p>@lang('flights.flighttype')</p>
         {{ Form::select('flight_type', $flight_types, null , ['class' => 'form-control select2']) }}
-      </div>
+      </div> --}}
 
       <div class="mt-1">
         <p>@lang('flights.flightnumber')</p>
