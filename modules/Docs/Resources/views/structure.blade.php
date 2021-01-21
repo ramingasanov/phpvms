@@ -53,7 +53,7 @@
 									10
 								</td>
 								<td>
-									Airbus A319-100<br/>Airbus A320-200<br/>Airbus A320neo<br/>Boeing 737-800<br/>Airbus A320neo<br/>Boeing 737-800<br/>And all lower ranked aircraft
+									Airbus A319-100<br/>Airbus A320-200<br/>Airbus A320neo<br/>Boeing 737-800<br/>And all lower ranked aircraft
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +64,7 @@
 									55
 								</td>
 								<td>
-									Airbus A321neo<br/>Airbus A321neo<br/>Boeing 737-800<br/>And all lower ranked aircraft
+									Airbus A321neo<br/>Boeing 737-800<br/>And all lower ranked aircraft
 								</td>
 							</tr>
 							<tr>
