@@ -1,4 +1,4 @@
-<div class="nav-tabs-navigation">
+<div class="nav-tabs-navigation nav-tabs">
   <div class="nav-tabs-wrapper">
     <ul class="navbar-nav align-middle">
       @if(Auth::check())
@@ -57,6 +57,11 @@
           </a>
         </li>
       @else
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pilot Docs</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/docs/structure">Flight Structure</a>
+      </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('frontend.flights.index') }}">
             <i class="fab fa-avianex"></i>
