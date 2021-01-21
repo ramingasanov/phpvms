@@ -75,7 +75,7 @@
 									90
 								</td>
 								<td>
-									Airbus A350<br/>Boeing 777-300<br/>Boeing 787-10<br/>And all lower ranked aircraft
+									Airbus A350<br/>Boeing 777-300<br/>Boeing 787-10<br/>Airbus A330-300<br/>And all lower ranked aircraft
 								</td>
 							</tr>
 							<tr>
@@ -432,7 +432,7 @@
 													</tr>
 													<tr>
 													  <td>SFL-A21N</td>
-													  <td>Airbus&nbsp;&nbsp;&nbsp;A321neo</td>
+													  <td>Airbus A321neo</td>
 													</tr>
 													<tr>
 													  <td>SFL-A319</td>
@@ -440,7 +440,7 @@
 													</tr>
 													<tr>
 													  <td>SFL-A320</td>
-													  <td>Airbus&nbsp;&nbsp;&nbsp;A320-200</td>
+													  <td>Airbus A320-200</td>
 													</tr>
 													<tr>
 													  <td>SFL-B738</td>
@@ -1238,6 +1238,10 @@
 													  <td>Airbus A321neo</td>
 													</tr>
 													<tr>
+														<td>SHO-A333</td>
+														<td>Airbus A333-330</td>
+													  </tr>
+													<tr>
 													  <td>SHO-B738</td>
 													  <td>Boeing 737-800</td>
 													</tr>
@@ -1552,6 +1556,11 @@
 													  <td>SWO-A359</td>
 													  <td>Airbus A350</td>
 													</tr>
+													<tr>
+														<td>SWO-A333</td>
+														<td>Airbus A333-330</td>
+													  </tr>
+													<tr>
 													<tr>
 													  <td>SWO-B738</td>
 													  <td>Boeing 737-800</td>
