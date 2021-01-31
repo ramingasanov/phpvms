@@ -18,7 +18,7 @@
             <div class="invalid-feedback">
             You must agree before submitting.
           </div></div>
-        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="software" required><label for="software" class="control-label">I own a legal, working copy of Microsoft Flight Simulator 2020, X-Plane or Prepar3D.</label>      <div class="invalid-feedback">
+        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="software" required><label for="software" class="control-label">I own a legal, working copy of Microsoft Flight Simulator 2020, X-Plane or Prepar3D on Windows.</label>      <div class="invalid-feedback">
             You must agree before submitting.
           </div></div>
         {{-- <div class="input-group form-group-no-border">{{ Form::hidden('rules', 0, false) }}{{ Form::checkbox('rules', 1, null) }}<label for="rules" class="control-label">I agree to the rules and policies of the virtual airline.</label></div> --}}
