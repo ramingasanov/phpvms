@@ -24,20 +24,6 @@
 <!-- End Navbar -->
 <div class="page-header">
   @yield('content')
-
-  <footer class="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy;
-        <script>
-          document.write(new Date().getFullYear())
-        </script>
-        , powered by
-        <a href="http://www.phpvms.net" target="_blank">phpvms</a>. Now-UI by
-        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
-      </div>
-    </div>
-  </footer>
 </div>
 </body>
 
