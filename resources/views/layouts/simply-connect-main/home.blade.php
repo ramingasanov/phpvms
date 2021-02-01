@@ -23,10 +23,10 @@
 								<img class="d-block w-100" alt="Carousel Bootstrap First" src="\assets\frontend\img\potm\jan_2020.png" style="height: 800px"/>
 								<div class="carousel-caption">
 									<h4>
-										January 2021
+										Screenshot Competition - January 2021 - Winner
 									</h4>
 									<p>
-										Flightsimmer 7700
+										FlightSimmer7700
 									</p>
 								</div>
 							</div>
