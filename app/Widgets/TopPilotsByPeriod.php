@@ -75,14 +75,25 @@ class TopPilotsByPeriod extends Widget
             $conditionB = '<';
             $conditionC = -10;
 		}
-        $tpilots = Pirep::select('user_id', $rawsql)
-                        ->where('state', '2')
-                        ->where($conditionA, $conditionB, $conditionC)
-                        ->$wheretype('created_at', '=', $repsql)
-                        ->orderBy('totals', 'desc')
-                        ->groupBy('user_id')
-                        ->take($this->config['count'])
-                        ->get();
+        if ($conditionA && $conditionB && $conditionC) {
+            $tpilots = Pirep::select('user_id', $rawsql)
+            ->where('state', '2')
+            ->where($conditionA, $conditionB, $conditionC)
+            ->$wheretype('created_at', '=', $repsql)
+            ->orderBy('totals', 'desc')
+            ->groupBy('user_id')
+            ->take($this->config['count'])
+            ->get();
+        } else {
+            $tpilots = Pirep::select('user_id', $rawsql)
+            ->where('state', '2')
+            ->$wheretype('created_at', '=', $repsql)
+            ->orderBy('totals', 'desc')
+            ->groupBy('user_id')
+            ->take($this->config['count'])
+            ->get();
+        }
+
 
         return view('widgets.toppilotsbyperiod', [
             'tpilots' => $tpilots,

@@ -129,9 +129,18 @@
       </div>
 
       {{ Widget::latestNews(['count' => 1]) }}
-      {{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}
-
+      <div class="row">
+      <div class = "col-sm-4"> 
+        {{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}
+      </div>
+      <div class = "col-sm-4"> 
+        {{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}
+      </div>
+      <div class = "col-sm-4"> 
+        {{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}
+      </div>
     </div>
+  </div>
 
     {{-- Sidebar --}}
     <div class="col-sm-4">
