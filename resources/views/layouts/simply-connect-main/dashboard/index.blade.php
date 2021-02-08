@@ -129,6 +129,7 @@
       </div>
 
       {{ Widget::latestNews(['count' => 1]) }}
+      {{Widget::TopPilots(['type' =>'landing rate', 'count' => 10])}}
 
     </div>
 
