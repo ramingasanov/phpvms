@@ -129,7 +129,7 @@
       </div>
 
       {{ Widget::latestNews(['count' => 1]) }}
-      {{Widget::TopPilots(['type' =>'landing rate', 'count' => 10])}}
+      {{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}
 
     </div>
 

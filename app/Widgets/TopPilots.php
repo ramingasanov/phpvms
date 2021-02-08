@@ -23,7 +23,7 @@ class TopPilots extends Widget
 		if ($selection === 'time') { 
 			$rawsql = DB::raw('sum(flight_time) as totals');
 		}
-		if($selection === 'landing rate') {
+		if($selection === 'average landing rate') {
 			$rawsql = DB::raw('avg(landing_rate) as totals');
 		}
 		$tpilots = Pirep::select('user_id', $rawsql)

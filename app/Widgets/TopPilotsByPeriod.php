@@ -14,6 +14,9 @@ class TopPilotsByPeriod extends Widget
     {
         $periodselection = $this->config['period'];
         $wheretype = 'whereMonth';
+        $conditionA = '';
+        $conditionB = '';
+        $conditionC = '';
 
         if ($periodselection == 'currentm')
         {
@@ -66,9 +69,15 @@ class TopPilotsByPeriod extends Widget
         { 
             $rawsql = DB::raw('sum(flight_time) as totals');
         }
-        
+        if($selection === 'average landing rate') {
+			$rawsql = DB::raw('avg(landing_rate) as totals');
+            $conditionA = 'landing_rate';
+            $conditionB = '<';
+            $conditionC = -10;
+		}
         $tpilots = Pirep::select('user_id', $rawsql)
                         ->where('state', '2')
+                        ->where($conditionA, $conditionB, $conditionC)
                         ->$wheretype('created_at', '=', $repsql)
                         ->orderBy('totals', 'desc')
                         ->groupBy('user_id')
