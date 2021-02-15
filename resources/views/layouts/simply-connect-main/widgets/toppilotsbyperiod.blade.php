@@ -1,10 +1,8 @@
 <div class="card">
 	<div class="card-header">
 		@if ($count === 1)
-			<i class="fas fa-star" style="margin-right: 5px;"></i>
 			<h4>Best Pilot of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}</h4>
 		@else
-			<i class="fas fa-medal" style="margin-right: 5px;"></i>
 			<h4>Top {{ $count }} Pilots of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}</h4>
 		@endif
 	</div>
