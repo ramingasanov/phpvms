@@ -93,7 +93,11 @@
 				<div class="col-md-8">
 					<h3>Whats Happening on Simply Connect</h3>
 					<div class="row">
-						<div class="col-md-12">{{ Widget::latestPireps(['count' => 10]) }}</div>
+            <div class="card">
+              <div class="card-body">
+						    <div class="">{{ Widget::latestPireps(['count' => 5]) }}</div>
+              </div>
+            </div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>

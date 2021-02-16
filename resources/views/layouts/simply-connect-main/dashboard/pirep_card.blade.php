@@ -15,6 +15,9 @@
                           'id' => $pirep->arr_airport->icao
                           ])}}">{{$pirep->arr_airport->icao}}</a>)
       </p>
+      <p>
+        {{$pirep->created_at}} - 
+      </p>
     </div>
     <div class="col-sm-2 float-right">
       <div class="col-sm-2 text-center">
@@ -28,8 +31,6 @@
              <div class="badge badge-info">
           @endif
             {{ PirepState::label($pirep->state) }}</div>
-          <a href="{{ route('frontend.pireps.edit', [$pirep->id]) }}"
-            class="btn btn-sm btn-info">@lang('common.edit')</a> 
       </div>    
     </div>
   </div>
