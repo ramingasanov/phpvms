@@ -45,7 +45,17 @@
 						</tbody>
 					  </table>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
+					<h3>Flights completed so far</h3>
+					<div class="card">
+						<div class="card-body">
+						  <div class="progress" style="height: 20px;">
+							<div class="progress-bar" role="progressbar" style="width: {{$countOfPireps}}%;" aria-valuenow={{$countOfPireps}} aria-valuemin="0" aria-valuemax="100">{{$countOfPireps}}</div>
+						  </div>
+						  <p class="card-text text-center">{{$countOfPireps}} Flights Completed</p>
+						</div>
+					  </div>
+					<div></div>
 					<h3>How to Donate</h3>
 					<p>If you would like to donate please hit the donate button below, where you will be taken to the Just Giving website</p>
 					<div id="jg-widget-insidea-gamer-338"></div><script>(function(){var id="jg-widget-insidea-gamer-338",doc=document,pfx=(window.location.toString().indexOf("https")==0)?"https":"http";var el=doc.getElementById(id);if(el){var js=doc.createElement('script');js.src=pfx+"://widgets.justgiving.com/fundraisingpage/insidea-gamer?enc=ZT1qZy13aWRnZXQtaW5zaWRlYS1nYW1lci0zMzgmdz00MDAmYj1pbm5lcixkb25hdGUmaWI9b3duZXIsdGl0bGUsc3VtbWFyeSxwcm9ncmVzcyxyYWlzZWQsdGFyZ2V0";el.parentNode.insertBefore(js, el);}})();</script>
