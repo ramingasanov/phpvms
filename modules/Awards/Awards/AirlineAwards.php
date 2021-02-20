@@ -10,7 +10,7 @@ use App\Contracts\Award;
  *
  * See: https://docs.phpvms.net/developers/awards
  */
-class AirlineAward extends Award
+class AirlineAwards extends Award
 {
     /**
      * Set the name of this award class to make it easier to see when
