@@ -30,7 +30,7 @@
 						<tbody>
 					@foreach($flights as $flight)
 					<tr>
-						<th scope="row">{{$flight->flight_number}}</th>
+						<th scope="row">SCH{{$flight->flight_number}}</th>
 						<td>{{ optional($flight->dpt_airport)->name ?? $flight->dpt_airport_id }}
 							(<a href="{{route('frontend.airports.show', [
 								  'id' => $flight->dpt_airport_id
