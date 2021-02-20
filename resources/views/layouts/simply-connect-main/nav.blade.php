@@ -16,6 +16,11 @@
           <p>@lang('common.livemap')</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/charityevent">
+          <p>Charity Event</p>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('frontend.pilots.index') }}">
