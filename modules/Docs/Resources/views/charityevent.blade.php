@@ -18,6 +18,7 @@
 				<div class="col-md-9">
 					<p class="strong">We are on a mission to deliver virtual cargo and raise money for South Central Ambulance Charity. Our pilots have been challenged with delivery cargo from across Europe to the UK</p>
 					<h4>Our Charity Routes:</h4>
+					<p>Below are our chatity routes which you can fly in order to bring medical cargo to the UK. All the routes have A319,A320, or A321 aircraft and all members of the virtual airline can fly these routes. To see more details, and book your flight, visit the <a href="/flights/search?airline_id=6">flight booking page</a></p>
 					<table class="table table-striped">
 						<thead>
 						  <tr>
