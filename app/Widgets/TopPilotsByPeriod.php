@@ -82,7 +82,6 @@ class TopPilotsByPeriod extends Widget
             ->$wheretype('created_at', '=', $repsql)
             ->orderBy('totals', 'desc')
             ->groupBy('user_id')
-            ->havingRaw('count(*) >', [1])
             ->take($this->config['count'])
             ->get();
         } else {
