@@ -59,6 +59,13 @@
 								<td>NYCE-87<br/><img src='\assets\frontend\img\potm\jan-2020-2.jpg' alt='' class='img-thumbnail' width="400" height="400"/></td>
                                 <td>Floaty<br/><img src='\assets\frontend\img\potm\jan-2020-3.jpg' alt='' class='img-thumbnail' width="400" height="400"/></td>
 							</tr>
+							<tr>
+								<td>January</td>
+								<td>Simply Connect</td>
+								<td>Floaty<br/><img src='\assets\frontend\img\potm\feb_2021_1.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+								<td>Flightsimmer7700<br/><img src='\assets\frontend\img\potm\feb_2021_2.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+                                <td>Harvey<br/><img src='\assets\frontend\img\potm\feb_2021_3.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
