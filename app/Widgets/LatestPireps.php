@@ -28,6 +28,7 @@ class LatestPireps extends Widget
                 PirepState::CANCELLED,
                 PirepState::DRAFT,
                 PirepState::IN_PROGRESS,
+                PirepState::REJECTED,
             ], 'created_at', 'desc')
             ->recent($this->config['count']);
 

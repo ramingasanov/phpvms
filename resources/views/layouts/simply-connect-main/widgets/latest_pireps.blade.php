@@ -1,5 +1,5 @@
 <h4>Latest Flights</h4>
-<table class="table table-striped table-responsive">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Flight Number</th>
