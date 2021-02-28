@@ -17,12 +17,6 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/docs/charityevent">
-          <p>Charity Event</p>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link" href="{{ route('frontend.pilots.index') }}">
           <i class="fas fa-users"></i>
           <p>{{ trans_choice('common.pilot', 2) }}</p>
