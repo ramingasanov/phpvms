@@ -8,15 +8,12 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>
-						Simply Connect Screenshot Competition
-					</h1>
+					<h1>Simply Connect Screenshot Competition</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-                    <h3>This Months Theme: "Love To Travel"</h3>
-                    <p>We want to see what makes you love to fly. It could be a place you love to visit in real life, or in your sim, a landing you love to do, or just a screenshot that captures why you love to fly!</p>
+                    <p>Enter your best screenshot to the Discord channel each month! Best screenshot as voted by the Discord server wins!</p>
 					<p class='h4'>Deadline: 15th February 2021 - 1800z</p>
 				</div>
 			</div>
@@ -27,7 +24,7 @@
 						<li class="list-item">Max two screenshots per pilot.</li>
 						<li class="list-item">No photoshop or editing of screenshots (other than cropping).</li>
 						<li class="list-item">Try to include a caption.</li>
-						<li class="list-item">The Simply Connect livery is not required (unless specified in this months theme) however any screenshots should <b>not</b> contain liveries of other real or virtual airlines.</li>
+						<li class="list-item">If your screenshot is of the external view of the aircraft it must be displaying the Simply Connect livery.</li>
                         <li class="list-item">Screenshots must be submitted in accordance with the submission guidelines by the date specified above.</li>
 						<li class="list-item">You agree to allow Simply Connect VA to use your screenshot in various forms across Simply Connect Website and Social Media Platforms.</li>
 					</ul>
