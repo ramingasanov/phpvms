@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-12">
                     <p>Enter your best screenshot to the Discord channel each month! Best screenshot as voted by the Discord server wins!</p>
-					<p class='h4'>Deadline: 15th February 2021 - 1800z</p>
+					<p class='h4'>Deadline: 22nd March 2021 - 1800z</p>
 				</div>
 			</div>
 			<div class="row">
