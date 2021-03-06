@@ -36,9 +36,9 @@
 </head>
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg " style="background: #067ec1;">
+<nav class="navbar navbar-expand-lg">
   <a class="navbar-brand text-white" href="{{ url('/') }}" style="margin-left: 20px;">
-    <img src="{{ public_asset('/assets/frontend/img/simply_connect_logo.png') }}" width="135px" alt=""/>
+    <img src="{{ public_asset('/assets/frontend/img/sca_chain_logo.png') }}" width="135px" alt=""/>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
           aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
