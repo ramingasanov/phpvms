@@ -1,12 +1,12 @@
-<div class="card">
-	<div class="card-header">
+<div class="card border-black-bottom dashboard-table">
+	<h4 class="card-header">
 	{{-- @if ($rtype === 'Departures')
 		<i class="fas fa-plane-departure" style="margin-right: 5px;"></i>
 	@elseif ($rtype === 'Arrivals')
 		<i class="fas fa-plane-arrival" style="margin-right: 5px;"></i>
 	@endif --}}
-		<h4>Top {{ $count }} Airports By {{ $rtype }}</h4>
-	</div>
+		Top {{ $count }} Airports By {{ $rtype }}
+	</h4>
 	<div class="card-body">
 		<table class="table table-hover table-striped text-center">
 			<tr>

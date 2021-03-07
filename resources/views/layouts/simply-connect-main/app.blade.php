@@ -62,9 +62,10 @@
   </div>
   <div class="clearfix" style="height: 200px;"></div>
 
-  <footer class="footer footer-default">
+  <footer class="footer footer-black">
     <div class="container">
       <div class="copyright">
+        &copy; 2021 Simply Connect Virtual Airline
         {{--
         Please keep the copyright message somewhere, as-per the LICENSE file
                 Thanks!!

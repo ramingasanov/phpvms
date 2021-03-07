@@ -1,11 +1,11 @@
-<div class="card">
-	<div class="card-header">
+<div class="card border-black-bottom dashboard-table">
+	<h4 class="card-header">
 		@if ($count === 1)
-			<h4>Best Pilot of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}</h4>
+			Best Pilot of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}
 		@else
-			<h4>Top {{ $count }} Pilots of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}</h4>
+			Top {{ $count }} Pilots of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}
 		@endif
-	</div>
+	</h4>
 	<div class="card-body">
 	@if(count($tpilots) > 0)	
 		<table class="table table-hover table-striped text-center">

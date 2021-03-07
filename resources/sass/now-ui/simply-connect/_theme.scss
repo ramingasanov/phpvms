@@ -1,3 +1,42 @@
 .navbar {
     background-color:black;
 }
+.navbar .dropdown-menu{
+    background-color: black;
+    color: white;
+}
+
+.navbar .dropdown-item{
+    background-color: black;
+    color: white;
+}
+
+.dashboard-box {
+    background-color: black;
+    color: white;
+}
+
+.nav-tabs {
+    background-color: black;
+    color: white;
+}
+
+.border-black-bottom {
+    border-bottom: 3px solid black;
+}
+
+.card.dashboard-table .card-header {
+    background-color: black;
+    color: white;
+    margin-top: 0px;
+    padding: .75rem 1.25rem;
+}
+
+a, a:focus, a:hover {
+    color: red;
+}
+
+.footer-black {
+    background-color: black;
+    color: white;
+}
