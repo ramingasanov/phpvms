@@ -106,7 +106,13 @@ class FlightController extends Controller
         }
 
         $flights = $this->flightRepo->searchCriteria($request)
-            ->with(['dpt_airport', 'arr_airport', 'airline'])
+            ->with([
+                'dpt_airport',
+                'arr_airport',
+                'airline',
+                'simbrief' => function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                }, ])
             ->orderBy('flight_number', 'asc')
             ->orderBy('route_leg', 'asc')
             ->paginate();
@@ -117,6 +123,7 @@ class FlightController extends Controller
         $all_bids = Bid::all()->pluck('flight_id')->toArray();
 
         return view('flights.index', [
+            'user'          => $user,
             'airlines'      => $this->airlineRepo->selectBoxList(true),
             'airports'      => $this->airportRepo->selectBoxList(true),
             'flights'       => $flights,
@@ -161,6 +168,7 @@ class FlightController extends Controller
         }
 
         return view('flights.bids', [
+            'user'          => $user,
             'airlines'      => $this->airlineRepo->selectBoxList(true),
             'airports'      => $this->airportRepo->selectBoxList(true),
             'flights'       => $flights,
