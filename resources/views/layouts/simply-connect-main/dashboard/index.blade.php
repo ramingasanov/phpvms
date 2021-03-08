@@ -93,26 +93,27 @@
 				<div class="col-md-8">
 					<h3>Whats Happening on Simply Connect</h3>
 					<div class="row">
-            <div class="card">
+            <div class="card border-black-bottom dashboard-table">
+              <h4 class="card-header">Latest Flights</h4>
               <div class="card-body">
-						    <div class="">{{ Widget::latestPireps(['count' => 5]) }}</div>
+						   {{ Widget::latestPireps(['count' => 5]) }}
               </div>
             </div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>
-						<div class="col-md-4">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
-						<div class="col-md-4">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
+						<div class="col-md-4 pl-0">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>
+						<div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
+						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
 					</div>
 					<div class="row">
-            <div class="col-md-4">{{Widget::TopAirports(['count' => 5])}}</div>
+            <div class="col-md-4 pl-0">{{Widget::TopAirports(['count' => 5])}}</div>
           </div>
 				</div>
 				<div class="col-md-4">
-                    <div class="nav nav-tabs" role="tablist" style="background: #067ec1; color: #FFF;">
+                    <div class="nav nav-tabs" role="tablist">
                         @lang('dashboard.yourlastreport')
                       </div>
-                      <div class="card border-blue-bottom">
+                      <div class="card border-black-bottom">
                         @if($last_pirep === null)
                           <div class="card-body" style="text-align:center;">
                             @lang('dashboard.noreportsyet') <a

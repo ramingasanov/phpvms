@@ -6,5 +6,5 @@
  */
 
 export const PLAN_ROUTE_COLOR = '#8B008B';
-export const ACTUAL_ROUTE_COLOR = '#067ec1';
+export const ACTUAL_ROUTE_COLOR = '#ff0000';
 export const CIRCLE_COLOR = '#056093';

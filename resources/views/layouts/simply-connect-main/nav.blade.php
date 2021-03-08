@@ -96,7 +96,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
              data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
             @if (Auth::user()->avatar == null)
-              <img src="{{ Auth::user()->gravatar(38) }}" style="height: 38px; width: 38px;">
+              <img src="\assets\frontend\img\sc_link_icon.png" style="height: 38px; width: 38px;">
             @else
               <img src="{{ Auth::user()->avatar->url }}" style="height: 38px; width: 38px;">
             @endif

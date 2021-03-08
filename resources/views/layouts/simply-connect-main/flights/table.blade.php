@@ -1,5 +1,5 @@
 @foreach($flights as $flight)
-  <div class="card border-blue-bottom">
+  <div class="card border-black-bottom">
     <div class="card-body" style="min-height: 0">
       <div class="row">
         <div class="col-sm-9">
@@ -93,24 +93,24 @@
             <!-- If this flight has a briefing, show the link to view it-->
             @if ($flight->simbrief && $flight->simbrief->user_id === $user->id)
               <a href="{{ route('frontend.simbrief.briefing', $flight->simbrief->id) }}"
-                 class="btn btn-sm btn-outline-primary">
+                 class="btn btn-sm btn-dark">
                 View Simbrief Flight Plan
               </a>
             @else
             <!-- Show button if the bids-only is disable, or if bids-only is enabled, they've saved it -->
             @if ($simbrief_bids === false || ($simbrief_bids === true && in_array($flight->id, $saved, true)))
               <a href="{{ route('frontend.simbrief.generate') }}?flight_id={{ $flight->id }}"
-                 class="btn btn-sm btn-outline-primary">
+                 class="btn btn-sm btn-danger">
                 Create Simbrief Flight Plan
               </a>
               @endif
             @endif
           @endif
 
-          <a href="{{ route('frontend.pireps.create') }}?flight_id={{ $flight->id }}"
-             class="btn btn-sm btn-outline-info">
+          {{-- <a href="{{ route('frontend.pireps.create') }}?flight_id={{ $flight->id }}"
+             class="btn btn-sm btn-danger">
             {{ __('pireps.newpirep') }}
-          </a>
+          </a> --}}
         </div>
       </div>
     </div>
