@@ -132,7 +132,7 @@
 					<p>
 						Our four airlines each cater to different passenger segments and feature unique aircraft and real world aircraft
 					</p>
-					<div class="tabbable" id="tabs-141310">
+					<div class="tabbable" id="structure-airlines">
 						<ul class="nav nav-tabs">
 							<li class="nav-item">
 								<a class="nav-link active show" href="#tab1" data-toggle="tab">Island Connect</a>

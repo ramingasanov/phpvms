@@ -30,7 +30,7 @@ export default (_opts) => {
   // Check if any providers are listed; if not, set the default
   if (Object.entries(leafletOptions.providers).length === 0) {
     leafletOptions.providers = {
-      'Esri.WorldStreetMap': {},
+      'CartoDB.DarkMatter': {},
     };
   }
 
