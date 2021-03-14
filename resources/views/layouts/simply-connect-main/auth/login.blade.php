@@ -9,7 +9,7 @@
     <div class="col-md-8 d-none d-md-flex bg-image" style="background-image: url('/assets/frontend/img/potm/jan_2020.png')"></div>
     
       <!-- LOGIN -->
-        <div class="col-md-4 bg-light">
+        <div class="col-md-4 text-white bg-dark">
             <div class="login d-flex align-items-center py-5">
  
         <div class="container">
@@ -58,7 +58,7 @@
                   <input type="checkbox" class="custom-control-input" id="customCheck1">
                   <label class="custom-control-label" for="customCheck1">Remember password</label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">@lang('common.login')</button>
+                <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">@lang('common.login')</button>
                 <div class="pull-left">
                   <h6>
                     <a href="{{ url('/docs/preregister') }}" class="link">@lang('auth.createaccount')</a>
