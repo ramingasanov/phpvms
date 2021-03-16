@@ -115,7 +115,7 @@ and being mindful of the rivets bindings
     phpvms.map.render_live_map({
       center: ['{{ $center[0] }}', '{{ $center[1] }}'],
       zoom: '{{ $zoom }}',
-      aircraft_icon: '{!! public_asset('/assets/img/acars/aircraft.png') !!}',
+      aircraft_icon: '{!! public_asset('/assets/img/acars/aircraft1.png') !!}',
       units: '{{ setting('units.distance') }}',
       leafletOptions: {
         scrollWheelZoom: false,
