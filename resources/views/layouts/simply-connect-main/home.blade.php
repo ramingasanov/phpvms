@@ -48,9 +48,9 @@
 				<div class="col-md-2">
 				</div>
 			</div>
-			<div class="row bg-info mt-3 p-3 text-white">
+			<div class="row bg-black mt-3 p-3 text-white text-center">
 				<div class="container">
-					<p>Todays Stats: {{Widget::todayStats(['type'=>'totalPireps'])}} | {{Widget::todayStats(['type'=>'totalHours'])}}</p>
+					<p><span class="h4">Todays Stats:</span> {{Widget::todayStats(['type'=>'totalPireps'])}} | {{Widget::todayStats(['type'=>'totalHours'])}}</p>
 				</div>
 			</div>
 			<div class="row">
