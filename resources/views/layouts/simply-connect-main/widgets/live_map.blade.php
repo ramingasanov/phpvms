@@ -112,15 +112,10 @@ and being mindful of the rivets bindings
 
 @section('scripts')
   <script>
-    const fontAwesomeIcon = L.divIcon({
-    html: '<i class="fas fa-plane"></i>',
-    iconSize: [20, 20],
-    className: 'icon'
-  });
     phpvms.map.render_live_map({
       center: ['{{ $center[0] }}', '{{ $center[1] }}'],
       zoom: '{{ $zoom }}',
-      aircraft_icon: fontAwesomeIcon,
+      aircraft_icon: '{!! public_asset('/assets/img/acars/aircraft.png') !!}',
       units: '{{ setting('units.distance') }}',
       leafletOptions: {
         scrollWheelZoom: false,
