@@ -48,3 +48,8 @@ a, a:focus, a:hover {
 .bg-black {
     background-color: black;
 }
+
+.leaflet-market-icon {
+    -webkit-filter: grayscale(1) invert(1);
+    filter: grayscale(1) invert(1);
+}
