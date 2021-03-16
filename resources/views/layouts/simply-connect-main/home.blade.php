@@ -48,6 +48,11 @@
 				<div class="col-md-2">
 				</div>
 			</div>
+			<div class="row bg-black mt-3 p-3 text-white text-center">
+				<div class="container">
+					<p><span class="h4">Todays Stats:</span> {{Widget::todayStats(['type'=>'totalPireps'])}} | {{Widget::todayStats(['type'=>'totalHours'])}}</p>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-12 mt-5">
                     <p>Welcome to the new Simply Connect Virtual Airline. We are still getting up and running so expect lots more content in the coming weeks. For now why not join us as an early adopter and help shape our future!</p>

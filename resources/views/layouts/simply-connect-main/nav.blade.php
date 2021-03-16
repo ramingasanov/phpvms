@@ -61,6 +61,7 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" href="/docs/structure">Flight Structure</a>
           <a class="dropdown-item" href="/docs/searching">Finding Flights</a>
+          <a class="dropdown-item" href="/docs/acars">Setting Up ACARS</a>
           <a class="dropdown-item" href="/docs/photo-competition">Screenshot Competition</a>
       </li>
         <li class="nav-item">

@@ -1,6 +1,6 @@
 <div class="card-body" style="min-height: 0px">
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <p>
         <a href="{{ route('frontend.pireps.show', [$pirep->id]) }}">
           {{ $pirep->airline->code }}{{ $pirep->ident }}</a>
@@ -19,7 +19,7 @@
         {{$pirep->created_at}} - 
       </p>
     </div>
-    <div class="col-sm-2 float-right">
+    <div class="col-sm-2">
       <div class="col-sm-2 text-center">
           @if($pirep->state === PirepState::PENDING)
             <div class="badge badge-warning">

@@ -5,6 +5,7 @@ Route::view('/preregister', 'docs::preregister');
 Route::view('/structure', 'docs::structure');
 Route::view('/searching', 'docs::searching');
 Route::view('/photo-competition', 'docs::photocomp');
+Route::view('/acars', 'docs::acars');
 // Route::get('/charityevent', 'DocController@charityFleet');
 
 /*
