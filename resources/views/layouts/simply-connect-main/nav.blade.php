@@ -73,7 +73,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('frontend.pireps.index') }}">
             <i class="fas fa-cloud-upload-alt"></i>
-            <p>{{ trans_choice('common.pirep', 2) }}</p>
+            <p>My Flight Reports</p>
           </a>
         </li>
         <li class="nav-item">
