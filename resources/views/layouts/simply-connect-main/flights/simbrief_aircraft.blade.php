@@ -22,7 +22,7 @@
     <div class="col-md-12 text-right">
       <a id="generate_link" style="visibility: hidden"
          href="{{ route('frontend.simbrief.generate') }}?flight_id={{ $flight->id }}"
-         class="btn btn-danger">Proceed To Flight Planning</a>
+         class="btn btn-primary">Proceed To Flight Planning</a>
     </div>
   </div>
 @endsection

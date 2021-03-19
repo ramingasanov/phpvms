@@ -24,7 +24,7 @@
           --}}
           @if (!setting('pilots.only_flights_from_current') || $flight->dpt_airport_id == Auth::user()->current_airport->icao)
             <button class="btn btn-round btn-icon btn-icon-mini save_flight
-                           {{ in_array($flight->id, $saved, true) ? 'btn-info':'' }}"
+                           {{ in_array($flight->id, $saved, true) ? 'btn-danger':'' }}"
                     x-id="{{ $flight->id }}"
                     x-saved-class="btn-info"
                     type="button"
