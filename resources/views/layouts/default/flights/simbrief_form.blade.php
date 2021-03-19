@@ -302,7 +302,7 @@
                     <div class="form-group">
                       <input type="button"
                          onclick="simbriefsubmit('{{ $flight->id }}', '{{ $aircraft->id }}', '{{ url(route('frontend.simbrief.briefing', [''])) }}');"
-                         class="btn btn-danger" value="Generate">
+                         class="btn btn-primary" value="Generate">
                     </div>
                   </div>
                 </div>
