@@ -6,12 +6,12 @@
     <h1>Join Us</h1>
     <p>
         Prior to signing up with Simply Connect please join the Discord Server with the pilot role. Your application will be rejected if you have not completed this step.
-        <h3><a href='https://discord.gg/qJnG3uyp' target='_blank'>Discord Invite</a></h3>
+        <h3><a href='https://discord.gg/p8dmube' target='_blank'>Discord Invite</a></h3>
     </p>
     <p>
         <b>In order to join us you must meet the following requirements:</b>
         <form class='needs-validation'>
-        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="discord" required><label for="discord" class="control-label">I have joined the <a href='https://discord.gg/qJnG3uyp' target='_blank'>Discord Server</a> with the pilot role.</label>      <div class="invalid-feedback">
+        <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="discord" required><label for="discord" class="control-label">I have joined the <a href='https://discord.gg/p8dmube' target='_blank'>Discord Server</a> with the pilot role.</label>      <div class="invalid-feedback">
             You must agree before submitting.
           </div></div>
         <div class="input-group form-group-no-border"><input class="form-check-input" type="checkbox" value="" id="age" required><label for="age" class="control-label">I am aged 16 or older.</label>
