@@ -1,0 +1,31 @@
+{
+    "name": "VENDOR/tours-module",
+    "type": "phpvms-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "",
+            "email": ""
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Tours\\Providers\\AppServiceProvider",
+                "Modules\\Tours\\Providers\\EventServiceProvider",
+                "Modules\\Tours\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Tours\\": "."
+        }
+    }
+}
