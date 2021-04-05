@@ -19,6 +19,7 @@ class FlightRepository extends Repository implements CacheableInterface
     protected $fieldSearchable = [
         'arr_airport_id',
         'distance',
+        'flight_time',
         'dpt_airport_id',
         'flight_type',
         'flight_number' => 'like',
@@ -126,6 +127,16 @@ class FlightRepository extends Repository implements CacheableInterface
         // Distance, less than
         if ($request->filled('dlt')) {
             $where[] = ['distance', '<=', $request->input('dlt')];
+        }
+
+        // Time, greater than
+        if ($request->filled('tgt')) {
+            $where[] = ['flight_time', '>=', $request->input('tgt')];
+        }
+
+        // Time, greater than
+        if ($request->filled('tlt')) {
+            $where[] = ['flight_time', '<=', $request->input('tlt')];
         }
 
         // Do a special query for finding the child subfleets
