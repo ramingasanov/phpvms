@@ -211,6 +211,7 @@ class PirepController extends Controller
         return view('pireps.show', [
             'pirep'        => $pirep,
             'map_features' => $map_features,
+            'user'         => Auth::user(),
         ]);
     }
 
@@ -428,10 +429,16 @@ class PirepController extends Controller
      */
     public function edit($id)
     {
+        /** @var Pirep $pirep */
         $pirep = $this->pirepRepo->findWithoutFail($id);
         if (empty($pirep)) {
             Flash::error('Pirep not found');
             return redirect(route('frontend.pireps.index'));
+        }
+
+        if ($pirep->user_id !== Auth::id()) {
+            Flash::error('Cannot edit someone else\'s PIREP!');
+            return redirect(route('admin.pireps.index'));
         }
 
         // Eager load the subfleet and fares under it
@@ -486,9 +493,18 @@ class PirepController extends Controller
      */
     public function update($id, UpdatePirepRequest $request)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        /** @var Pirep $pirep */
         $pirep = $this->pirepRepo->findWithoutFail($id);
         if (empty($pirep)) {
             Flash::error('Pirep not found');
+            return redirect(route('admin.pireps.index'));
+        }
+
+        if ($user->id !== $pirep->user_id) {
+            Flash::error('Cannot edit someone else\'s PIREP!');
             return redirect(route('admin.pireps.index'));
         }
 
@@ -541,6 +557,11 @@ class PirepController extends Controller
         $pirep = $this->pirepRepo->findWithoutFail($id);
         if (empty($pirep)) {
             Flash::error('PIREP not found');
+            return redirect(route('admin.pireps.index'));
+        }
+
+        if ($pirep->user_id !== Auth::id()) {
+            Flash::error('Cannot edit someone else\'s PIREP!');
             return redirect(route('admin.pireps.index'));
         }
 
