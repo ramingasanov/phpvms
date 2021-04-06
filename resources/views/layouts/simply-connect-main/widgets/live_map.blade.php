@@ -32,8 +32,8 @@
              rv-show="pirep.id"
              style="width: {{ $config['width'] }};">
           <div style="float: left; width: 50%;">
-            <h3 style="margin: 0; color: red" id="map_flight_id">
-              <a rv-href="pirep.id | prepend '{{url('/pireps/')}}/'" target="_blank">
+            <h3 style="margin: 0" id="map_flight_id">
+              <a rv-href="pirep.id | prepend '{{url('/pireps/')}}/'" target="_blank" style="color: red">
                 { pirep.airline.icao }{ pirep.flight_number }
               </a>
             </h3>
