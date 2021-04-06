@@ -51,7 +51,7 @@ class DownloadController extends Controller
             } elseif ($category == 'Airport') {
                 $group_name = $category.' > '.$obj->icao.' : '.$obj->name.' ('.$obj->country.')';
             } elseif ($category == 'Subfleet' && $airlines > 1) {
-                $group_name = $category.' > '.$obj->airline->name.' '.$obj->name;
+                $group_name = $obj->name;
             } else {
                 $group_name = $category.' > '.$obj->name;
             }
