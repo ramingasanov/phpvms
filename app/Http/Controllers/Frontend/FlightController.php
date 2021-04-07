@@ -138,8 +138,9 @@ class FlightController extends Controller
             'simbrief'      => !empty(setting('simbrief.api_key')),
             'simbrief_bids' => setting('simbrief.only_bids'),
             'all_bids'      => $all_bids,
-            'min_duration'   => $flights->min('flight_time'),
-            'max_duration'   => $flights->max('flight_time'),
+            'min_duration'  => $flights->min('flight_time'),
+            'max_duration'  => $flights->max('flight_time'),
+            'count_flights' => $flights->count(),
         ]);
     }
 
