@@ -40,7 +40,7 @@
       </div>
 
       <div class="mt-1">
-        <p>Esimated duration</p>
+        <p>Esimated Flight Time</p>
         {{ Form::range('tlt',null,['min'=>$min_duration, 'max'=>$max_duration, 'class'=> 'form-control form-range'])}}
         <span>Up to: <span id="tltval"></span> minutes</span>
       </div>

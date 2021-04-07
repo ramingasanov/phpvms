@@ -3,7 +3,7 @@
 		@if ($count === 1)
 			Best Pilot of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}
 		@else
-			Top {{ $count }} Pilots of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}
+		{{ ucfirst($rperiod) }} | {{ ucfirst($type) }}
 		@endif
 	</h4>
 	<div class="card-body">
