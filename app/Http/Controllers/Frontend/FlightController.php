@@ -105,7 +105,7 @@ class FlightController extends Controller
             Log::emergency($e);
         }
 
-        $flights = $this->flightRepo->searchCriteria($request)
+        $all_flights = $this->flightRepo->searchCriteria($request)
             ->with([
                 'dpt_airport',
                 'arr_airport',
@@ -114,8 +114,9 @@ class FlightController extends Controller
                     $query->where('user_id', $user->id);
                 }, ])
             ->orderBy('flight_number', 'asc')
-            ->orderBy('route_leg', 'asc')
-            ->paginate();
+            ->orderBy('route_leg', 'asc');
+
+        $flights = $all_flights->paginate();
 
         $saved_flights = Bid::where('user_id', Auth::id())
             ->pluck('flight_id')->toArray();
@@ -138,9 +139,9 @@ class FlightController extends Controller
             'simbrief'      => !empty(setting('simbrief.api_key')),
             'simbrief_bids' => setting('simbrief.only_bids'),
             'all_bids'      => $all_bids,
-            'min_duration'  => $flights->min('flight_time'),
-            'max_duration'  => $flights->max('flight_time'),
-            'count_flights' => $flights->count(),
+            'min_duration'  => $all_flights->min('flight_time'),
+            'max_duration'  => $all_flights->max('flight_time'),
+            'count_flights' => $all_flights->count(),
         ]);
     }
 
