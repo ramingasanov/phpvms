@@ -52,13 +52,3 @@
     </div>
   </div>
 </div>
-@section('scripts')
-<script type="text/javascript">
-const slider = document.querySelector('input[name="tlt"]');
-var output = document.querySelector('span#tltval');
-output.innerHTML = slider.value;
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-</script>
-@endsection
