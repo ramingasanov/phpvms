@@ -27,7 +27,7 @@
             <button class="btn btn-round btn-icon btn-icon-mini save_flight
                            {{ in_array($flight->id, $saved, true) ? 'btn-danger':'' }}"
                     x-id="{{ $flight->id }}"
-                    x-saved-class="btn-info"
+                    x-saved-class="btn-danger"
                     type="button"
                     title="@lang('flights.addremovebid')">
               <i class="fas fa-map-marker"></i>
