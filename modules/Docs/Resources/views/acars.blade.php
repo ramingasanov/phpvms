@@ -1,6 +1,6 @@
 @extends('docs::layouts.frontend')
 
-@section('title', 'Charity Event')
+@section('title', 'ACARS App Installation')
 @section('content')
 <div class="container-fluid">
 	<div class="row">

@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-12">
                     <p>Enter your best screenshot to the Discord channel each month! Best screenshot as voted by the Discord server wins!</p>
-					<p class='h4'>Deadline: 22nd March 2021 - 1800z</p>
+					<p class='h4'>Deadline: 25th April 2021 - 1800z</p>
 				</div>
 			</div>
 			<div class="row">
@@ -42,7 +42,6 @@
 						<thead>
 							<tr>
 								<th>Month</th>
-								<th>Theme</th>
 								<th>1st Place</th>
 								<th>2nd Place</th>
                                 <th>3rd Place</th>
@@ -51,17 +50,21 @@
 						<tbody>
 							<tr>
 								<td>January</td>
-								<td>Simply Connect</td>
 								<td>Flightsimmer7700<br/><img src='\assets\frontend\img\potm\jan_2020.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
 								<td>NYCE-87<br/><img src='\assets\frontend\img\potm\jan-2020-2.jpg' alt='' class='img-thumbnail' width="400" height="400"/></td>
                                 <td>Floaty<br/><img src='\assets\frontend\img\potm\jan-2020-3.jpg' alt='' class='img-thumbnail' width="400" height="400"/></td>
 							</tr>
 							<tr>
-								<td>January</td>
-								<td>Simply Connect</td>
+								<td>February</td>
 								<td>Floaty<br/><img src='\assets\frontend\img\potm\feb_2021_1.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
 								<td>Flightsimmer7700<br/><img src='\assets\frontend\img\potm\feb_2021_2.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
                                 <td>Harvey<br/><img src='\assets\frontend\img\potm\feb_2021_3.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+							</tr>
+							<tr>
+								<td>March</td>
+								<td>Thor<br/><img src='\assets\frontend\img\potm\mar_2021_1.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+								<td>Floaty<br/><img src='\assets\frontend\img\potm\mar_2021_2.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+                                <td>Floaty<br/><img src='\assets\frontend\img\potm\mar_2021_3.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
 							</tr>
 						</tbody>
 					</table>

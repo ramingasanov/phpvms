@@ -16,8 +16,9 @@
 				<div class="col-md-8">
 					<div id="carousel-sotm" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
-							<li data-slide-to="0"class="active"></li>
+							<li data-slide-to="0"></li>
 							<li data-slide-to="1"></li>
+							<li data-slide-to="2" class="active"></li>
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item">
@@ -27,11 +28,18 @@
 									<p>FlightSimmer7700</p>
 								</div>
 							</div>
-							<div class="carousel-item active">
+							<div class="carousel-item">
 								<img class="d-block w-100 img-fluid" alt="February Screenshot winner" src="\assets\frontend\img\potm\feb_2021_1.png"/>
 								<div class="carousel-caption">
 									<h4>Screenshot Competition - February 2021 - Winner</h4>
 									<p>Will J</p>
+								</div>
+							</div>
+							<div class="carousel-item active">
+								<img class="d-block w-100 img-fluid" alt="March Screenshot winner" src="\assets\frontend\img\potm\mar_2021_1.png"/>
+								<div class="carousel-caption">
+									<h4>Screenshot Competition - February 2021 - Winner</h4>
+									<p>Thor</p>
 								</div>
 							</div>
 						</div>
