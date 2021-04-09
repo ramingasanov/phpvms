@@ -23,12 +23,20 @@
         }
       });
     });
-    const slider = document.querySelector('input[name="tlt"]');
-    const output = document.querySelector('span#tltval');
-    if (slider && output) {
-      output.innerHTML = slider.value;
-      slider.oninput = function() {
-        output.innerHTML = this.value;
+    const maxSlider = document.querySelector('input[name="tlt"]');
+    const maxSliderOutput = document.querySelector('span#tltval');
+    if (maxSlider && maxSliderOutput) {
+      maxSliderOutput.innerHTML = maxSlider.value;
+      maxSlider.oninput = function() {
+        maxSliderOutput.innerHTML = this.value;
+      }
+    }
+    const minSlider = document.querySelector('input[name="tgt"]');
+    const minSliderOutput = document.querySelector('span#tgtval');
+    if (minSlider && minSliderOutput) {
+      minSliderOutput.innerHTML = minSlider.value;
+      minSlider.oninput = function() {
+        minSliderOutput.innerHTML = this.value;
       }
     }
   </script>

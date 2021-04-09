@@ -38,11 +38,15 @@
         <p>@lang('common.subfleet')</p>
         {{ Form::select('subfleet_id', $subfleets, null , ['class' => 'form-control select2']) }}
       </div>
-
       <div class="mt-1">
-        <p>Esimated Flight Time</p>
-        {{ Form::range('tlt',null,['min'=>$min_duration, 'max'=>$max_duration, 'step'=>10, 'class'=> 'form-control form-range'])}}
-        <span>Up to: <span id="tltval"></span> minutes</span>
+        <p>Flights no shorter than</p>
+        {{ Form::range('tgt', $min_duration, ['min'=>$min_duration, 'max'=>$max_duration, 'step'=>10, 'class'=> 'form-control form-range'])}}
+        <span><span id="tgtval"></span> minutes</span>
+      </div>
+      <div class="mt-1">
+        <p>Flights no longer than</p>
+        {{ Form::range('tlt', $max_duration, ['min'=>$min_duration, 'max'=>$max_duration, 'step'=>10, 'class'=> 'form-control form-range'])}}
+        <span><span id="tltval"></span> minutes</span>
       </div>
       <div class="clear mt-1" style="margin-top: 10px;">
         {{ Form::submit(__('common.find'), ['class' => 'btn btn-outline-danger']) }}&nbsp;
