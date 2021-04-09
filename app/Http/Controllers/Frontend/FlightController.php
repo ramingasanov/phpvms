@@ -180,6 +180,7 @@ class FlightController extends Controller
             'subfleets'     => $this->subfleetRepo->selectBoxList(true),
             'simbrief'      => !empty(setting('simbrief.api_key')),
             'simbrief_bids' => setting('simbrief.only_bids'),
+            'count_flights' => $flights->count(),
         ]);
     }
 

@@ -1,4 +1,4 @@
-<h4>{{$count_flights}} flights found</h4>
+<h4>{{$count_flights ?? '0'}} flights found</h4>
 @foreach($flights as $flight)
   <div class="card border-black-bottom">
     <div class="card-body" style="min-height: 0">
