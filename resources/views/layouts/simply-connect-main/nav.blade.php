@@ -78,6 +78,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/stats">
+            <p>Simply Connect Stats</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('frontend.downloads.index') }}">
             <i class="fas fa-download"></i>
             <p>{{ trans_choice('common.download', 2) }}</p>

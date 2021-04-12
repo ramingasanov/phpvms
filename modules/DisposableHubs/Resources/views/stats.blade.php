@@ -100,10 +100,6 @@
                 <td class="text-right">{{ $TotalAirports }}</td>
               </tr>
               <tr>
-                <th><a href="{{ route('DisposableHubs.hindex') }}">{{ trans_choice('DisposableHubs::common.hub', 2) }}</a></th>
-                <td class="text-right">{{ $TotalHubs }}</td>
-              </tr>
-              <tr>
                 <th>{{ trans_choice('common.flight', 2) }}</th>
                 <td class="text-right">{{ $TotalFlights }}</td>
               </tr>
@@ -122,10 +118,6 @@
               <tr>
                 <th style="width: 50%">@lang('DisposableHubs::common.tpirep')</th>
                 <td class="text-right">{{ $TotalPireps }}</td>
-              </tr>
-              <tr>
-                <th>@lang('DisposableHubs::common.rpirep')</th>
-                <td class="text-right">{{ $TotalRejectedPireps }}</td>
               </tr>
               <tr>
                 <th>@lang('DisposableHubs::common.ftime')</th>
