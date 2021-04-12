@@ -116,17 +116,17 @@
 
   <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link dispotabs active" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="true">@lang('DisposableHubs::common.hubplt')</a>
+      <a class="nav-link active" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="true">@lang('DisposableHubs::common.hubplt')</a>
     </li>
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link dispotabs" id="pills-aircrafts-tab" data-toggle="pill" href="#pills-aircrafts" role="tab" aria-controls="pills-aircrafts" aria-selected="false">@lang('DisposableHubs::common.hubac')</a>
+      <a class="nav-link" id="pills-aircrafts-tab" data-toggle="pill" href="#pills-aircrafts" role="tab" aria-controls="pills-aircrafts" aria-selected="false">@lang('DisposableHubs::common.hubac')</a>
     </li>
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link dispotabs" id="pills-flights-tab" data-toggle="pill" href="#pills-flights" role="tab" aria-controls="pills-flights" aria-selected="false">@lang('DisposableHubs::common.hubflts')</a>
+      <a class="nav-link" id="pills-flights-tab" data-toggle="pill" href="#pills-flights" role="tab" aria-controls="pills-flights" aria-selected="false">@lang('DisposableHubs::common.hubflts')</a>
     </li>
     @if($disptools)
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link dispotabs" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableHubs::common.hubreps')</a>
+        <a class="nav-link" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableHubs::common.hubreps')</a>
       </li>
     @endif
   </ul>
@@ -156,8 +156,4 @@
       </div>
     @endif
   </div>
-  {{-- Custom Style For Inactive Tabs --}}
-  <style>
-    .dispotabs { color: black; background-color: lightslategray;}
-  </style>
 @endsection

@@ -166,23 +166,23 @@
   @if($disptools)
     <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link dispotabs" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="true">@lang('DisposableHubs::common.smonth')</a>
+        <a class="nav-link active" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="true">@lang('DisposableHubs::common.smonth')</a>
       </li>
       @if($TotalAirlines > 1)
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispotabs" id="pills-monthal-tab" data-toggle="pill" href="#pills-monthal" role="tab" aria-controls="pills-monthal" aria-selected="false">@lang('DisposableHubs::common.smonthal')</a>
+          <a class="nav-link" id="pills-monthal-tab" data-toggle="pill" href="#pills-monthal" role="tab" aria-controls="pills-monthal" aria-selected="false">@lang('DisposableHubs::common.smonthal')</a>
         </li>
       @endif
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link dispotabs" id="pills-year-tab" data-toggle="pill" href="#pills-year" role="tab" aria-controls="pills-year" aria-selected="false">@lang('DisposableHubs::common.syear')</a>
+        <a class="nav-link" id="pills-year-tab" data-toggle="pill" href="#pills-year" role="tab" aria-controls="pills-year" aria-selected="false">@lang('DisposableHubs::common.syear')</a>
       </li>
       @if($TotalAirlines > 1)
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispotabs" id="pills-yearal-tab" data-toggle="pill" href="#pills-yearal" role="tab" aria-controls="pills-yearal" aria-selected="false">@lang('DisposableHubs::common.syearal')</a>
+          <a class="nav-link" id="pills-yearal-tab" data-toggle="pill" href="#pills-yearal" role="tab" aria-controls="pills-yearal" aria-selected="false">@lang('DisposableHubs::common.syearal')</a>
         </li>
       @endif
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link dispotabs active" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">@lang('DisposableHubs::common.soverall')</a>
+        <a class="nav-link" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">@lang('DisposableHubs::common.soverall')</a>
       </li>
     </ul>
 
@@ -218,9 +218,4 @@
       </div>
     </div>
   @endif
-
-  {{-- Custom Style For Inactive Tabs --}}
-  <style>
-    .dispotabs { color: black; background-color: lightslategray;}
-  </style>
 @endsection
