@@ -15,7 +15,7 @@
             <h3>Membership Policy</h3>
             <p class="font-weight-normal">In order to join us and make your experience worthwhile you must:
 			<ul>
-				<li class="list-item">be 16 years or older.</li>
+				<li class="list-item">be 15 years or older.</li>
                 <li class="list-item">be a member of our Discord server and provide your Discord username on registration.</li>
                 <li class="list-item">have a legal, working version of Microsoft Windows with at least one of the following simulators: X-Plane 11, Microsoft Flight Simulator 2020, FSX, or Prepar3D.</li>
                 <li class="list-item">complete your first flight with us within 30 days of joining.</li>
@@ -54,7 +54,7 @@
                 <li class="list-item">You have an understanding of how air traffic control works and the phraseology involved.</li>
                 <li class="list-item">You are able to fly SIDs/STARs and understand an IFR flight plan.</li>
             </ul>
-            <p class="font-weight-normal">For more details on flying online with simply connect please see our dedicated <a href="/docs/flying-online">flying online page</a></p>
+            <p class="font-weight-normal">For more details on flying online with simply connect please see our dedicated <a href="/docs/flying-online">flying online page</a> (coming soon!)</p>
 		</div>
 		<div class="col-md-4">
 			<h3>Help and Support</h3>

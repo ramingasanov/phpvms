@@ -144,7 +144,7 @@
           <div style="width: 100%; text-align: right; padding-top: 20px;">
             {{ Form::submit(__('auth.register'), [
                 'id' => 'register_button',
-                'class' => 'btn btn-primary',
+                'class' => 'btn btn-danger',
                 'disabled' => true,
                ]) }}
           </div>
