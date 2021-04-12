@@ -31,8 +31,8 @@ class HubsServiceProvider extends ServiceProvider
   public function registerLinks()
   {
     /** If You Want To Place The Links Manually Then Dashout or delete below 2 lines **/
-    $this->moduleSvc->addFrontendLink('Hubs', '/dhubs', 'fas fa-calendar', $logged_in=true);
-    $this->moduleSvc->addFrontendLink('Stats & Leaderboard', '/dstats', 'fas fa-cog', $logged_in=true);
+    //$this->moduleSvc->addFrontendLink('Hubs', '/dhubs', 'fas fa-calendar', $logged_in=true);
+    //$this->moduleSvc->addFrontendLink('Stats & Leaderboard', '/dstats', 'fas fa-cog', $logged_in=true);
     /** Do Not Remove Admin Link **/
     $this->moduleSvc->addAdminLink('Disposable Hubs', '/admin/disposablehubs');
   }
@@ -51,10 +51,10 @@ class HubsServiceProvider extends ServiceProvider
         'middleware' => ['auth'],
       ], function () {
         // Stats Contoller Routes
-        Route::get('dstats', 'StatsController@stats')->name('dstats');
+        Route::get('stats', 'StatsController@stats')->name('dstats');
         // Hubs Controller Routes
-        Route::get('dhubs', 'HubsController@hubs')->name('hindex');
-        Route::get('dhubs/{id}', 'HubsController@show')->name('hshow');
+        Route::get('hubs', 'HubsController@hubs')->name('hindex');
+        Route::get('hubs/{id}', 'HubsController@show')->name('hshow');
       });
     });
 
