@@ -38,6 +38,7 @@
         <p>@lang('common.subfleet')</p>
         {{ Form::select('subfleet_id', $subfleets, null , ['class' => 'form-control select2']) }}
       </div>
+      @if($min_duration > 0 & $max_duration > 0)
       <div class="mt-1">
         <p>Flights no shorter than</p>
         {{ Form::range('tgt', $min_duration, ['min'=>$min_duration, 'max'=>$max_duration, 'step'=>10, 'class'=> 'form-control form-range'])}}
@@ -48,6 +49,7 @@
         {{ Form::range('tlt', $max_duration, ['min'=>$min_duration, 'max'=>$max_duration, 'step'=>10, 'class'=> 'form-control form-range'])}}
         <span><span id="tltval"></span> minutes</span>
       </div>
+      @endif
       <div class="clear mt-1" style="margin-top: 10px;">
         {{ Form::submit(__('common.find'), ['class' => 'btn btn-outline-danger']) }}&nbsp;
         <a href="{{ route('frontend.flights.index') }}" class='text-secondary'>@lang('common.reset')</a>
