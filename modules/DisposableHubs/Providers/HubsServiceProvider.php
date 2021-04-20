@@ -53,8 +53,8 @@ class HubsServiceProvider extends ServiceProvider
         // Stats Contoller Routes
         Route::get('stats', 'StatsController@stats')->name('dstats');
         // Hubs Controller Routes
-        //Route::get('hubs', 'HubsController@hubs')->name('hindex');
-        //Route::get('hubs/{id}', 'HubsController@show')->name('hshow');
+        Route::get('hubs', 'HubsController@hubs')->name('hindex');
+        Route::get('hubs/{id}', 'HubsController@show')->name('hshow');
       });
     });
 
