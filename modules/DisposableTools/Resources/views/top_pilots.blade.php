@@ -33,7 +33,7 @@
         @endif
         @foreach($tpilots as $tp)
           <tr>
-            <td class="text-left"><a href="{{ route('frontend.profile.show', [$tp->user_id]) }}">{{ $tp->user->name_private }}</a></td>
+            <td class="text-left"><a href="{{ route('frontend.profile.show', [$tp->user_id]) }}">{{ $tp->user->name_private ?? "Pilot left Company"}}</a></td>
             <td>
               @if($config['type'] === 'time')
                 @minutestotime($tp->totals)
