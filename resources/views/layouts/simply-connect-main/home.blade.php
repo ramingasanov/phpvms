@@ -38,7 +38,7 @@
 							<div class="carousel-item active">
 								<img class="d-block w-100 img-fluid" alt="March Screenshot winner" src="\assets\frontend\img\potm\mar_2021_1.png"/>
 								<div class="carousel-caption">
-									<h4>Screenshot Competition - February 2021 - Winner</h4>
+									<h4>Screenshot Competition - March 2021 - Winner</h4>
 									<p>Thor</p>
 								</div>
 							</div>
