@@ -8,32 +8,23 @@
     </div>
   </div>
   {{-- Ranks Table --}}
-  <div class="card mb-2">
-    <div class="card-header p-1">
-      <h5 class="m-1 p-0">
-        {{ config('app.name') }} | @lang('DisposableRanks::common.ranks')
-        <i class="fas fa-tags float-right"></i>
-      </h5>
-    </div>
-    <div class="card-body p-0">
-      <table class="table table-sm table-borderless table-striped text-center mb-0">
-        <tr>
-          <th>&nbsp;</th>
-          <th class="text-left">@lang('DisposableRanks::common.rtitle')</th>
-          <th>@lang('DisposableRanks::common.minhour')</th>
-          <th>@lang('DisposableRanks::common.payacars')</th>
-          <th>@lang('DisposableRanks::common.paymanual')</th>
-          <th>@lang('DisposableRanks::common.image')</th>
-          <th>@lang('DisposableRanks::common.restrict')</th>
-          <th>&nbsp;</th>
-        </tr>
+  <div class="card border-black-bottom dashboard-table">
+      <h5 class="card-header">{{ config('app.name') }} | @lang('DisposableRanks::common.ranks')</h5>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-left">@lang('DisposableRanks::common.rtitle')</th>
+            <th>@lang('DisposableRanks::common.minhour')</th>
+            <th>@lang('DisposableRanks::common.image')</th>
+            <th>@lang('DisposableRanks::common.restrict')</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
         @foreach($ranks as $rank)
           <tr>
-            <td>&nbsp;</td>
             <td class="text-left align-middle">{{ $rank->name }}</td>
             <td class="align-middle">{{ $rank->hours }}</td>
-            <td class="align-middle">{{ number_format($rank->acars_base_pay_rate) }} {{ setting('units.currency') }}</td>
-            <td class="align-middle">{{ number_format($rank->manual_base_pay_rate) }} {{ setting('units.currency') }}</td>
             <td class="align-middle">
               @if($rank->image_url)
                 <img src="{{ $rank->image_url }}" title="{{ $rank->name }}" class="rounded img-mh30 ml-1 mr-1">
@@ -68,24 +59,23 @@
           <div class="card mb-2">
             <div class="card-header p-1">
               <h5 class="m-1 p-0">
-                {{ $rank->name }}
-                <i class="fas fa-tag float-right"></i>
+                {{ $rank->name }} - Min Hours: {{ $rank->hours }}
               </h5>
             </div>
             <div class="card-body p-1">
-              @foreach($rank->subfleets as $subfleet)
+              <ul>
+              @foreach($rank->subfleets->sortBy('name') as $subfleet)
+              <li>
                 @if($dispal)
                   <a href="{{ route('DisposableAirlines.dsubfleet', [$subfleet->type]) }}">
                 @endif
-                  <b>&bull; {{ $subfleet->name }} | {{ $subfleet->airline->name }} [@lang('common.aircraft'): {{ $subfleet->aircraft->count() }}]</b>
+                {{ $subfleet->name }}
                 @if($dispal)
                   </a>
                 @endif
-                <br>
+                </li>
               @endforeach
-            </div>
-            <div class="card-footer text-right p-1">
-              @lang('DisposableRanks::common.minhour'): {{ $rank->hours }}
+                </ul>
             </div>
           </div>
         </div>

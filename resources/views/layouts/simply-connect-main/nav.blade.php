@@ -60,7 +60,7 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pilot Docs</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="/docs/rules">Rules and Support</a>
-          <a class="dropdown-item" href="/docs/structure">Flight Structure</a>
+          <a class="dropdown-item" href="/ranks">Ranks and Aircrafts</a>
           <a class="dropdown-item" href="/docs/searching">Finding Flights</a>
           <a class="dropdown-item" href="/docs/acars">Setting Up ACARS</a>
           <a class="dropdown-item" href="/docs/photo-competition">Screenshot Competition</a>
