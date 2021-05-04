@@ -11,6 +11,4 @@
 !/ModulesManager
 !/VMSAcars
 !/Docs
-!/DisposableHubs
-!/DisposableTools
-!/DisposableAirlines
+!/Disposable*
