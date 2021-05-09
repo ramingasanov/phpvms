@@ -66,6 +66,12 @@
 								<td>Floaty<br/><img src='\assets\frontend\img\potm\mar_2021_2.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
                                 <td>Floaty<br/><img src='\assets\frontend\img\potm\mar_2021_3.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
 							</tr>
+							<tr>
+								<td>April</td>
+								<td>Steg<br/><img src='\assets\frontend\img\potm\apr_2021_1.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+								<td>Harvey<br/><img src='\assets\frontend\img\potm\apr_2021_2.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+                                <td>That1GuyITC<br/><img src='\assets\frontend\img\potm\apr_2021_3.png' alt='' class='img-thumbnail' width="400" height="400"/></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

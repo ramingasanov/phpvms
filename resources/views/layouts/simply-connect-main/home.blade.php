@@ -18,7 +18,8 @@
 						<ol class="carousel-indicators">
 							<li data-slide-to="0"></li>
 							<li data-slide-to="1"></li>
-							<li data-slide-to="2" class="active"></li>
+							<li data-slide-to="2"></li>
+							<li data-slide-to="3" class="active"></li>
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item">
@@ -40,6 +41,13 @@
 								<div class="carousel-caption">
 									<h4>Screenshot Competition - March 2021 - Winner</h4>
 									<p>Thor</p>
+								</div>
+							</div>
+							<div class="carousel-item active">
+								<img class="d-block w-100 img-fluid" alt="March Screenshot winner" src="\assets\frontend\img\potm\apr_2021_1.png"/>
+								<div class="carousel-caption">
+									<h4>Screenshot Competition - April 2021 - Winner</h4>
+									<p>Steg</p>
 								</div>
 							</div>
 						</div>
