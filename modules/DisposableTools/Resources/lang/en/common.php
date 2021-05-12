@@ -39,5 +39,16 @@ return [
   'avgfuel'     => 'Average Fuel Burn',
   'totfuel'     => 'Total Fuel Burn',
   'totflight'   => 'Total Flights',
-  'lastndays'   => 'Last :period Days'
+  'lastndays'   => 'Last :period Days',
+  // Sun Details
+  'sundetails'     => 'Sunrise / Sunset Details',
+  'twilight_begin' => 'Civil Twilight Begin',
+  'twilight_end'   => 'Civil Twilight End',
+  'sunrise'        => 'Sunrise',
+  'sunset'         => 'Sunset',
+  // Map Widget
+  'flights_map'  => 'Flights Map',
+  'personal_map' => 'My Flights / PIREPs Map',
+  'citypairs'    => 'CityPairs',
+  'airports'     => 'Airports'
 ];

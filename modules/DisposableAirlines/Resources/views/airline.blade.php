@@ -7,13 +7,13 @@
     <div class="col-9">
       <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispotabs active" id="pills-fleet-tab" data-toggle="pill" href="#pills-fleet" role="tab" aria-controls="pills-fleet" aria-selected="true">@lang('DisposableAirlines::common.fleet')</a>
+          <a class="nav-link dispo-pills active" id="pills-fleet-tab" data-toggle="pill" href="#pills-fleet" role="tab" aria-controls="pills-fleet" aria-selected="true">@lang('DisposableAirlines::common.fleet')</a>
         </li>
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispotabs" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="false">@lang('DisposableAirlines::common.pilots')</a>
+          <a class="nav-link dispo-pills" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="false">@lang('DisposableAirlines::common.pilots')</a>
         </li>
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispotabs" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableAirlines::common.pireps')</a>
+          <a class="nav-link dispo-pills" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableAirlines::common.pireps')</a>
         </li>
       </ul>
       <div class="tab-content" id="pills-tabContent">
@@ -63,6 +63,9 @@
           </div>
         @endif
       </div>
+      @if($disptools)
+        @widget('Modules\DisposableTools\Widgets\FlightsMap', ['sourcce' => $airline->id])
+      @endif
       @if($disptools && $pireps->count() > 0)
         @widget('Modules\DisposableTools\Widgets\AirlineStats', ['airline' => $airline->id])
       @endif
@@ -78,20 +81,20 @@
           <tr>
             <th>@lang('DisposableAirlines::common.aincome')</th>
             <td class="text-right">
-              {{ number_format($income) }} {{ setting('units.currency') }}
+              {{ money($income, setting('units.currency')) }}
             </td>
           </tr>
           <tr>
             <th>@lang('DisposableAirlines::common.aexpense')</th>
             <td class="text-right">
-              {{ number_format($expense) }} {{ setting('units.currency') }}
+              {{ money($expense, setting('units.currency')) }}
             </td>
           </tr>
           <tr>
             <th>@lang('DisposableAirlines::common.abalance')</th>
             <td class="text-right">
               <span style="color: @if($balance > 0) darkgreen @else darkred @endif;">
-                <b>{{ number_format($balance) }} {{ setting('units.currency') }}</b>
+                <b>{{ money($balance, setting('units.currency')) }}</b>
               </span>
             </td>
           </tr>
@@ -102,6 +105,6 @@
   </div>
   {{-- Custom Style For Inactive Tabs --}}
   <style>
-    .dispotabs { color: black; background-color: lightslategray;}
+    .dispo-pills { color: black; background-color: lightslategray;}
   </style>
 @endsection

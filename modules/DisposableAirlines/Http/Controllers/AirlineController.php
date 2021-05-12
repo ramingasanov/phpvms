@@ -69,8 +69,14 @@ class AirlineController extends Controller
         }
 
         if($airline) {
-            $DisposableTools = Module::has('DisposableTools');
-            $DisposableHubs = Module::has('DisposableHubs');
+            $DisposableTools = Module::find('DisposableTools');
+            if($DisposableTools) {
+              $DisposableTools = $DisposableTools->isEnabled();
+            }
+            $DisposableHubs = Module::find('DisposableHubs');
+            if($DisposableHubs) {
+              $DisposableHubs = $DisposableHubs->isEnabled();
+            }
             $pilots = $this->userRepo->where('airline_id', $airline->id)->orderby('id')->get();
             $subfleets = $this->subfleetRepo->where('airline_id', $airline->id)->pluck('id')->all();
             $aircraft = $this->aircraftRepo->whereIn('subfleet_id', $subfleets)->orderby('registration')->get();
@@ -78,9 +84,15 @@ class AirlineController extends Controller
                 ->where('state', '!=', PirepState::IN_PROGRESS)
                 ->orderby('submitted_at', 'desc')
                 ->get();
-            $income = substr($airline->journal->transactions->sum('credit'),0,-2);
-            $expense = substr($airline->journal->transactions->sum('debit'),0,-2);
+            // $income = substr($airline->journal->transactions->sum('credit'),0,-2);
+            // $expense = substr($airline->journal->transactions->sum('debit'),0,-2);
+            $income = $airline->journal->transactions->sum('credit');
+            $expense = $airline->journal->transactions->sum('debit');
             $balance = $income - $expense;
+
+            if(setting('pilots.hide_inactive')) {
+                $pilots = $pilots->where('state',1);
+            }
 
             return view('DisposableAirlines::airline', [
                 'disptools' => $DisposableTools,
@@ -89,7 +101,7 @@ class AirlineController extends Controller
                 'income'    => $income,
                 'expense'   => $expense,
                 'balance'   => $balance,
-                'pilots'    => $pilots,
+                'users'     => $pilots,
                 'pireps'    => $pireps,
                 'fleet'     => $aircraft,
                 'country'   => new ISO3166(),

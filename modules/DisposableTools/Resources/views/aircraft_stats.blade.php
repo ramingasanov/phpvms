@@ -29,7 +29,7 @@
           <td class="text-right">{{ number_format($acavgfuelh) }} {{ setting('units.fuel') }}</td>
         </tr>
         <tr>
-          <th scope="row">Average Landing Rate</th>
+          <th scope="row">@lang('DisposableTools::common.avglanding')</th>
           <td class="text-right">{{ number_format($acavglrate) }} ft/min</td>
         </tr>
       @else
