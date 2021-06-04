@@ -105,6 +105,9 @@
 						<div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
 						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
 					</div>
+          <div class="row">
+            @widget('Modules\DisposableTools\Widgets\FlightsMap', ['source' => 'user'])
+          </div>
 				</div>
 				<div class="col-md-4">
                     <div class="nav nav-tabs" role="tablist">
