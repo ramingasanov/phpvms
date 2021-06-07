@@ -72,7 +72,7 @@ class PirepStatusChanged extends Notification implements ShouldQueue
      */
     public function toDiscordChannel($pirep): ?DiscordMessage
     {
-        if (empty(setting('notifications.discord_public_webhook_url'))) {
+        if (empty(setting('notifications.discord_public_webhook_url')) || $pirep->status === PirepStatus::APPROACH) {
             return null;
         }
 
@@ -108,6 +108,10 @@ class PirepStatusChanged extends Notification implements ShouldQueue
                 $fields['Distance'] .= ' '.$planned_distance->unit;
             } catch (NonNumericValue | NonStringUnitName $e) {
             }
+        }
+
+        if ($pirep->landing_rate) {
+            $fields['Landing Rate'] = $pirep->landing_rate;
         }
 
         $dm = new DiscordMessage();
