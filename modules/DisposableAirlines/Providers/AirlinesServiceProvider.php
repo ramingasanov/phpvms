@@ -55,12 +55,12 @@ class AirlinesServiceProvider extends ServiceProvider
         'middleware' => ['auth'],
       ], function () {
         // Airline Contoller Routes
-        Route::get('airlines', 'AirlineController@aindex')->name('aindex');
-        Route::get('airlines/{icao}', 'AirlineController@ashow')->name('ashow');
+        Route::get('dairlines', 'AirlineController@aindex')->name('aindex');
+        Route::get('dairlines/{icao}', 'AirlineController@ashow')->name('ashow');
         // Fleet Controller Routes
-        Route::get('fleet', 'FleetController@fleet')->name('dfleet');
-        Route::get('fleet/{type}', 'FleetController@subfleet')->name('dsubfleet');
-        Route::get('aircraft/{reg}', 'FleetController@aircraft')->name('daircraft');
+        Route::get('dfleet', 'FleetController@fleet')->name('dfleet');
+        Route::get('dfleet/{type}', 'FleetController@subfleet')->name('dsubfleet');
+        Route::get('daircraft/{reg}', 'FleetController@aircraft')->name('daircraft');
         // All Pireps Controller Routes
         Route::get('dpireps', 'PirepsController@allpireps')->name('dpireps');
       });
