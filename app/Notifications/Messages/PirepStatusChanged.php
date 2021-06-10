@@ -43,7 +43,7 @@ class PirepStatusChanged extends Notification implements ShouldQueue
         PirepStatus::LANDING       => 'is landing',
         PirepStatus::LANDED        => 'has landed',
         PirepStatus::ARRIVED       => 'has arrived',
-        PirepStatus::CANCELLED     => 'has cancelled',
+        PirepStatus::CANCELLED     => 'is cancelled',
         PirepStatus::EMERG_DESCENT => 'in emergency descent',
     ];
 
@@ -122,7 +122,7 @@ class PirepStatusChanged extends Notification implements ShouldQueue
             ->url(route('frontend.pireps.show', [$pirep->id]))
             ->author([
                 'name'     => $pirep->user->ident.' - '.$pirep->user->name_private,
-                'url'      => route('frontend.pireps.show', [$pirep->id]),
+                'url'      => route('frontend.profile.show', [$pirep->user_id]),
                 'icon_url' => $pirep->user->resolveAvatarUrl(),
             ])
             ->fields($fields);
