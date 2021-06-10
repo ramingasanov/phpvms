@@ -9,7 +9,12 @@ class CustomPaginatedResourceResponse extends PaginatedResourceResponse
 {
     protected function paginationLinks($paginated)
     {
-        return [];
+        return [
+            'first' => null,
+            'last'  => null,
+            'prev'  => null,
+            'next'  => null,
+        ];
     }
 
     protected function meta($paginated)
