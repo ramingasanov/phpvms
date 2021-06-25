@@ -1,17 +1,26 @@
 ## Disposable Airlines Module for phpVMS v7
 **Update Notes**
 
-03.JUN.2021
+24.JUN.21
+* Added settings for Aircraft State Control/Change feature, by default it is DISABLED.
+
+21.JUN.21
+* Aircraft state change logic updated for better handling of acars start flight errors.
+
+10.JUN.21
+* Update helpers and necessary blades to show SimBrief Booking state as AC state too.
+
+03.JUN.21
 * German Translation (thanks @derrobin154)
 
-01.JUN.2021
+01.JUN.21
 * Added Discord Webhook integration for sending out `Pirep Received` messages  
   ( Go to `Admin -> Disposable Airlines` module for basic settings )
 
-12.MAY.2021
+12.MAY.21
 * Fixed a typo in airline.blade.php
 
-11.MAY.2021
+11.MAY.21
 * Module is now able to listen PhpVms events and change aircraft state
 ```
   Pirep Prefiled : PARKED > IN USE

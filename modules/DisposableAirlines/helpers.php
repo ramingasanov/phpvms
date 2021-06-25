@@ -3,6 +3,7 @@ use \App\Models\Enums\AircraftState;
 use \App\Models\Enums\AircraftStatus;
 use \App\Models\Enums\PirepState;
 use \App\Models\Enums\UserState;
+use \App\Models\SimBrief;
 use \Nwidart\Modules\Facades\Module;
 use Illuminate\Support\Facades\DB;
 
@@ -94,7 +95,7 @@ use Illuminate\Support\Facades\DB;
     // Format Aircraft State Badge
     // return formatted string (with html tags)
     if (!function_exists('Dispo_AcStateBadge')) {
-      function Dispo_AcStateBadge($state)
+      function Dispo_AcStateBadge($state, $aircraft_id = null)
       {
         $color = 'primary';
         if($state === 0) { $color = 'success'; }
@@ -102,6 +103,15 @@ use Illuminate\Support\Facades\DB;
         elseif($state === 2) { $color = 'warning'; }
 
         $result = "<span class='badge badge-".$color."'>".AircraftState::label($state)."</span>";
+
+        // See if this aircraft is being used by some user's active simbrief ofp
+        if (setting('simbrief.block_aircraft') && $aircraft_id && $state === 0) {
+          $simbrief_book = SimBrief::where('aircraft_id', $aircraft_id)->whereNotNull('flight_id')->whereNull('pirep_id')->orderby('created_at', 'desc')->first();
+          if (!empty($simbrief_book)) {
+            $result = "<span class='badge badge-secondary' title='Booked By: ".$simbrief_book->user->name_private."'>Booked</span>";
+          }
+        }
+
         return $result;
       }
     }

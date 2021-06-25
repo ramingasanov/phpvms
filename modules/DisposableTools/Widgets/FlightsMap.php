@@ -17,14 +17,27 @@ class FlightsMap extends Widget
     $source = $this->config['source'];
     $mapcenter = setting('acars.center_coords');
 
-    // Get User Details
+    // Get User Location with Failsafe
     $user = Auth::user();
-    if($user->current_airport) {
+    if ($user && $user->current_airport) {
       $user_a = $user->current_airport->id;
       $user_loc = $user->current_airport->lat.",".$user->current_airport->lon;
-    } else {
+    } elseif ($user && $user->home_airport) {
       $user_a = $user->home_airport->id;
       $user_loc = $user->home_airport->lat.",".$user->home_airport->lon;
+    } else {
+      $user_a = 'ZZZZ';
+      $user_loc = $mapcenter;
+    }
+    // Build User CityPairs
+    $user_citypairs = null;
+    if ($user) {
+      $user_pireps = Pirep::where('user_id', $user->id)->where('state', 2)->where('status', 'ONB')->get();
+      $user_citypairs = collect();
+      foreach($user_pireps as $up) {
+        $user_citypairs->push($up->dpt_airport_id.$up->arr_airport_id);
+      }
+      $user_citypairs = $user_citypairs->unique();
     }
 
     // Define The Type
@@ -108,6 +121,7 @@ class FlightsMap extends Widget
       'mapsource'  => $type,
       'citypairs'  => $citypairs,
       'airports'   => $airports,
+      'userpairs'  => $user_citypairs,
       ]
     );
   }
