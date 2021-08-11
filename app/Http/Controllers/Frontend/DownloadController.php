@@ -41,8 +41,10 @@ class DownloadController extends Controller
             $klass = new $class();
             $obj = $klass->find($id);
 
-            $category = explode('\\', $class);
-            $category = end($category);
+            // Check if the object is there first
+            if (isset($obj)) {
+                $category = explode('\\', $class);
+                $category = end($category);
 
             if ($category == 'Aircraft' && $airlines > 1) {
                 $group_name = $category.' > '.$obj->subfleet->airline->name.' '.$obj->icao.' '.$obj->registration;
@@ -56,7 +58,8 @@ class DownloadController extends Controller
                 $group_name = $category.' > '.$obj->name;
             }
 
-            $regrouped_files[$group_name] = $files;
+                $regrouped_files[$group_name] = $files;
+            }
         }
 
         ksort($regrouped_files, SORT_STRING);
