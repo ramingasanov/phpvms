@@ -43,7 +43,10 @@ class StatsController extends Controller
     // Return Multiple Strings
     public function stats()
     {
-        $DisposableTools = Module::has('DisposableTools');
+        $DisposableTools = Module::find('DisposableTools');
+        if($DisposableTools) {
+          $DisposableTools = $DisposableTools->isEnabled();
+        }
 
         $TotalAirlines = $this->airlineRepo->count();
         $TotalinactiveAirlines = $this->airlineRepo->where('active', '!=', '1')->count();
@@ -66,10 +69,18 @@ class StatsController extends Controller
         $TotalDistanceFlown = $this->pirepRepo->where('state', '2')->sum('distance');
         $AvgLandingRate = $this->pirepRepo->where('state', '2')->where('source', '1')->avg('landing_rate');
         $AvgScore = $this->pirepRepo->where('state', '2')->where('source', '1')->avg('score');
-        $AvgFuelUsed = $TotalFuelUsed / $TotalPireps;
-        $AvgFuelHour = ( $TotalFuelUsed / $TotalFlightTime ) * 60;
-        $AvgDistance = $TotalDistanceFlown / $TotalPireps;
-        $AvgFlightTime = $TotalFlightTime / $TotalPireps;
+
+        if($TotalPireps === 0) {
+            $AvgFuelUsed = 0;
+            $AvgFuelHour = 0;
+            $AvgDistance = 0;
+            $AvgFlightTime = 0;
+        } else {
+            $AvgFuelUsed = $TotalFuelUsed / $TotalPireps;
+            $AvgFuelHour = ( $TotalFuelUsed / $TotalFlightTime ) * 60;
+            $AvgDistance = $TotalDistanceFlown / $TotalPireps;
+            $AvgFlightTime = $TotalFlightTime / $TotalPireps;
+        }
 
         if(setting('units.fuel') === 'kg') {
             $TotalFuelUsed = $TotalFuelUsed / 2.20462262185;

@@ -11,9 +11,9 @@ class AirportAircrafts extends Widget
 {
   protected $config = ['location' => 'ZZZZ'];
 
-  public function run() 
+  public function run()
   {
-    $aircrafts = Aircraft::where('airport_id', $this->config['location'])
+    $aircraft = Aircraft::where('airport_id', $this->config['location'])
         ->where('state', AircraftState::PARKED)
         ->where('status', AircraftStatus::ACTIVE)
         ->orderBy('icao')
@@ -21,7 +21,7 @@ class AirportAircrafts extends Widget
         ->get();
 
     return view('DisposableTools::airport_aircrafts', [
-      'aircrafts' => $aircrafts,
+      'aircraft' => $aircraft,
       ]);
   }
 }

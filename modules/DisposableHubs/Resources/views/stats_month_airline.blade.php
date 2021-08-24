@@ -12,4 +12,4 @@
   @widget('Modules\DisposableTools\Widgets\TopAirlines', ['count' => 5, 'type' => 'distance', 'period' => 'currentm'])
   @widget('Modules\DisposableTools\Widgets\TopAirlines', ['count' => 4, 'type' => 'distance', 'period' => 'lastm'])
   @widget('Modules\DisposableTools\Widgets\TopAirlines', ['count' => 3, 'type' => 'distance', 'period' => 'prevm'])
-</div>  
+</div>

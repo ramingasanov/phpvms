@@ -6,8 +6,8 @@
     <div class="content">
       <p>Specifications saved for a subfleet will be used by all aircrafts in that fleet, also defining special specs for an aircraft is possible.</p>
       <p>Some of the info defined here may be used for SimBrief flight planning purposes to generate a proper flight plan matching exact specs of the simulator addon being used.</p>
-      <p>Important fields for SimBrief planning are <b>DOW, MZFW, MTOW and MLW</b> also if you wish <b>ATC fields</b> may be used too</p>
-      <p>For ATC fields to be passed/used, all 4 ATC related items should be entered (wake turbulance category, equipment, transponder and pbn).</p>
+      <p>Most important fields for SimBrief planning are <b>DOW, MZFW, MTOW, MLW and Fuel Capacity</b> =marked as (1)= also if you wish <b>ATC fields</b> may be used too</p>
+      <p>For ATC fields to be passed/used, all 3 ATC related items should be entered (wake turbulance category, equipment, transponder) =marked as (2)=.</p>
       <p><b>Aircraft definitions have priority.</b> Use them when really necessary, defining specs only for Subfleets is advised (as like PhpVms)</p>
       <p>&nbsp;</p>
       <p>Developed by <a href="https://github.com/FatihKoz" target="_blank">B.Fatih KOZ</a> &copy; 2021</p>
@@ -30,7 +30,12 @@
             <select id="specs_selection" class="form-control" onchange="checkselection()">
               <option value="0">Please Select A Record</option>
               @foreach($allspecs as $listspec)
-                <option value="{{ $listspec->id }}" @if($specs && $listspec->id == $specs->id) selected @endif>{{ $listspec->id }} : {{ $listspec->saircraft }} | {{ $listspec->subfleet->name ?? $listspec->aircraft->registration }}</option>
+                @php
+                  if($listspec->subfleet) { $listdesc = $listspec->subfleet->type; }
+                  elseif($listspec->aircraft) { $listdesc = $listspec->aircraft->registration; }
+                  else { $listdesc = 'Mandatory Object Not Found !'; }
+                @endphp
+                <option value="{{ $listspec->id }}" @if($specs && $listspec->id == $specs->id) selected @endif>{{ $listspec->id }} : {{ $listspec->saircraft }} | {{ $listdesc }}</option>
               @endforeach
             </select>
           </div>
@@ -60,15 +65,37 @@
         </div>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="icao">ICAO Code (OFP & ATC)</label>
+            <input name="icao" type="text" class="form-control" placeholder="B738" maxlength="4" value="{{ $specs->icao ?? '' }}">
+          </div>
+          <div class="col-sm-3">
+            <label class="pl-1 mb-1" for="name">Aircraft Type Name (OFP)</label>
+            <input name="name" type="text" class="form-control" placeholder="B737-800" maxlength="20" value="{{ $specs->name ?? '' }}">
+          </div>
+          <div class="col-sm-3">
+            <label class="pl-1 mb-1" for="engines">Engine Name (OFP)</label>
+            <input name="engines" type="text" class="form-control" placeholder="CFM56-7B26" maxlength="20" value="{{ $specs->engines ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="paxwgt">Passenger Weight</label>
+            <input name="paxwgt" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="500" value="{{ $specs->paxwgt ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="bagwgt">Baggage Weight</label>
+            <input name="bagwgt" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="300" value="{{ $specs->bagwgt ?? '' }}">
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-sm-2">
             <label class="pl-1 mb-1" for="bew">Basic Empty Weight</label>
             <input name="bew" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->bew ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="dow">Dry Operating Weight</label>
+            <label class="pl-1 mb-1" for="dow">Dry Operating Weight (1)</label>
             <input name="dow" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->dow ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="mzfw">Max Zero Fuel Weight</label>
+            <label class="pl-1 mb-1" for="mzfw">Max Zero Fuel Weight (1)</label>
             <input name="mzfw" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->mzfw ?? '' }}">
           </div>
           <div class="col-sm-2">
@@ -76,11 +103,11 @@
             <input name="mrw" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->mrw ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="mtow">Max Take Off Weight</label>
+            <label class="pl-1 mb-1" for="mtow">Max Take Off Weight (1)</label>
             <input name="mtow" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->mtow ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="mlw">Max Landing Weight</label>
+            <label class="pl-1 mb-1" for="mlw">Max Landing Weight (1)</label>
             <input name="mlw" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->mlw ?? '' }}">
           </div>
         </div>
@@ -94,8 +121,8 @@
             <input name="mceiling" type="number" class="form-control" placeholder="{{ setting('units.altitude') }}" min="0" max="99999" value="{{ $specs->mceiling ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="mfuel">Max Fuel Capacity</label>
-            <input name="mfuel" type="number" class="form-control" placeholder="{{ setting('units.fuel') }}" min="0" max="999999" value="{{ $specs->mfuel ?? '' }}">
+            <label class="pl-1 mb-1" for="mfuel">Max Fuel Capacity (1)</label>
+            <input name="mfuel" type="number" class="form-control" placeholder="{{ setting('units.weight') }}" min="0" max="999999" value="{{ $specs->mfuel ?? '' }}">
           </div>
           <div class="col-sm-2">
             <label class="pl-1 mb-1" for="mpax">Max Seat Capacity</label>
@@ -112,15 +139,15 @@
         </div>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="cat">ATC Wake Turb. Category</label>
+            <label class="pl-1 mb-1" for="cat">ATC Wake Turb. Category (2)</label>
             <input name="cat" type="text" class="form-control" placeholder="M" maxlength="1" value="{{ $specs->cat ?? '' }}">
           </div>
           <div class="col-sm-3">
-            <label class="pl-1 mb-1" for="equip">ATC Equipment</label>
+            <label class="pl-1 mb-1" for="equip">ATC Equipment (2)</label>
             <input name="equip" type="text" class="form-control" placeholder="SDE1FGHIJ2J3J5RWY" maxlength="30" value="{{ $specs->equip ?? '' }}">
           </div>
           <div class="col-sm-2">
-            <label class="pl-1 mb-1" for="transponder">ATC Transponder</label>
+            <label class="pl-1 mb-1" for="transponder">ATC Transponder (2)</label>
             <input name="transponder" type="text" class="form-control" placeholder="SB1" maxlength="30" value="{{ $specs->transponder ?? '' }}">
           </div>
           <div class="col-sm-3">
@@ -137,13 +164,21 @@
             <label class="pl-1 mb-1" for="saircraft">Aircraft or Addon Name</label>
             <input name="saircraft" type="text" class="form-control" placeholder="Zibo B737-800X" maxlength="50" value="{{ $specs->saircraft ?? '' }}">
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <label class="pl-1 mb-1" for="stitle">Simulator Aircraft Title</label>
             <input name="stitle" type="text" class="form-control" placeholder="Boeing B737-800X" maxlength="30" value="{{ $specs->stitle ?? '' }}">
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <label class="pl-1 mb-1" for="fuelfactor">Fuel Factor</label>
             <input name="fuelfactor" type="text" class="form-control" placeholder="P05" maxlength="3" value="{{ $specs->fuelfactor ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="cruiselevel">Cruise Level Offset</label>
+            <input name="cruiselevel" type="text" class="form-control" placeholder="P1000" maxlength="5" value="{{ $specs->cruiselevel ?? '' }}">
+          </div>
+          <div class="col-sm-3">
+            <label class="pl-1 mb-1" for="airframe_id">SimBrief Airframe ID</label>
+            <input name="airframe_id" type="text" class="form-control" placeholder="1234_197815072021" maxlength="50" value="{{ $specs->airframe_id ?? '' }}">
           </div>
         </div>
         <div class="row" style="margin-bottom: 10px;">

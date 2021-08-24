@@ -11,4 +11,3 @@
     @widget('Modules\DisposableTools\Widgets\TopAirlines', ['count' => 4, 'type' => 'distance', 'period' => 'lasty'])
 </div>
 
-  

@@ -50,10 +50,10 @@ class TechSpecsController extends Controller
   // Add Specs
   public function dtstorespecs(Request $request) {
 
-    if($request->active == 1) { 
-      $active = 1; 
-    } else { 
-      $active = 0; 
+    if($request->active == 1) {
+      $active = 1;
+    } else {
+      $active = 0;
     }
 
     if($request->aircraft_id == 0 && $request->subfleet_id == 0) {
@@ -66,7 +66,7 @@ class TechSpecsController extends Controller
       return redirect(route('DisposableTech.techadmin'));
     }
 
-    if($request->aircraft_id != 0) { 
+    if($request->aircraft_id != 0) {
       $aircraft_id = $request->aircraft_id;
       $subfleet_id = null;
     } else {
@@ -78,6 +78,10 @@ class TechSpecsController extends Controller
     Disposable_Specs::create([
       'aircraft_id' => $aircraft_id,
       'subfleet_id' => $subfleet_id,
+      'airframe_id' => $request->airframe_id,
+      'icao'        => $request->icao,
+      'name'        => $request->name,
+      'engines'     => $request->engines,
       'bew'         => $request->bew,
       'dow'         => $request->dow,
       'mzfw'        => $request->mzfw,
@@ -98,6 +102,9 @@ class TechSpecsController extends Controller
       'saircraft'   => $request->saircraft,
       'stitle'      => $request->stitle,
       'fuelfactor'  => $request->fuelfactor,
+      'cruiselevel' => $request->cruiselevel,
+      'paxwgt'      => $request->paxwgt,
+      'bagwgt'      => $request->bagwgt,
       'active'      => $active,
     ]);
 
@@ -108,10 +115,10 @@ class TechSpecsController extends Controller
   // Update Specs
   public function dtupdatespecs(Request $request) {
 
-    if($request->active == 1) { 
-      $active = 1; 
-    } else { 
-      $active = 0; 
+    if($request->active == 1) {
+      $active = 1;
+    } else {
+      $active = 0;
     }
 
     if($request->aircraft_id == 0 && $request->subfleet_id == 0) {
@@ -124,7 +131,7 @@ class TechSpecsController extends Controller
       return redirect(route('DisposableTech.techadmin'));
     }
 
-    if($request->aircraft_id != 0) { 
+    if($request->aircraft_id != 0) {
       $aircraft_id = $request->aircraft_id;
       $subfleet_id = null;
     } else {
@@ -137,6 +144,10 @@ class TechSpecsController extends Controller
       'id'          => $request->id,
       'aircraft_id' => $aircraft_id,
       'subfleet_id' => $subfleet_id,
+      'airframe_id' => $request->airframe_id,
+      'icao'        => $request->icao,
+      'name'        => $request->name,
+      'engines'     => $request->engines,
       'bew'         => $request->bew,
       'dow'         => $request->dow,
       'mzfw'        => $request->mzfw,
@@ -157,6 +168,9 @@ class TechSpecsController extends Controller
       'saircraft'   => $request->saircraft,
       'stitle'      => $request->stitle,
       'fuelfactor'  => $request->fuelfactor,
+      'cruiselevel' => $request->cruiselevel,
+      'paxwgt'      => $request->paxwgt,
+      'bagwgt'      => $request->bagwgt,
       'active'      => $active,
     ]);
 

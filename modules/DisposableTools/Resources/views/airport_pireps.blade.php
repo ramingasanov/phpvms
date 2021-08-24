@@ -45,6 +45,6 @@
     @endif
   </div>
   <div class="card-footer p-1 text-right">
-    <span class="m-0 p-0">@lang('DisposableTools::common.total') : {{ number_format($pireps->count()) }}</span>
+    <span class="m-0 p-0" title="Max Displayed: {{ $config['count'] }}">@lang('DisposableTools::common.total') : {{ number_format($pireps->count()) }}</span>
   </div>
 </div>

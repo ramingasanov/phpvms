@@ -7,6 +7,9 @@ use Modules\DisposableTools\Models\Disposable_Session;
 
 class ActiveUsers extends Widget
 {
+  // Set Widget Auto Refresh Time (Seconds)
+  public $reloadTimeout = 60;
+
   protected $config = ['mins' => 5];
 
   public function run()

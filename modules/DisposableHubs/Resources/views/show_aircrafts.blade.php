@@ -23,7 +23,7 @@
               <td>{{ $ac->icao }}</td>
               <td class="text-left">{{ $ac->subfleet->airline->name }}</td>
               <td>
-                @if($ac->airport_id) 
+                @if($ac->airport_id)
                   <a href="{{route('frontend.airports.show', [$ac->airport_id])}}">{{ $ac->airport_id }}</a>
                 @endif
               </td>
@@ -33,8 +33,8 @@
                 @endif
               </td>
               <td>
-                @if($ac->landing_time) 
-                  {{ Carbon::parse($ac->landing_time)->diffForHumans() }} 
+                @if($ac->landing_time)
+                  {{ Carbon::parse($ac->landing_time)->diffForHumans() }}
                 @endif
               </td>
             </tr>
@@ -49,7 +49,12 @@
 {{-- RIGHT --}}
   <div class="col">
     <div class="card mb-2">
-      <div class="card-header p-1"><h5 class="p-0 m-1"><i class="fas fa-paper-plane float-right"></i>@lang('DisposableHubs::common.visitac')</h5></div>
+      <div class="card-header p-1">
+        <h5 class="p-0 m-1">
+          @lang('DisposableHubs::common.visitac')
+          <i class="fas fa-paper-plane float-right"></i>
+        </h5>
+      </div>
       <div class="card-body p-0 overflow-auto">
         <table class="table table-sm table-borderless table-striped mb-0 text-center"  id="visiting-ac-table">
           <tr>
@@ -76,8 +81,8 @@
                 @endif
               </td>
               <td>
-                @if($ac->landing_time) 
-                  {{ Carbon::parse($ac->landing_time)->diffForHumans() }} 
+                @if($ac->landing_time)
+                  {{ Carbon::parse($ac->landing_time)->diffForHumans() }}
                 @endif
               </td>
             </tr>

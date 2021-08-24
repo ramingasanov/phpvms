@@ -4,18 +4,30 @@ namespace Modules\DisposableTools\Widgets;
 
 use App\Contracts\Widget;
 use App\Models\Pirep;
+use App\Models\User;
 use App\Models\Enums\PirepState;
+use App\Models\Enums\UserState;
 use Illuminate\Support\Facades\DB;
 use Carbon;
 use Lang;
 
 class TopPilots extends Widget
 {
-  protected $config = ['count' => 3, 'type' => 'flights', 'period' => null];
+  protected $config = ['count' => 3, 'type' => 'flights', 'period' => null, 'hub' => null];
 
   public function run()
   {
+
     $period = null;
+    $user_states = array(UserState::ACTIVE, UserState::ON_LEAVE);
+
+    // Build Pilot IDs Array
+    if ($this->config['hub']) {
+      $pilots_array = User::where('home_airport_id', $this->config['hub'])->whereIn('state', $user_states)->pluck('id');
+    } else {
+      $pilots_array = User::whereIn('state', $user_states)->pluck('id');
+    }
+    
     if($this->config['period'])
     {
       $wheretype = 'whereMonth';
@@ -81,6 +93,7 @@ class TopPilots extends Widget
     if ($this->config['period'])
     {
       $tpilots = Pirep::select('user_id', $rawsql)
+        ->whereIn('user_id', $pilots_array)
         ->where('state', PirepState::ACCEPTED)
         ->$wheretype('created_at', '=', $repsql)
         ->orderBy('totals', 'desc')
@@ -89,6 +102,7 @@ class TopPilots extends Widget
         ->get();
     } else {
       $tpilots = Pirep::select('user_id', $rawsql)
+        ->whereIn('user_id', $pilots_array)
         ->where('state', PirepState::ACCEPTED)
         ->orderBy('totals', 'desc')
         ->groupBy('user_id')

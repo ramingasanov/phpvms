@@ -11,4 +11,3 @@
   @widget('Modules\DisposableTools\Widgets\TopPilots', ['count' => 4, 'type' => 'distance', 'period' => 'lasty'])
 </div>
 
-  

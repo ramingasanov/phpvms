@@ -22,7 +22,7 @@
                 <a href="{{ route('frontend.users.show.public', [$pilot->id]) }}">{{ $pilot->name_private }}</a>
               </td>
               <td>
-                @if(filled($pilot->country)) 
+                @if(filled($pilot->country))
                   <span class="flag-icon flag-icon-{{ $pilot->country }}" title="{{ $country->alpha2($pilot->country)['name'] }}"></span>
                 @endif
               </td>
@@ -35,7 +35,7 @@
                 @endif
               </td>
               <td>
-                  @if($pilot->flights > 0) {{ $pilot->flights }} @endif
+                @if($pilot->flights > 0) {{ $pilot->flights }} @endif
               </td>
             </tr>
           @endforeach
@@ -49,7 +49,12 @@
 {{-- RIGHT --}}
   <div class="col">
     <div class="card mb-2">
-      <div class="card-header p-1"><h5 class="p-0 m-1"><i class="fas fa-user-friends float-right"></i>@lang('DisposableHubs::common.visitplt')</h5></div>
+      <div class="card-header p-1">
+        <h5 class="p-0 m-1">
+          @lang('DisposableHubs::common.visitplt')
+          <i class="fas fa-user-friends float-right"></i>
+        </h5>
+      </div>
       <div class="card-body p-0 overflow-auto">
         <table class="table table-sm table-borderless table-striped text-center mb-0" id="hub-users-table">
           <tr>
@@ -65,7 +70,7 @@
                 <a href="{{ route('frontend.users.show.public', [$pilot->id]) }}">{{ $pilot->name_private }}</a>
               </td>
               <td>
-                @if(filled($pilot->country)) 
+                @if(filled($pilot->country))
                   <span class="flag-icon flag-icon-{{ $pilot->country }}" title="{{ $country->alpha2($pilot->country)['name'] }}"></span>
                 @endif
               </td>
@@ -78,7 +83,7 @@
                 @endif
               </td>
               <td>
-                  {{ $pilot->flights }}
+                @if($pilot->flights > 0) {{ $pilot->flights }} @endif
               </td>
             </tr>
           @endforeach

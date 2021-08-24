@@ -30,11 +30,14 @@ class HubsServiceProvider extends ServiceProvider
   /** Register Module Links **/
   public function registerLinks()
   {
-    /** If You Want To Place The Links Manually Then Dashout or delete below 2 lines **/
-    //$this->moduleSvc->addFrontendLink('Hubs', '/dhubs', 'fas fa-calendar', $logged_in=true);
-    //$this->moduleSvc->addFrontendLink('Stats & Leaderboard', '/dstats', 'fas fa-cog', $logged_in=true);
+    /** If You Want To Place The Links Automatically Then Enable below 2 lines **/
+    /** DisposableTheme is pre-configure to show below links when you install this module  **/
+
+    // $this->moduleSvc->addFrontendLink('Hubs', '/dhubs', 'fas fa-calendar', $logged_in=true);
+    // $this->moduleSvc->addFrontendLink('Stats & Leaderboard', '/dstats', 'fas fa-cog', $logged_in=true);
+
     /** Do Not Remove Admin Link **/
-    $this->moduleSvc->addAdminLink('Statistics Manager', '/admin/disposablehubs');
+    $this->moduleSvc->addAdminLink('Disposable Hubs', '/admin/disposablehubs');
   }
 
   /** Register Routes **/
@@ -51,10 +54,10 @@ class HubsServiceProvider extends ServiceProvider
         'middleware' => ['auth'],
       ], function () {
         // Stats Contoller Routes
-        Route::get('stats', 'StatsController@stats')->name('dstats');
+        Route::get('dstats', 'StatsController@stats')->name('dstats');
         // Hubs Controller Routes
-        Route::get('hubs', 'HubsController@hubs')->name('hindex');
-        Route::get('hubs/{id}', 'HubsController@show')->name('hshow');
+        Route::get('dhubs', 'HubsController@hubs')->name('hindex');
+        Route::get('dhubs/{id}', 'HubsController@show')->name('hshow');
       });
     });
 
@@ -97,7 +100,7 @@ class HubsServiceProvider extends ServiceProvider
     $this->publishes([$sourcePath => $viewPath,], 'views');
 
     $this->loadViewsFrom(array_merge(array_map(function ($path) {
-      return $path . '/modules/TurkSim';
+      return $path . '/modules/DisposableHubs';
     }, \Config::get('view.paths')), [$sourcePath]), 'DisposableHubs');
   }
 

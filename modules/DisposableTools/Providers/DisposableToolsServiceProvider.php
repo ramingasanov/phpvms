@@ -13,11 +13,16 @@ class DisposableToolsServiceProvider extends ServiceProvider
   public function boot()
   {
     $this->moduleSvc = app(ModuleService::class);
+
     $this->registerLinks();
     $this->registerRoutes();
     $this->registerTranslations();
     $this->registerConfig();
     $this->registerViews();
+
+    $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
+
+    app('arrilot.widget-namespaces')->registerNamespace('DisposableTools', 'Modules\DisposableTools\Widgets');
   }
 
   public function register() { }
@@ -29,6 +34,24 @@ class DisposableToolsServiceProvider extends ServiceProvider
 
   protected function registerRoutes()
   {
+
+    /** Frontend Routes **/
+    Route::group([
+      'as'     => 'DisposableTools.',
+      'prefix' => '',
+      'middleware' => ['web'],
+      'namespace'  => 'Modules\DisposableTools\Http\Controllers',
+    ], function () {
+      Route::group([
+        'middleware' => ['auth'],
+      ], function () {
+        // WhazzUp Routes
+        // Route::match(['get', 'post'], 'ivao', 'DisposableWhazzUpController@ivao')->name('ivao');
+        // Route::match(['get', 'post'], 'vatsim', 'DisposableWhazzUpController@vatsim')->name('vatsim');
+        // Route::match(['get', 'post'], 'poscon', 'DisposableWhazzUpController@poscon')->name('poscon');
+      });
+    });
+
     /** Routes for the admin **/
     Route::group([
         'as'     => 'DisposableTools.',

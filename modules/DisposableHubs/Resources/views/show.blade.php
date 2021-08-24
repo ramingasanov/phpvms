@@ -2,13 +2,6 @@
 @section('title', __('DisposableHubs::common.hubtitle'))
 
 @section('content')
-  {{-- SHOW HUB DETAILS WITH PILOTS AIRCRAFT AND FLIGHTS --}}
-  <div class="row">
-    <div class="col">
-      {{-- <h3 class="card-title">@lang('DisposableHubs::common.hubdetails') : {{ $hub->name ?? $hub->id }}</h3> --}}
-    </div>
-  </div>
-
   {{-- ROW 1 BASIC HUB DATA AND MAP --}}
   <div class="row">
     {{-- LEFT --}}
@@ -37,7 +30,13 @@
             @if(filled($hub->country))
               <tr>
                 <th scope="row">@lang('common.country')</th>
-                <td>{{ $country->alpha2($hub->country)['name'] }} ({{ strtoupper($hub->country) }})</td>
+                <td>
+                  @if(strlen($hub->country) == 2)
+                    {{ $country->alpha2($hub->country)['name'] }} ({{ $hub->country }})
+                  @else
+                    {{ $hub->country }}
+                  @endif
+                </td>
               </tr>
             @endif
             <tr>
@@ -53,45 +52,26 @@
             @if($hub->fuel_100ll_cost > 0)
               <tr>
                 <th scope="row">@lang('DisposableHubs::common.fuel') / 100LL @lang('DisposableHubs::common.cost')</th>
-                <td>
-                  @if(setting('units.fuel') === 'kg') 
-                    {{ number_format(($hub->fuel_100ll_cost/2.20462262185),2) }} 
-                  @else 
-                    {{ $hub->fuel_100ll_cost }} 
-                  @endif
-                  {{ setting('units.currency') }}/{{ ucfirst(setting('units.fuel')) }}
-                </td>
-              </tr>
+                <td>{{ Dispo_FuelCost($hub->fuel_100ll_cost) }}</tr>
             @endif
             @if($hub->fuel_mogas_cost > 0)
               <tr>
                 <th scope="row">@lang('DisposableHubs::common.fuel') / MOGAS @lang('DisposableHubs::common.cost')</th>
-                <td>
-                  @if(setting('units.fuel') === 'kg')
-                    {{ number_format(($hub->fuel_mogas_cost/2.20462262185),2) }}
-                  @else
-                    {{ $hub->fuel_mogas_cost }}
-                  @endif
-                  {{ setting('units.currency') }}/{{ ucfirst(setting('units.fuel')) }}
-                </td>
+                <td>{{ Dispo_FuelCost($hub->fuel_mogas_cost) }}</td>
               </tr>
             @endif
             @if($hub->fuel_jeta_cost > 0)
               <tr>
                 <th scope="row">@lang('DisposableHubs::common.fuel') / JETA1 @lang('DisposableHubs::common.cost')</th>
-                <td>
-                  @if(setting('units.fuel') === 'kg')
-                    {{ number_format(($hub->fuel_jeta_cost/2.20462262185),2) }} 
-                  @else 
-                    {{ $hub->fuel_jeta_cost }} 
-                  @endif
-                  {{ setting('units.currency') }}/{{ ucfirst(setting('units.fuel')) }}
-                </td>
+                <td>{{ Dispo_FuelCost($hub->fuel_jeta_cost) }}</td>
               </tr>
             @endif
           </table>
         </div>
       </div>
+      @if($disptools)
+        @widget('Modules\DisposableTools\Widgets\FlightsMap', ['source' => $hub->id])
+      @endif
       @if(count($hub->files) > 0 && Auth::check())
         <div class="card mb-2">
           <div class="card-header p-1">
@@ -108,25 +88,25 @@
     </div>
     {{-- RIGHT --}}
     <div class="col-6">
-      <div class="card mb-2 border-0 shadow-none">
-          {{ Widget::AirspaceMap(['width' => '100%', 'height' => '400px', 'lat' => $hub->lat, 'lon' => $hub->lon,]) }}
+      <div class="card mb-2">
+        {{ Widget::AirspaceMap(['width' => '100%', 'height' => '400px', 'lat' => $hub->lat, 'lon' => $hub->lon,]) }}
       </div>
     </div>
   </div>
 
   <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link active" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="true">@lang('DisposableHubs::common.hubplt')</a>
+      <a class="nav-link dispo-pills active" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="true">@lang('DisposableHubs::common.hubplt')</a>
     </li>
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link" id="pills-aircrafts-tab" data-toggle="pill" href="#pills-aircrafts" role="tab" aria-controls="pills-aircrafts" aria-selected="false">@lang('DisposableHubs::common.hubac')</a>
+      <a class="nav-link dispo-pills" id="pills-aircrafts-tab" data-toggle="pill" href="#pills-aircrafts" role="tab" aria-controls="pills-aircrafts" aria-selected="false">@lang('DisposableHubs::common.hubac')</a>
     </li>
     <li class="nav-item pr-1 pl-1" role="presentation">
-      <a class="nav-link" id="pills-flights-tab" data-toggle="pill" href="#pills-flights" role="tab" aria-controls="pills-flights" aria-selected="false">@lang('DisposableHubs::common.hubflts')</a>
+      <a class="nav-link dispo-pills" id="pills-flights-tab" data-toggle="pill" href="#pills-flights" role="tab" aria-controls="pills-flights" aria-selected="false">@lang('DisposableHubs::common.hubflts')</a>
     </li>
     @if($disptools)
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableHubs::common.hubreps')</a>
+        <a class="nav-link dispo-pills" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableHubs::common.hubreps')</a>
       </li>
     @endif
   </ul>
@@ -134,7 +114,7 @@
     <div class="tab-pane fade show active" id="pills-pilots" role="tabpanel" aria-labelledby="pills-pilots-tab">
       <div class="row row-cols-2">
         @include('DisposableHubs::show_pilots')
-      </div>    
+      </div>
     </div>
     <div class="tab-pane fade" id="pills-aircrafts" role="tabpanel" aria-labelledby="pills-aircrafts-tab">
       <div class="row row-cols-2">
@@ -156,4 +136,8 @@
       </div>
     @endif
   </div>
+  {{-- Custom Style For Inactive Tabs --}}
+  <style>
+    .dispo-pills { color: black; background-color: lightslategray;}
+  </style>
 @endsection

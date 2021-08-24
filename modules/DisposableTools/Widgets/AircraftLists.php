@@ -4,7 +4,7 @@ namespace Modules\DisposableTools\Widgets;
 
 use App\Contracts\Widget;
 use App\Models\Aircraft;
-use Illuminate\Support\Facades\DB;
+use App\Models\Airport;
 
 class AircraftLists extends Widget
 {
@@ -12,21 +12,22 @@ class AircraftLists extends Widget
 
   public function run() 
   {
-    if ($this->config['type'] === 'location') { 
-      $aircrafts = Aircraft::select(DB::raw('count(id) as result, airport_id'))
-                ->groupBy('airport_id')
-                ->orderBy('result','desc')
-                ->get();
-    } elseif ($this->config['type'] === 'icao') {
-      $aircrafts = Aircraft::select(DB::raw('count(id) as result, icao'))
-                ->groupBy('icao')
-                ->orderBy('icao','asc')
-                ->get();
+
+    if ($this->config['type'] === 'icao') {
+      $aircraft = Aircraft::selectRaw('count(id) as result, icao')->groupBy('icao')->orderBy('icao', 'asc')->get();
+    } else {
+      $aircraft = Aircraft::selectRaw('count(id) as result, airport_id')->whereNotNull('airport_id')->groupBy('airport_id')->orderBy('result', 'desc')->get();
+    }
+
+    if ($this->config['type'] === 'nohubs') {
+      $hubs = Airport::where('hub', 1)->pluck('id')->toArray();
+      $aircraft = $aircraft->whereNotIn('airport_id', $hubs);
+      $this->config['type'] = 'Non Hub Location';
     }
 
     return view('DisposableTools::aircraft_lists', [
-      'aircrafts' => $aircrafts, 
-      'config'    => $this->config,
+      'aircraft' => $aircraft, 
+      'config'   => $this->config,
       ]);
   }
 }

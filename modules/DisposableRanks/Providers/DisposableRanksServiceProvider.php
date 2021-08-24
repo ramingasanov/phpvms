@@ -54,7 +54,7 @@ class DisposableRanksServiceProvider extends ServiceProvider
       ], function () {
         // Main Controller Routes
         Route::get('dawards', 'DispoAwardsController@awards')->name('dawards');
-        Route::get('ranks', 'DispoRanksController@ranks')->name('dranks');
+        Route::get('dranks', 'DispoRanksController@ranks')->name('dranks');
       });
     });
 

@@ -27,17 +27,24 @@
   <div class="row text-center" style="margin-left:5px; margin-right:5px;">
     <div class="col-sm-12">
         <h4 style="margin:5px;"><b>Admin Functions</b></h4><hr>
-      <div class="col-sm-3">
+      <div class="col-sm-1">
         {{-- Intentionally Left Blank --}}
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         <div class="card border-blue-bottom" style="padding:10px;">
             <a href="{{ route('DisposableTech.dtacspecs')}}">Define Aircraft or SubFleet Specs</a>
             <br><br>
             Specs will be shown at Aircraft details and Subfleet listing pages, also they may be used for SimBrief Flight planning.
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-5">
+        <div class="card border-blue-bottom" style="padding:10px;">
+            <a href="{{ route('DisposableTech.dtacflaps')}}">Define Flap and Gear Specs</a>
+            <br><br>
+            Flap Names, Speeds and Gear Speeds will be used for Pirep log display and evaluation purposes.
+        </div>
+      </div>
+      <div class="col-sm-1">
         {{-- Intentionally Left Blank --}}
       </div>
     </div>

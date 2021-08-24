@@ -7,7 +7,7 @@
       <p>This module is designed to provide 3 pages for your phpVms v7; Hubs to list all your hubs, Hub Details and Overall Stats for your install.</p>
       <p>If you have DisposableTools Module installed, stats will detect it and provide some periodic user (+ airline) stats by using it's widgets too</p>
       <p>
-        If you need to customize the layouts according to your template please copy relevant blade files from <b>modules\DisposableHubs\Resources\views</b> 
+        If you need to customize the layouts according to your template please copy relevant blade files from <b>modules\DisposableHubs\Resources\views</b>
         to a folder under your theme folder named <b>modules\DisposableHubs</b> (case sensitive) and edit files there</p>
       <p>
         Example Source: <b>phpvms root\Modules\DisposableHubs\Resources\views\index.blade.php</b><br>

@@ -9,6 +9,8 @@
         "Modules\\DisposableHubs\\Providers\\HubsServiceProvider"
     ],
     "aliases": {},
-    "files": [],
+    "files": [
+      "helpers.php"
+    ],
     "requires": []
 }

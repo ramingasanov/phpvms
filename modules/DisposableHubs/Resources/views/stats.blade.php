@@ -100,6 +100,10 @@
                 <td class="text-right">{{ $TotalAirports }}</td>
               </tr>
               <tr>
+                <th><a href="{{ route('DisposableHubs.hindex') }}">{{ trans_choice('DisposableHubs::common.hub', 2) }}</a></th>
+                <td class="text-right">{{ $TotalHubs }}</td>
+              </tr>
+              <tr>
                 <th>{{ trans_choice('common.flight', 2) }}</th>
                 <td class="text-right">{{ $TotalFlights }}</td>
               </tr>
@@ -118,6 +122,10 @@
               <tr>
                 <th style="width: 50%">@lang('DisposableHubs::common.tpirep')</th>
                 <td class="text-right">{{ $TotalPireps }}</td>
+              </tr>
+              <tr>
+                <th>@lang('DisposableHubs::common.rpirep')</th>
+                <td class="text-right">{{ $TotalRejectedPireps }}</td>
               </tr>
               <tr>
                 <th>@lang('DisposableHubs::common.ftime')</th>
@@ -166,23 +174,23 @@
   @if($disptools)
     <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link active" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="true">@lang('DisposableHubs::common.smonth')</a>
+        <a class="nav-link dispo-pills" id="pills-month-tab" data-toggle="pill" href="#pills-month" role="tab" aria-controls="pills-month" aria-selected="true">@lang('DisposableHubs::common.smonth')</a>
       </li>
       @if($TotalAirlines > 1)
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link" id="pills-monthal-tab" data-toggle="pill" href="#pills-monthal" role="tab" aria-controls="pills-monthal" aria-selected="false">@lang('DisposableHubs::common.smonthal')</a>
+          <a class="nav-link dispo-pills" id="pills-monthal-tab" data-toggle="pill" href="#pills-monthal" role="tab" aria-controls="pills-monthal" aria-selected="false">@lang('DisposableHubs::common.smonthal')</a>
         </li>
       @endif
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link" id="pills-year-tab" data-toggle="pill" href="#pills-year" role="tab" aria-controls="pills-year" aria-selected="false">@lang('DisposableHubs::common.syear')</a>
+        <a class="nav-link dispo-pills" id="pills-year-tab" data-toggle="pill" href="#pills-year" role="tab" aria-controls="pills-year" aria-selected="false">@lang('DisposableHubs::common.syear')</a>
       </li>
       @if($TotalAirlines > 1)
         <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link" id="pills-yearal-tab" data-toggle="pill" href="#pills-yearal" role="tab" aria-controls="pills-yearal" aria-selected="false">@lang('DisposableHubs::common.syearal')</a>
+          <a class="nav-link dispo-pills" id="pills-yearal-tab" data-toggle="pill" href="#pills-yearal" role="tab" aria-controls="pills-yearal" aria-selected="false">@lang('DisposableHubs::common.syearal')</a>
         </li>
       @endif
       <li class="nav-item pr-1 pl-1" role="presentation">
-        <a class="nav-link" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">@lang('DisposableHubs::common.soverall')</a>
+        <a class="nav-link dispo-pills active" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">@lang('DisposableHubs::common.soverall')</a>
       </li>
     </ul>
 
@@ -190,13 +198,13 @@
       <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
         <div class="row row-cols-3">
           @include('DisposableHubs::stats_month')
-        </div>    
+        </div>
       </div>
       @if($TotalAirlines > 1)
         <div class="tab-pane fade" id="pills-monthal" role="tabpanel" aria-labelledby="pills-monthal-tab">
           <div class="row row-cols-3">
             @include('DisposableHubs::stats_month_airline')
-          </div>    
+          </div>
         </div>
       @endif
       <div class="tab-pane fade" id="pills-year" role="tabpanel" aria-labelledby="pills-year-tab">
@@ -218,4 +226,9 @@
       </div>
     </div>
   @endif
+
+  {{-- Custom Style For Inactive Tabs --}}
+  <style>
+    .dispo-pills { color: black; background-color: lightslategray;}
+  </style>
 @endsection

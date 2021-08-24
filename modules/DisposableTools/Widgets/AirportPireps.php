@@ -9,10 +9,12 @@ use App\Models\Enums\PirepStatus;
 
 class AirportPireps extends Widget
 {
-  protected $config = ['location' => 'ZZZZ'];
+  protected $config = ['location' => 'ZZZZ', 'count' => null];
 
-  public function run() 
+  public function run()
   {
+    if(!is_numeric($this->config['count'])) { $this->config['count'] = 250; }
+
     $pireps = Pirep::where('dpt_airport_id', $this->config['location'])
                 ->where('state', PirepState::ACCEPTED)
                 ->where('status', PirepStatus::ARRIVED)
@@ -20,6 +22,7 @@ class AirportPireps extends Widget
                 ->where('state', PirepState::ACCEPTED)
                 ->where('status', PirepStatus::ARRIVED)
                 ->orderBy('submitted_at', 'desc')
+                ->take($this->config['count'])
                 ->get();
 
     return view('DisposableTools::airport_pireps', [

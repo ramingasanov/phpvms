@@ -64,6 +64,10 @@ class TechServiceProvider extends ServiceProvider
         Route::get('dtacspecs', 'TechSpecsController@dtspecs')->name('dtacspecs');
         Route::post('dtstorespecs', 'TechSpecsController@dtstorespecs')->name('dtstorespecs');
         Route::post('dtupdatespecs', 'TechSpecsController@dtupdatespecs')->name('dtupdatespecs');
+        // ICAO Based Flaps Admin Routes
+        Route::get('dtacflaps', 'TechFlapsController@dtacflaps')->name('dtacflaps');
+        Route::post('dtstoreflaps', 'TechFlapsController@dtstoreflaps')->name('dtstoreflaps');
+        Route::post('dtupdateflaps', 'TechFlapsController@dtupdateflaps')->name('dtupdateflaps');
         });
     });
   }

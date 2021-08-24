@@ -2,10 +2,12 @@
   <div class="card-header p-1">
     <h5 class="m-1 p-0">
       @if ($config['count'] === 1)
-        @lang('DisposableTools::common.bestpilot'): @if($rperiod){{ ucfirst($rperiod) }} | @endif {{ $rtype }}
+        @lang('DisposableTools::common.bestpilot'): @if ($rperiod) {{ ucfirst($rperiod) }} | @endif {{ $rtype }}
+        @if ($config['hub']) | {{ $config['hub'] }} @endif
         <i class="fas fa-star float-right"></i>
       @else
-        @lang('DisposableTools::common.toppilots'): @if($rperiod){{ ucfirst($rperiod) }} | @endif {{ $rtype }}
+        @lang('DisposableTools::common.toppilots'): @if ($rperiod) {{ ucfirst($rperiod) }} | @endif {{ $rtype }}
+        @if ($config['hub']) | {{ $config['hub'] }} @endif
         <i class="fas fa-medal float-right"></i>
       @endif
     </h5>

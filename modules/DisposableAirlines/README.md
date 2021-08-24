@@ -1,6 +1,16 @@
 ## Disposable Airlines Module for phpVMS v7
 **Update Notes**
 
+07.AUG.21
+* Version rounding
+* Release zip file structure changed for PhpVms Module Installer compatability.
+
+08.JUL.21
+* Italian Translation (thanks @Fabietto996)
+
+06.JUL.21
+* Updated German Translation (thanks @GAE074)
+
 24.JUN.21
 * Added settings for Aircraft State Control/Change feature, by default it is DISABLED.
 
@@ -46,7 +56,11 @@ All Disposable Modules are capable of displaying customized files located under 
 
 **Installation Steps**
 
-Upload contents of the package (or pull/clone from GitHub) to your root/modules/DisposableAirlines folder  
+* Manual Install : Upload contents of the package to your root/modules folder via ftp or your control panel's file manager 
+* GitHub Clone : Clone/pull repository to your root/modules/DisposableAirlines folder
+* PhpVms Module Installer : Go to `admin -> addons/modules` , click `Add New` , select downloaded file and click `Add Module`
+
+
 Go to admin section and enable the module, that's all  
 After enabling/disabling modules an app cache cleaning process is necessary (check admin/maintenance)
 

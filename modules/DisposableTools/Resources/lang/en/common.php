@@ -12,7 +12,7 @@ return [
   'hour'        => 'Hour',
   'hours'       => 'Hours',
   'minutes'     => 'Minutes',
-  'aircrafts'   => 'Aircrafts',
+  'aircrafts'   => 'Aircraft',
   'reg'         => 'Registration',
   'location'    => 'Location',
   'stats'       => 'Statistics',
@@ -28,6 +28,7 @@ return [
   'selectap'    => 'Please select an Airport',
   'multiplier'  => 'Multiplier',
   'activeu'     => 'Active Users',
+  'aclist'      => 'Aircraft List',
   // Personal Stats
   'noreports'   => 'No Reports',
   'avglanding'  => 'Average Landing Rate',
@@ -49,6 +50,16 @@ return [
   // Map Widget
   'flights_map'  => 'Flights Map',
   'personal_map' => 'My Flights / PIREPs Map',
+  'fleet_map'    => 'Fleet Map',
   'citypairs'    => 'CityPairs',
-  'airports'     => 'Airports'
+  'airports'     => 'Airports',
+  'hubs'         => 'Hubs',
+  // Active Bookings Widget
+  'activeb'      => 'Active Bookings',
+  'flight'       => 'Flight',
+  'orig'         => 'Orig',
+  'dest'         => 'Dest',
+  'pilot'        => 'Pilot',
+  'create'       => 'Created',
+  'expire'       => 'Expires',
 ];

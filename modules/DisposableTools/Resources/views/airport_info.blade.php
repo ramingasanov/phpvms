@@ -14,7 +14,11 @@
     </select>
   </div>
   <div class="card-footer p-1 text-right">
-    <a id="generate_link" style="visibility: hidden;" href="{{route('frontend.airports.show','' ) }}" class="btn btn-sm btn-primary">@lang('DisposableTools::common.go')</a>
+    <span class="float-left">
+      @if($config['type'] === 'hubs') Hubs Only @endif
+      @if($config['type'] === 'nohubs') Non-Hub Airports Only @endif
+    </span>
+    <a id="generate_link" style="visibility: hidden;" href="{{ route($aptroute,'' ) }}" class="btn btn-sm btn-primary">@lang('DisposableTools::common.go')</a>
   </div>
 </div>
 

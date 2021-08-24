@@ -34,7 +34,13 @@
               </tr>
               <tr>
                 <th scope="row">@lang('common.country')</th>
-                <td class="text-right">{{ $country->alpha2($hub->country)['name'] }} ({{ $hub->country }})</td>
+                <td class="text-right">
+                  @if(strlen($hub->country) == 2)
+                    {{ $country->alpha2($hub->country)['name'] }} ({{ $hub->country }})
+                  @else
+                    {{ $hub->country }}
+                  @endif
+                </td>
               </tr>
             </table>
           </div>

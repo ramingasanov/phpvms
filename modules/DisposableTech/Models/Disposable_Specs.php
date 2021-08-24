@@ -13,6 +13,10 @@ class Disposable_Specs extends Model
   protected $fillable = [
     'aircraft_id',
     'subfleet_id',
+    'airframe_id',
+    'icao',
+    'name',
+    'engines',
     'bew',
     'dow',
     'mzfw',
@@ -33,6 +37,9 @@ class Disposable_Specs extends Model
     'saircraft',
     'stitle',
     'fuelfactor',
+    'cruiselevel',
+    'paxwgt',
+    'bagwgt',
     'active',
   ];
 
@@ -40,6 +47,10 @@ class Disposable_Specs extends Model
   public static $rules = [
     'aircraft_id' => 'nullable|numeric',
     'subfleet_id' => 'nullable|numeric',
+    'airframe_id' => 'nullable',
+    'icao'        => 'nullable|max:4',
+    'name'        => 'nullable',
+    'engines'     => 'nullable',
     'bew'         => 'nullable|numeric',
     'dow'         => 'nullable|numeric',
     'mzfw'        => 'nullable|numeric',
@@ -62,6 +73,9 @@ class Disposable_Specs extends Model
     'saircraft'   => 'required|max:50',
     'stitle'      => 'nullable|max:30',
     'fuelfactor'  => 'nullable|max:3',
+    'cruiselevel' => 'nullable|max:5',
+    'paxwgt'      => 'nullable|numeric',
+    'bagwgt'      => 'nullable|numeric',
     'active'      => 'nullable',
   ];
 
