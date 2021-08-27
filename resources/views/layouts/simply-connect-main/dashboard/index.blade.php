@@ -105,11 +105,6 @@
 						<div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
 						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
 					</div>
-          <div class="row">
-						<div class="col-md-4 pl-0">@widget('Modules\DisposableTools\Widgets\WhazzUpIVAO')</div>
-						<div class="col-md-4 p-0">@widget('Modules\DisposableTools\Widgets\WhazzUpVATSIM')</div>
-						<div class="col-md-4 pr-0">@widget('Modules\DisposableTools\Widgets\ActiveBookings')</div>
-					</div>
 				</div>
 				<div class="col-md-4">
                     <div class="nav nav-tabs" role="tablist">
