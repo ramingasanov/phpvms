@@ -106,9 +106,9 @@
 						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
 					</div>
           <div class="row">
-						<div class="col-md-4 pl-0">@widget('DisposableTools::Discord', ['server' => 692279129554419792])</div>
-						<div class="col-md-4 p-0">@widget('DisposableTools::RandomFlight')</div>
-						<div class="col-md-4 pr-0">@widget('DisposableTools::WhazzUpVATSIM')</div>
+						<div class="col-md-4 pl-0">@widget('DisposableTools::RandomFlight', ['count' => 5, 'daily' => true, 'hub' => false]')</div>
+						<div class="col-md-4 p-0">@widget('DisposableTools::WhazzUpVATSIM')</div>
+						<div class="col-md-4 pr-0">@widget('DisposableTools::WhazzUpIVAO')</div>
 					</div>
 				</div>
 				<div class="col-md-4">
