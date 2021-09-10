@@ -16,7 +16,12 @@
           @foreach($pilots as $pilot)
             <tr>
               <td class="text-left">
-                <a href="{{ route('frontend.profile.show', [$pilot['user_id']]) }}" target="_blank">{{ $pilot['name_private'] }}</a></td>
+                @if(isset($pilot['user_id']))
+                  <a href="{{ route('frontend.profile.show', [$pilot['user_id']]) }}" target="_blank">{{ $pilot['name_private'] }}</a>
+                @else 
+                  Deleted User
+                @endif
+              </td>
               <td><span title="{{ $pilot['flightplan'] ?? 'ATC Not Available' }}">{{ $pilot['callsign'] }}</span></td>
               <td>{{ $pilot['network_id'] }}</td>
               <td>{{ $pilot['server_name'] }}</td>

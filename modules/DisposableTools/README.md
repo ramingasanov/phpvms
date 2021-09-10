@@ -1,234 +1,316 @@
-## Disposable Widgets and Tools Module (For PhpVms v7)
+# Disposable Widgets and Tools Module
 
-Module provides some widgets and tools for your v7 installation. 
+Module provides some widgets and handy tools for phpVMS v7.
 
-**Installation Steps**
+## Installation Steps
 
 * Manual Install : Upload contents of the package to your root/modules folder via ftp or your control panel's file manager
 * GitHub Clone : Clone/pull repository to your root/modules/DisposableTools folder
 * PhpVms Module Installer : Go to admin -> addons/modules , click Add New , select downloaded file and click Add Module
 
-**Usage**
+## Usage
 
 Call the widgets anywhere you want like you call/load others
-```
-@widget('Modules\DisposableTools\Widgets\ActiveUsers')
-@widget('Modules\DisposableTools\Widgets\AircraftLists', ['type' => 'location'])
-@widget('Modules\DisposableTools\Widgets\AircraftStats', ['id' => $aircraft->id])
-@widget('Modules\DisposableTools\Widgets\AirlineStats')
-@widget('Modules\DisposableTools\Widgets\AirportAircrafts', ['location' => $airport->id])
-@widget('Modules\DisposableTools\Widgets\AirportPireps', ['location' => $airport->id])
-@widget('Modules\DisposableTools\Widgets\AirportInfo')
-@widget('Modules\DisposableTools\Widgets\FlightTimeMultiplier')
-@widget('Modules\DisposableTools\Widgets\PersonalStats', ['disp' => 'full', 'user' => $user->id])
-@widget('Modules\DisposableTools\Widgets\TopAirlines', ['count' => 3, 'type' => 'flights'])
-@widget('Modules\DisposableTools\Widgets\TopAirports', ['count' => 5, 'type' => 'dep'])
-@widget('Modules\DisposableTools\Widgets\TopPilots', ['type' => 'landingrate'])
 
-@widget('Modules\DisposableTools\Widgets\SunriseSunset', ['location' => $airport->id])
-@widget('Modules\DisposableTools\Widgets\FlightsMap', ['source' => $hub->id])
-@widget('Modules\DisposableTools\Widgets\ActiveBookings')
-
-@widget('Modules\DisposableTools\Widgets\WhazzUpIVAO')
-@widget('Modules\DisposableTools\Widgets\WhazzUpVATSIM')
-```
-
-Also if you wish (with versions after v2.1.2) you can use short namespaces while calling widgets like.  
-Just clean your app cache if short names gives you an error.
-
-```
+```php
 @widget('DisposableTools::ActiveBookings')
+@widget('DisposableTools::ActiveUsers')
+@widget('DisposableTools::AircraftLists', ['type' => 'location'])
+@widget('DisposableTools::AircraftStats', ['id' => $aircraft->id])
+@widget('DisposableTools::AirlineStats')
+@widget('DisposableTools::AirportAircrafts', ['location' => $airport->id])
+@widget('DisposableTools::AirportInfo')
+@widget('DisposableTools::AirportPireps', ['location' => $airport->id])
+@widget('DisposableTools::Discord', ['server' => 1234567890123456789])
+@widget('DisposableTools::FlightBoard')
+@widget('DisposableTools::FlightsMap', ['source' => $hub->id])
+@widget('DisposableTools::FlightTimeMultiplier')
+@widget('DisposableTools::PersonalStats', ['disp' => 'full', 'user' => $user->id])
+@widget('DisposableTools::RandomFlight')
+@widget('DisposableTools::SunriseSunset', ['location' => $airport->id])
+@widget('DisposableTools::TopAirlines', ['count' => 3, 'type' => 'flights'])
+@widget('DisposableTools::TopAirports', ['count' => 5, 'type' => 'dep'])
+@widget('DisposableTools::TopPilots', ['type' => 'landingrate'])
+@widget('DisposableTools::WhazzUpIVAO')
+@widget('DisposableTools::WhazzUpVATSIM')
 ```
 
-**Options: ActiveUsers**
+Also if you wish, it is always possible to use widgets with full paths like below.  
 
-Nothing except mins (minutes for inactivity timer)  
-* ['mins' => 3] Sets timer to 3 mins (default is 5 mins)
+` @widget('Modules\DisposableTools\Widgets\ActiveBookings') `
 
-**Options : AircraftLists**
+### Active Bookings
 
-This widget has only one option called *type* and it displays either your aircraft count according to their locations or a count according the their ICAO type codes.
+` @widget('DisposableTools::ActiveBookings') `  
+Displays active SimBrief briefing packs with flight, aircraft and user details. No config options
 
-type can be location,nohubs or icao  
-* ['type' => 'icao']
-* ['type' => 'location']
-* ['type' => 'nohubs'] // Uses Location but hides Hubs from the list
+By design widget will refresh its data every 60 seconds automatically when visible/loaded.
 
-By default widget will display aircraft counts per airport
+### Active Users
 
-**Options : AircraftStats**
+` @widget('DisposableTools::ActiveUsers') `  
+Displays current active user sessions, needs the session to be handled by database
 
-This widget has only one option called id, just provide an aircraft id and stats will be displayed  
-* ['id' => $aircraft->id]
+* `['mins' => 3]` Sets timer to 3 mins (default is 5 mins)
 
-**Options: AirlineStats**
+By design widget will refresh its data every 60 seconds automatically when visible/loaded.
 
-This widget has only one option called airline and it displays either your total system stats or stats for the airline choosed.
+### Aircraft Lists
 
-airline can be any airline's id number  
-* ['airline' => 3] or
-* ['airline' => {{ $user->airline->id }}] or
-* ['airline' => {{ $flight->airline->id }}] *this depends how and where you want to use the widget
+` @widget('DisposableTools::AircraftLists') `  
+Displays either your aircraft count according to their locations or a count according the their ICAO type codes.  
+Also is capable of displaying non-hub airports only  
 
-By default widget will display overall stats of your phpvms installation.
+* `['type' => 'icao']`
+* `['type' => 'location']`
+* `['type' => 'nohubs']`
 
-**Options : AirportAircrafts**
+Default option is `location`  
 
-This widget has only one option called *location* and it displays your aircrafts at given location.
+### Aircraft Stats
 
-location *must* be an airport_id (4 letter ICAO code)  
-* ['location' => 'LTCG'] or
-* ['location' => $airport->icao] if you are going to use it in Airports page
-* ['location' => $flight->dpt_airport_id] if you are going to use it in Bids or Flight Details page
+` @widget('DisposableTools::AircraftStats', ['id' => $aircraft->id]) `  
+Displays aircraft (registration) based stats. Needs an aircraft id to work  
 
-By default widget will not display any aircrafts as expected
+* `['id' => $aircraft->id]`
 
-**Options : AirportPireps**
+### Airline Stats
 
-This widget has only one option called *location* and it displays pireps for given location.
+` @widget('DisposableTools::AirlineStats') `  
+Displays overall system stats or stats for the airline provided.
 
-location *must* be an airport_id (4 letter ICAO code)  
-* ['location' => 'LTAI'] or
-* ['location' => $airport->icao] if you are going to use it in Airports page
-* ['location' => $flight->dpt_airport_id] if you are going to use it in Bids or Flight Details page
+* `['airline' => 3]`
+* `['airline' => $user->airline->id ]`
+* `['airline' => $flight->airline->id ]`  
 
-By default widget will not display any pireps as expected
+### Airport Aircrafts
 
-**Options : AirportInfo**
+` @widget('DisposableTools::AirportAircrafts', ['location' => $airport->id]) `  
+Displays your aircraft at given location. Location *must* be an airport_id (4 letter ICAO code)  
 
-Widget has one option called *type* and it displays your airports according to it.
+* `['location' => 'LTCG']`
+* `['location' => $airport->icao]`
+* `['location' => $flight->dpt_airport_id]`
 
-type can be all, hubs, nohubs.
-* ['type' => 'all'] , shows all your airports and this is the default option
-* ['type' => 'nohubs'] , shows all your airports EXCEPT your hubs
-* ['type' => 'hubs'] , shows ONLY hubs and uses DisposableHubs hub info page for target link
+### Airport Info
 
-(*This widget is developed by Maco and being used in this module by his permission.*)
+` @widget('DisposableTools::AirportInfo') `  
+Displays your airports in a dropdown and offers a button to visit Airport/Hub details page.  
+Can be configured to display `all` or `nohubs` or `hubs`
 
-**Options: FlightTimeMultiplier**
+* `['type' => 'all']`
+* `['type' => 'nohubs']`
+* `['type' => 'hubs']`
 
-No options for this, it is just a javascript calculator. Enter hours, minutes and the multiplier to get the result.  
-Some VA's or platforms offer double or multiplied hours for some tours and events, thus this may come in handy.
+Default option is `all`  
+*(This widget is developed by Maco and being used in this module by his permission.)*  
 
-Widget may be placed anywhere you wish, best possible location is your pirep fields.blade, just below or above submit/edit buttons.
+### Airport Pireps
 
-**Options : PersonalStats**
+` @widget('DisposableTools::AirportPireps', ['location' => $airport->id]) `  
+Displays pireps for given location. Location *must* be an airport_id (4 letter ICAO code)  
 
-For PersonalStats there are four main options which are user, disp, type and period;
+* `['location' => 'LTAI']`
+* `['location' => $airport->icao]`
+* `['location' => $flight->dpt_airport_id]`
 
-user can be any user's id or not used at all  
-period can be any number of days (except 0 of course), currentm, lastm, prevm, currenty, lasty, q1, q2, q3, q4 or not used at all  
-disp can be full or not used at all  
-type can be avglanding, avgscore, avgtime, tottime, avgdistance, totdistance, avgfuel, totfuel, totflight
+### Discord
 
-If no user is defined, widget get current user's data for calculations. This may be used for dashboard or any personal pages where the viewer will be able to see his results. If you want to put some stats on the user's profile page then you need to define the user otherwise every visitor will see their stats :)  
-*(['user' => $user->id] is enough to get proper results at user profile page)*
+` @widget('DisposableTools::Discord', ['server' => 1234567890123456789]) `  
+Displays your Discord server data, server id MUST be provided. Check your Discord Server settings for details.  
+Can be configured to hide/display *Discord Bots*
 
-If no period is defined then all accepted reports will be used for calculations, else you will get the result for the last *n* days you provided like Average Landing Rate for flights done in last 15 days  
-*(['period' => 7] will give you the last 7 days)*
+* `['server' => 1234567890]` Your Discord Server ID, mandatory
+* `['bots' => true]` (optional) will show *Discord Bots* as online users (default is false)
+* `['bot' => ' My Bot']` (optional) will remove members which have ' My Bot' in their username from your list (default is ' Bot')
 
-If you want to have a full card with the result and the info text then use *'disp' => full*, while calling the widget. It should be compatible with the default template and stisla but if you need you can customize the look in the *personalstats.blade* file.  
-Also if you are not using English then you can define the text in your own language in the same file.
+By design widget will refresh its data every 60 seconds automatically when loaded.
 
-* ['disp' => 'full', 'user' => $user->id, 'type' => 'totfuel', 'period' => 'lastm'] : Total Fuel Spent During Last Month
-* ['disp' => 'full', 'user' => $user->id, 'type' => 'avglanding'] : Average Landing Rate displayed in a card
-* ['user' => $user->id, 'type' => 'totdistance', 'period' => 7] : Plain text total distance in last 7 days
-* ['user' => $user->id, 'type' => 'totflight', 'period' => 3] : Plain text number of flights in last 3 days 
+### Flight Board
 
-By default widget will provide average landing rate without any html styling considering the viewer's pireps.
+` @widget('DisposableTools::FlightBoard') `  
+Displays active flights only, has no settings and/or configuration options.
 
-Note for "Quarter (q)" periods, q1 means Quarter 1. Which covers first 3 months of the calendar year, so it is JAN-FEB-MAR and the rest follows the same logic.
+By design widget will refresh its data every 60 seconds automatically when visible/loaded.
 
-**Options: TopAirlines**
+### Flights Map
 
-For TopAirlines there are three main options.They are count, type and period;
+` @widget('DisposableTools::FlightsMap', ['source' => $hub->id]) `  
+Shows a Leaflet map of your flights, user pireps or fleet locations. With configuration options results can be limited to an airline, an airport etc.  
+Leatlet map itself can be configured/re-styled via duplicated widget blade file if needed.  
 
-count can be any number you want (except 0 of course)  
-type can be flights, time or distance  
-period can be currentm, lastm, prevm, currenty or lasty  
-* ['count' => 5, 'type' => 'flights']
-* ['count' => 10, 'type' => 'time']
-* ['count' => 8, 'type' => 'distance']
+Has 3 main options, these are `source`, `visible` and `limit`.  
+Visible and limit should be used in custom cases, provided defaults for them are ok for generic usage.  
 
-By default widget will report overall top 3 airlines by their flight counts\
-If you want to see your "Best" airline, just set the count to 1
+if used `source` *can* be an **airport_id** (4 letter ICAO code), an **airline_id** or **user** (not user_id, plain text *user*) or **fleet**.  
+if used `visible` *must* be either false or true (it show visible flights or hides them - default is true like phpvms and only visible flights are used)  
+if used `limit` *must* be a numeric value like **50**, which will limit the flights being drawn on the map. Default is *null* so all flights are drawn.  
 
-**Options: TopAirports**
+* `['source' => 'LTAI']`
+* `['source' => $airport->id]`
+* `['source' => $airline->id, 'limit' => 200]`
+* `['source' => 'user', 'limit' => 100]`
+* `['source' => 'fleet']`
 
-For TopAirports there are two options.They are count and type;
+To use the widget at phpvms Flights (list/search) page, there is no need to define a source, just call the widget directly (maybe with some limits).  
+Widget will follow your admin side settings to filter results (like pilots only see their airline's flights or flight's from their current location)  
 
-count can be any number you want (except 0 of course)  
-type can be dep or arr  
-* ['count' => 8, 'type' => 'dep']
-* ['count' => 5, 'type' => 'arr']
+### Flight Time Multiplier
 
-By default (without any options set) widget will report top 3 airports by departure counts
+` @widget('DisposableTools::FlightTimeMultiplier') `  
+This is just a javascript calculator. Enter hours, minutes and the multiplier to get the result.  
+Some VA's or platforms offer double or multiplied hours for some tours and events, thus this may come in handy.  
 
-**Options: TopPilots**
+### Personal Stats
 
-For TopPilots there are four main options.They are count, type, period and hub;
+` @widget('DisposableTools::PersonalStats', ['disp' => 'full', 'user' => $user->id]) `  
+There are four main options which are `user`, `disp`, `type` and `period`;
 
-count can be any number you want (except 0 of course)  
-type can be flights, time, distance or landingrate  
-period can be currentm, lastm, prevm, currenty or lasty  
-hub can be any 4 letter icao identifier, prefably one of your hubs  
+`user` can be any user's id or not used at all  
+`period` can be any **number of days** (except 0 of course), **currentm**, **lastm**, **prevm**, **currenty**, **lasty**, **q1**, **q2**, **q3**, **q4** or not used at all  
+`disp` can be full or not used at all  
+`type` can be **avglanding**, **avgscore**, **avgtime**, **tottime**, **avgdistance**, **totdistance**, **avgfuel**, **totfuel** or **totflight**
 
-* ['count' => 5, 'type' => 'flights']
-* ['count' => 10, 'type' => 'time']
-* ['count' => 8, 'type' => 'distance']
-* ['count' => 1, 'type' => 'landingrate']
-* ['count' => 1, 'type' => 'landingrate', 'hub' => 'LTAI']
-* ['count' => 1, 'type' => 'landingrate', 'hub' => $hub->id]
+If no user is defined, widget get current user's data for calculations. This may be used for dashboard or any personal pages where the viewer will be able to see his results.  
+If you want to put some stats on the user's profile page then you need to define the user otherwise every visitor will see their stats :) `['user' => $user->id]` is enough to get proper results at user profile page.  
 
-By default widget will report overall top 3 pilots by their flight counts\
-If you want to see your "Best" pilot, just set the count to 1  
+If no period is defined then all accepted reports will be used for calculations, `['period' => 7]` will consider the pireps of last 7 days for selected type
 
-Update: Widget will now only use Active and On Leave pilots for the list, Deleted / Suspended / Rejected / Pending pilots will not be used  
+If you want to have a full card with the result and the info text then use `['disp' => 'full']` while calling the widget. It should be compatible with the default template and any bootstrap compatible one but if you need you can customize the by duplicating *personalstats.blade*.  
 
-**Options : SunriseSunset**
+Some combined examples are below;  
 
-This widget has only one option called *location* and it displays sunrise/sunset times of given location.
+* `['disp' => 'full', 'user' => $user->id, 'type' => 'totfuel', 'period' => 'lastm']` Total Fuel Spent During Last Month displayed in a card
+* `['disp' => 'full', 'user' => $user->id, 'type' => 'avglanding']` Overall Average Landing Rate displayed in a card
+* `['user' => $user->id, 'type' => 'totdistance', 'period' => 7]` Plain text total distance in last 7 days
+* `['user' => $user->id, 'type' => 'totflight', 'period' => 3]` Plain text number of flights in last 3 days
 
-location *must* be an airport_id (4 letter ICAO code)  
-* ['location' => 'LTAI'] or
-* ['location' => $airport->id] if you are going to use it in Airports page
-* ['location' => $flight->dpt_airport_id] if you are going to use it in Bids or Flight Details page
+Note for "Quarter (q)" periods;
 
-**Options : FlightsMap**
+* q1 (Quarter 1) JAN-FEB-MAR
+* q2 (Quarter 2) APR-MAY-JUN
+* q3 (Quarter 3) JUL-AUG-SEP
+* q4 (Quarter 4) OCT-NOV-DEC
 
-Shows a Leaflet map from flights or user pireps, Leatlet map itself can be configured/styled via widget blade file if needed.  
-Has 3 main options, these are *source* , *visible* and *limit* . Visible and limit should be used in custom cases, provided defaults for them are ok for generic usage.  
+### Random Flights
 
-if used source *can* be an airport_id (4 letter ICAO code), an airline_id or user (not user_id, plain text *user*) or fleet or can be skipped at all.  
-if used visible *must* be either false or true (it show visible flights or hides them - default is true like phpvms and only visible flights are used)  
-if used limit *must* be a numeric value like 50, which will limit the flights being drawn on the map. Default is *null* so all flights are drawn.  
-* ['source' => 'LTAI'] or
-* ['source' => $airport->id] if you are going to use it in Airports page
-* ['source' => $hub->id] if you are going to use it in Disposable Hubs Module: Hub Page
-* ['source' => $airline->id] if you are going to use it in Disposable Airlines Module: Airline Page
-* ['source' => $airline->id, 'limit' => 200] if you are going to use it at Disposable Airlines Module: Airline Page with a limit of max 200 flight.
-* ['source' => 'user', 'limit' => 100] if you are going to use it at User Profile page with a limit of last 100 pireps.
-* ['source' => 'fleet'] gives you the Fleet Map
+` @widget('DisposableTools::RandomFlight') `  
+Picks up some random flights for your pilots according to phpVMS settings (Aircraft and Company restrictions) and widget configuration.  
 
-To use the widget at phpvms Flights page, there is no need to define a source. Just load/call the widget directly.  
-It will follow your admin side settings to filter results (like pilots only see their airline's flights or flight's from their current location)
+* `['count' => 3]` The amount of flights to be picked (default is 1)
+* `['daily' => true]` Will force the widget to pick random flight once per day (can be true or false, default is false)
+* `['hub' => true]` Will force the widget to pick up random flights departing from user's own hub/home airport (can be true or false, default is false)
 
-**Options : WhazzUp Widgets (IVAO & VATSIM)**
+For example; Imagine setting and *daily* and *hub* to **false**, then the widget will pick up a new flight for each airport user visits.  
+You will get a random flight when you start the day, from A to B. When you finish that flight with an accepted pirep, your location will change and widget will pick another flight for you from B to C (or maybe from B to A or B to D).
 
-There are no widget driven settings for these two, their settings are at Admin -> DisposableTools page.  
-Data refresh interval is set to 60 seconds by default, both networks require a minimum of 15 seconds so if you want to lower the defaults, anything below 15 seconds will not work.  
-To reduce traffic on your server, I kindly suggest setting refresh interval to something like 180 seconds (3 mins) or 300 seconds (5 mins).
+Provided Pirep check is for visual reference only, it will not change widget's operation logic. So a user can choose not to fly offered one and use JumpSeat or pick another flight, widget will continue offering new random flights after each location change. (if daily is set to false)
 
-If you defined your custom user profile field names for IVAO/VATSIM something like IVAO_ID or VATSIM-CID etc then you need to use the exact same name in widget settings too.  
-Failing this step will result 'No .... Online Flights Found' result even if you have pilots flying online.
+` @widget('DisposableTools::RandomFlight', ['count' => 5, 'daily' => true]) `  
+This example will give users 5 random flights, departing from their current location, only once for that day. There will be no changes until the end of the day.
+
+In any config, random flights will be refreshed each day.
+
+### Sunrise Sunset
+
+` @widget('DisposableTools::SunriseSunset', ['location' => $airport->id]) `  
+Displays sunrise/sunset times of given location. Location *must* be an airport_id (4 letter ICAO code)
+
+* `['location' => 'LTAI']`
+* `['location' => $airport->id]`
+* `['location' => $flight->dpt_airport_id]`
+
+### Top Airlines
+
+` @widget('DisposableTools::TopAirlines', ['count' => 3, 'type' => 'flights']) `  
+Displays an "airline" leaderboard according to **flights**, **flight time** or **distance flown**  
+There are three main options.They are `count`, `type` and `period`;
+
+`count` can be **any number** you want (except 0 of course)  
+`type` can be **flights**, **time** or **distance**  
+`period` can be **currentm**, **lastm**, **prevm**, **currenty** or **lasty**
+
+* `['count' => 5, 'type' => 'flights']`
+* `['count' => 10, 'type' => 'time']`
+* `['count' => 8, 'type' => 'distance']`
+
+Default options will give you overall top 3 airlines by their flight counts. If you want to see your "Best" airline, just set the count to 1
+
+### Top Airports
+
+` @widget('DisposableTools::TopAirports', ['count' => 5, 'type' => 'dep']) `  
+Displays your most used airports according to their **take off** or **landing** counts.
+Options are `count` and `type`;
+
+`count` can be **any number** you want (except 0 of course)  
+`type` can be **dep** or **arr**
+
+* `['count' => 8, 'type' => 'dep']`
+* `['count' => 5, 'type' => 'arr']`
+
+Default options will give you top 3 airports by their take off counts
+
+### Top Pilots
+
+` @widget('DisposableTools::TopPilots', ['type' => 'landingrate']) `  
+Displays a "pilot" leaderboard according to **flights**, **flight time**, **distance flown** or **average landing rate**  
+Widget has four main options called `count`, `type`, `period` and `hub`;
+
+`count` can be **any number** you want (except 0 of course)  
+`type` can be **flights**, **time**, **distance** or **landingrate**  
+`period` can be **currentm**, **lastm**, **prevm**, **currenty** or **lasty**  
+`hub` can be any **airport id** (4 letter icao identifier), prefably one of your hubs  
+
+* `['count' => 5, 'type' => 'flights']`
+* `['count' => 10, 'type' => 'time']`
+* `['count' => 8, 'type' => 'distance']`
+* `['count' => 1, 'type' => 'landingrate']`
+* `['count' => 1, 'type' => 'landingrate', 'hub' => 'LTAI']`
+* `['count' => 1, 'type' => 'landingrate', 'hub' => $hub->id]`
+
+Default options will give you the overall top 3 pilots by their flight counts. If you want to see your "Best" pilot, just set the count to 1  
+
+### WhazzUp Widgets (IVAO & VATSIM)
+
+` @widget('DisposableTools::WhazzUpIVAO') ` or ` @widget('DisposableTools::WhazzUpVATSIM') `  
+There are no widget driven settings for these two, their settings are at Admin -> DisposableTools page.
+
+Data refresh interval is set to 60 seconds by default, both networks require a minimum of 15 seconds so if you want to lower the defaults, anything below 15 seconds will not work. To reduce traffic on your server, I kindly suggest setting refresh interval to something like 180 seconds (3 mins) or 300 seconds (5 mins).
+
+If you defined your custom user profile field names for IVAO/VATSIM something like IVAO_ID or VATSIM-CID etc then you need to use the exact same name in widget settings too. **Failing this step will result 'No .... Online Flights Found' result even if you have pilots flying online.**
 
 Widget does not store any past records or historic data, so what you will get is the latest whazzup data IVAO/VATSIM servers have at that moment.
 
-Only for the first run, you may see 'No Valid Data Found' result, just wait or refresh the page.
+Only for the first run, you may see *'No Valid Data Found'* result, just wait or refresh the page.  
+By design widget will refresh its data every 60 seconds automatically when visible/loaded.
 
----
+## Duplicating Module Blades/Views
 
-**Update Notes**
+Technically all blade files should work with your template but they are mainly designed for Bootstrap compatible themes. So if something looks weird in your template then you need to edit them. I kindly suggest copying them under your theme folder and do your changes there, directly editing module files will only make updating harder for you.
+
+All Disposable Modules are capable of displaying customized files located under your theme folders;
+
+* Original Location : `root/modules/DisposableModule/Resources/Views/somefile.blade.php`
+* Target Location   : `root/resources/views/layouts/YourTheme/modules/DisposableModule/somefile.blade.php`
+
+## Update Notes
+
+07.SEP.21
+* Fixed RandomFlights Widget's pirep checks.
+* Improved the random flight picker (now it checks already flown flights and tries to offer something new)
+
+06.SEP.21
+* Fixed FlightBoard Widget
+* Added Discord Widget
+* Added RandomFlights Widget
+
+01.SEP.21
+* Added FlightBoard widget to display active flights (without a map)
+* Added link to DispoDbCheck to module's admin section page
+
+28.AUG.21
+* Added a new simple database check page for error identification ( visit `yourphpvms.com/admin/dispodbcheck` )
+* Added another failsafe to WhazzUp Widget (thanks @dougjuk for his patience during the process)
 
 22.AUG.21
 * Updated AirportInfo widget, it is now able to use some config options
@@ -286,8 +368,3 @@ Only for the first run, you may see 'No Valid Data Found' result, just wait or r
 * Added two new widgets
 * Added Days decoding function
 * Fixed some minor errors in current widgets
-
----
-
-Safe flights and enjoy.  
-Disposable

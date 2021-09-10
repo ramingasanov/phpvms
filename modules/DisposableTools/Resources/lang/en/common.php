@@ -29,7 +29,16 @@ return [
   'multiplier'  => 'Multiplier',
   'activeu'     => 'Active Users',
   'aclist'      => 'Aircraft List',
-  // Personal Stats
+  // Active Flights Widget
+  'activef'     => 'Active Flights',
+  'speed'       => 'Speed',
+  // Random Flights Widget
+  'randomflt'   => 'Random Flight | Random Flights',
+  // Discord Widget
+  'onlineusers' => 'Users Online',
+  'channels'    => 'Public Channels',
+  'join'        => 'Join',
+  // Personal Stats Widget
   'noreports'   => 'No Reports',
   'avglanding'  => 'Average Landing Rate',
   'avgscore'    => 'Average Score',
@@ -41,7 +50,7 @@ return [
   'totfuel'     => 'Total Fuel Burn',
   'totflight'   => 'Total Flights',
   'lastndays'   => 'Last :period Days',
-  // Sun Details
+  // Sun Details Widget
   'sundetails'     => 'Sunrise / Sunset Details',
   'twilight_begin' => 'Civil Twilight Begin',
   'twilight_end'   => 'Civil Twilight End',

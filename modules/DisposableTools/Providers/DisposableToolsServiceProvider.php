@@ -62,6 +62,7 @@ class DisposableToolsServiceProvider extends ServiceProvider
       Route::group([],
         function () {
         Route::get('disposabletools', 'DisposableToolsController@admin')->name('admin');
+        Route::get('dispodbcheck', 'DisposableToolsController@dbcheck')->name('dbcheck');
         });
     });
   }

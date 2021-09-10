@@ -9,6 +9,7 @@ use App\Models\UserField;
 use App\Models\UserFieldValue;
 use Carbon\Carbon;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Modules\DisposableTools\Models\Disposable_WhazzUp;
@@ -52,7 +53,7 @@ class WhazzUpVATSIM extends Widget
       $widgetdata = collect();
       foreach ($pilots as $pilot) {
         $user = $this->FindUser($pilot->$user_field);
-        $pirep = $this->FindActivePirep($user->id);
+        $pirep = $this->FindActivePirep(!empty($user) ? $user->id : null);
         $airline_icao = substr($pilot->callsign,0,3);
         $flight_plan = $pilot->flight_plan;
         if ($flight_plan) {
@@ -65,9 +66,9 @@ class WhazzUpVATSIM extends Widget
         }
         $airline = in_array($airline_icao, $this->AirlinesArray());
         $widgetdata[] = array(
-          'user_id'      => $user->id,
-          'name'         => $user->name,
-          'name_private' => $user->name_private,
+          'user_id'      => isset($user) ? $user->id : null,
+          'name'         => isset($user) ? $user->name : null,
+          'name_private' => isset($user) ? $user->name_private: null,
           'network_id'   => $pilot->cid,
           'callsign'     => $pilot->callsign,
           'server_name'  => $pilot->server,

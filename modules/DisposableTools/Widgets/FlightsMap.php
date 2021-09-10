@@ -79,8 +79,7 @@ class FlightsMap extends Widget
       $aircraft = Aircraft::where('state', AircraftState::PARKED)->where('status', AircraftStatus::ACTIVE)->orderby('registration')->get();
       // Get User's Allowed Aircraft
       if(setting('pireps.restrict_aircraft_to_rank')) {
-        $subfleets = $user->rank->subfleets()->get();
-        $subfleets = $subfleets->pluck('id')->toArray();
+        $subfleets = $user->rank->subfleets()->pluck('id')->toArray();
         $aircraft = $aircraft->whereIn('subfleet_id', $subfleets);
       }
       // Build Unique Locations
