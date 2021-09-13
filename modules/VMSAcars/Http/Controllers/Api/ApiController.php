@@ -27,6 +27,9 @@ class ApiController extends Controller
         $res['fields'] = PirepFieldResource::collection($fields);
         $res['plugins'] = [];
         $res['rules'] = $this->rules($request);
+        $res['settings'] = [
+            
+        ];
         $res['units'] = [
             'd' => setting('units.distance'),
             'f' => setting('units.fuel'),

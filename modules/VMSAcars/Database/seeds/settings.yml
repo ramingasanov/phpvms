@@ -11,6 +11,13 @@ vmsacars_config:
       options: ''
       type: 'string'
       description: 'The license key for vmsACARS. You can retrieve this from your host dashboard'
+    - id: 'disable_free_flights'
+      name: 'Disable free flights'
+      order: 2
+      value: 'false'
+      default: 'false'
+      type: 'bool'
+      description: 'Require a flight from search or a bid to be selected'
     - id: 'bids_only'
       name: 'Only show bids'
       order: 3
@@ -25,7 +32,7 @@ vmsacars_config:
       value: 'false'
       default: 'false'
       type: 'bool'
-      description: 'For flight times, use the system time instead of the in-sim time'
+      description: 'Use the system time instead of the in-sim time'
     - id: 'fares_required'
       name: 'Fare entry is required'
       order: 6
@@ -65,3 +72,10 @@ vmsacars_config:
       options: '15, 30, 60, 90, 120, 240, 300, 360, 480'
       type: 'select'
       description: ''
+    - id: 'check_engine_for_arrived'
+      name: 'Engine(s) must be stopped for arrival state'
+      order: 25
+      value: 'false'
+      default: 'false'
+      type: 'bool'
+      description: 'Engines must be stopped for arrival state'
