@@ -12,7 +12,7 @@ class AddOrderColumn extends Migration
             $table->unsignedSmallInteger('order')->after('cooldown')->default(0);
         });
 
-        $this->seedFile('rules.yml');
+        //$this->seedFile('rules.yml');
     }
 
     public function down()

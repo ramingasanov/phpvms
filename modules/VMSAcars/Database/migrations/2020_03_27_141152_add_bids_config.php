@@ -6,7 +6,7 @@ class AddBidsConfig extends Migration
 {
     public function up()
     {
-        $this->seedFile('settings.yml');
+        //$this->seedFile('settings.yml');
     }
 
     public function down()
