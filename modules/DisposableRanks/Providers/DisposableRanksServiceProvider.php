@@ -53,8 +53,8 @@ class DisposableRanksServiceProvider extends ServiceProvider
         'middleware' => ['auth'],
       ], function () {
         // Main Controller Routes
-        Route::get('dawards', 'DispoAwardsController@awards')->name('awards');
-        Route::get('dranks', 'DispoRanksController@ranks')->name('ranks');
+        Route::get('awards', 'DispoAwardsController@awards')->name('dawards');
+        Route::get('ranks', 'DispoRanksController@ranks')->name('dranks');
       });
     });
 
