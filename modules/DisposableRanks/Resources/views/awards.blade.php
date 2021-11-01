@@ -2,12 +2,6 @@
 @section('title', __('DisposableRanks::common.awards'))
 
 @section('content')
-  <div class="row">
-    <div class="col">
-    {{-- <h3 class="card-title">@lang('DisposableRanks::common.awards')</h3> --}}
-    </div>
-  </div>
-
   <div class="row row-cols-4">
     @foreach($awards as $award)
       <div class="col">

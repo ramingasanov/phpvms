@@ -9,7 +9,12 @@
     <select id="airportselector" class="form-control select2" onchange="checkapselection()">
       <option value="ZZZZ">@lang('DisposableTools::common.selectap')</option>
       @foreach($airports as $airport)
-        <option value="{{ $airport->id }}">{{ $airport->id }} : {{ $airport->name ?? '' }} ({{ $airport->location ?? ''}})</option>
+        <option value="{{ $airport->id }}">
+          {{ $airport->id }} : {{ $airport->name }}
+          @if(filled($airport->location))
+            {{ '('.$airport->location.')' }}
+          @endif
+        </option>
       @endforeach
     </select>
   </div>

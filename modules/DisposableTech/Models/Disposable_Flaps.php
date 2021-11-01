@@ -6,7 +6,7 @@ use App\Contracts\Model;
 
 class Disposable_Flaps extends Model
 {
-  public $table = 'disposable_flaps';
+  public $table = 'disposable_tech';
 
   protected $fillable = [
     'icao',
@@ -35,6 +35,14 @@ class Disposable_Flaps extends Model
     'gear_extend',
     'gear_retract',
     'gear_maxtire',
+    'max_pitch',
+    'max_roll',
+    'max_cycle_a',
+    'max_time_a',
+    'max_cycle_b',
+    'max_time_b',
+    'max_cycle_c',
+    'max_time_c',
     'active',
   ];
 
@@ -66,7 +74,15 @@ class Disposable_Flaps extends Model
     'gear_extend'  => 'nullable|numeric',
     'gear_retract' => 'nullable|numeric',
     'gear_maxtire' => 'nullable|numeric',
-    'active'    => 'nullable',
+    'max_pitch'    => 'nullable|numeric',
+    'max_roll'     => 'nullable|numeric',
+    'max_cycle_a'  => 'nullable|numeric',
+    'max_time_a'   => 'nullable|numeric',
+    'max_cycle_b'  => 'nullable|numeric',
+    'max_time_b'   => 'nullable|numeric',
+    'max_cycle_c'  => 'nullable|numeric',
+    'max_time_c'   => 'nullable|numeric',
+    'active'       => 'nullable',
   ];
 
   // Return a json string of flap names and speeds
@@ -88,5 +104,21 @@ class Disposable_Flaps extends Model
     if(filled($this->f10_name)) { $flapspeeds->put($this->f10_name, $this->f10_speed); }
 
     return $flapspeeds;
+  }
+
+  // Return maintenance details
+  // {"max_cycle_a":300,"max_time_a":1000,"max_cycle_b":215,"max_time_b":2000}
+  public function maintenance()
+  {
+    $maintenance = collect();
+
+    if(filled($this->max_cycle_a)) { $maintenance->put('max_cycle_a', $this->max_cycle_a); }
+    if(filled($this->max_time_a)) { $maintenance->put('max_time_a', $this->max_time_a); }
+    if(filled($this->max_cycle_b)) { $maintenance->put('max_cycle_b', $this->max_cycle_b); }
+    if(filled($this->max_time_b)) { $maintenance->put('max_time_b', $this->max_time_b); }
+    if(filled($this->max_cycle_c)) { $maintenance->put('max_cycle_c', $this->max_cycle_c); }
+    if(filled($this->max_time_c)) { $maintenance->put('max_time_c', $this->max_time_c); }
+
+    return $maintenance;
   }
 }

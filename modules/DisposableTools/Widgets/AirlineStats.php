@@ -19,14 +19,13 @@ class AirlineStats extends Widget
     if ($this->config['airline']) {
       $airlineid = $this->config['airline'];
       $totalpilot = User::where('airline_id', $airlineid)->count();
-      $subfleets = Subfleet::where('airline_id', $airlineid)->select('id')->get();
-      $subfleets = $subfleets->toArray();
+      $subfleets = Subfleet::where('airline_id', $airlineid)->pluck('id')->toArray();
       $totalaircraft = Aircraft::whereIn('subfleet_id', $subfleets)->count();
       $totalflight = Flight::where('airline_id', $airlineid)->count();
-      $totalpirep = Pirep::where('airline_id', $airlineid)->where('state', PirepState::ACCEPTED)->count();
-      $totaltime = Pirep::where('airline_id', $airlineid)->where('state', PirepState::ACCEPTED)->sum('flight_time');
-      $totaldistance = Pirep::where('airline_id', $airlineid)->where('state', PirepState::ACCEPTED)->sum('distance');
-      $totalfuel = Pirep::where('airline_id', $airlineid)->where('state', PirepState::ACCEPTED)->sum('fuel_used');
+      $totalpirep = Pirep::where(['airline_id' => $airlineid, 'state' => PirepState::ACCEPTED])->count();
+      $totaltime = Pirep::where(['airline_id' => $airlineid, 'state' => PirepState::ACCEPTED])->sum('flight_time');
+      $totaldistance = Pirep::where(['airline_id' => $airlineid, 'state' => PirepState::ACCEPTED])->sum('distance');
+      $totalfuel = Pirep::where(['airline_id' => $airlineid, 'state' => PirepState::ACCEPTED])->sum('fuel_used');
     } else {
       $totalpilot = User::count();
       $totalaircraft = Aircraft::count();

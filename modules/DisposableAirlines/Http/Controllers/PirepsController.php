@@ -3,26 +3,19 @@
 namespace Modules\DisposableAirlines\Http\Controllers;
 
 use App\Contracts\Controller;
+use App\Models\Pirep;
 use App\Models\Enums\PirepState;
-use App\Repositories\PirepRepository;
 
 class PirepsController extends Controller
 {
-  private $pirepRepo;
-
-  public function __construct(
-    PirepRepository $pirepRepo
-  ) {
-    $this->pirepRepo = $pirepRepo;
-  }
   // All Pireps (except inProgress flights)
-  // Return collection
   public function allpireps()
   {
-    $pireps = $this->pirepRepo->where('state', '!=', PirepState::IN_PROGRESS)->orderby('submitted_at', 'desc')->paginate(50);
+    $eager_load = array('airline', 'aircraft', 'arr_airport', 'dpt_airport', 'user');
+    $pireps = Pirep::with($eager_load)->where('state', '!=', PirepState::IN_PROGRESS)->orderby('submitted_at', 'desc')->paginate(25);
 
     return view('DisposableAirlines::pireps',[
-      'pireps'    => $pireps,
+      'pireps' => $pireps,
     ]);
   }
 }

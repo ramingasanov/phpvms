@@ -5,6 +5,7 @@ namespace Modules\DisposableTools\Widgets;
 use App\Contracts\Widget;
 use App\Models\Airline;
 use App\Models\Pirep;
+use App\Models\User;
 use App\Models\UserField;
 use App\Models\UserFieldValue;
 use Carbon\Carbon;
@@ -44,7 +45,7 @@ class WhazzUpVATSIM extends Widget
       $this->DownloadWhazzUp($network_selection, $server_address);
     }
 
-    if($whazzup) {
+    if ($whazzup) {
       if (isset($refresh_check)) { $whazzup->refresh(); }
       $pilots = collect(json_decode($whazzup->pilots));
       $pilots = $pilots->whereIn($user_field, $this->NetworkUsersArray($field_name));
@@ -80,10 +81,9 @@ class WhazzUpVATSIM extends Widget
       }
     }
 
-    $viewer = Auth::user();
-    if(isset($viewer)) {
-      $viewer = $viewer->roles;
-      if($viewer->count() > 0) { $checks = true; }
+    $viewer = User::withCount('roles')->find(Auth::id());
+    if (isset($viewer) && $viewer->roles_count > 0) {
+      $checks = true;
     }
 
     return view('DisposableTools::whazzup',[
@@ -92,8 +92,7 @@ class WhazzUpVATSIM extends Widget
       'network' => $network_selection,
       'checks'  => isset($checks) ? $checks : null,
       'dltime'  => isset($dltime) ? $dltime : null,
-      ]
-    );
+    ]);
   }
 
   // Get Custom User Profile Field Name
@@ -131,7 +130,7 @@ class WhazzUpVATSIM extends Widget
   public function FindUser($network_id = null)
   {
     if (!$network_id) { return null; }
-    $user = UserFieldValue::where('value', $network_id)->first();
+    $user = UserFieldValue::with('user')->where('value', $network_id)->first();
     $user = $user->user;
     return $user;
   }
@@ -140,7 +139,7 @@ class WhazzUpVATSIM extends Widget
   public function FindActivePirep($user_id = null)
   {
     if (!$user_id) { return null; }
-    $pirep = Pirep::where('user_id', $user_id)->where('state', 0)->orderby('updated_at', 'desc')->first();
+    $pirep = Pirep::with('aircraft', 'airline', 'user')->where('user_id', $user_id)->where('state', 0)->orderby('updated_at', 'desc')->first();
     return $pirep;
   }
 
@@ -165,18 +164,18 @@ class WhazzUpVATSIM extends Widget
       }
     } catch (GuzzleException $e) {
       Log::error('Disposable Tools: WhazzUp Download Error | '.$e->getMessage());
+      return;
     }
 
     $whazzupdata = json_decode($response->getBody());
     $whazzup_sections = array(
       'network'      => $network_selection,
       'pilots'       => json_encode($whazzupdata->pilots),
-      'atcos'        => json_encode($whazzupdata->controllers),
-      'servers'      => json_encode($whazzupdata->servers),
-      'rawdata'      => json_encode($whazzupdata),
+      // 'atcos'        => json_encode($whazzupdata->controllers),
+      // 'servers'      => json_encode($whazzupdata->servers),
+      // 'rawdata'      => json_encode($whazzupdata),
     );
 
     return Disposable_WhazzUp::updateOrCreate(['network' => $network_selection], $whazzup_sections);
   }
-
 }

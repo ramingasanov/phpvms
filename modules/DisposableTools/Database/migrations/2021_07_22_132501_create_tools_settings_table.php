@@ -4,7 +4,7 @@ use App\Contracts\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDisposableSettingsTable extends Migration
+class CreateToolsSettingsTable extends Migration
 {
   public function up()
   {

@@ -9,36 +9,22 @@
   @if(isset($details))
     <div class="card-body p-0">
       <table class="table table-borderless table-sm table-striped mb-0">
-        @if($twilight_begin > 1)
-          <tr>
-            <td class="text-left">@lang('DisposableTools::common.twilight_begin')</td>
-            <td class="text-right">{{ Carbon::parse($twilight_begin)->format('H:i') }} UTC</td>
-          </tr>
-        @endif
-        @if($sunrise > 1)
+        <tr>
+          <td class="text-left">@lang('DisposableTools::common.twilight_begin')</td>
+          <td class="text-right">{{ $twilight_begin }}</td>
+        </tr>
         <tr>
           <td class="text-left">@lang('DisposableTools::common.sunrise')</td>
-          <td class="text-right">{{ Carbon::parse($sunrise)->format('H:i') }} UTC</td>
+          <td class="text-right">{{ $sunrise }}</td>
         </tr>
-        @endif
-        @if($sunset > 1)
         <tr>
           <td class="text-left">@lang('DisposableTools::common.sunset')</td>
-          <td class="text-right">{{ Carbon::parse($sunset)->format('H:i') }} UTC</td>
+          <td class="text-right">{{ $sunset }}</td>
         </tr>
-        @endif
-        @if($twilight_end > 1)
-          <tr>
-            <td class="text-left">@lang('DisposableTools::common.twilight_end')</td>
-            <td class="text-right">{{ Carbon::parse($twilight_end)->format('H:i') }} UTC</td>
-          </tr>
-        @endif
-        @if($twilight_begin == 1 || $sunrise == 1 || $sunset == 1 || $twilight_end == 1)
-          <tr>
-            <td class="text-left">Message</td>
-            <td class="text-right">Not Able To Calculate All Times</td>
-          </tr>
-        @endif
+        <tr>
+          <td class="text-left">@lang('DisposableTools::common.twilight_end')</td>
+          <td class="text-right">{{ $twilight_end }}</td>
+        </tr>
       </table>
     </div>
   @elseif(isset($error))

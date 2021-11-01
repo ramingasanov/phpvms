@@ -11,6 +11,7 @@ class Disposable_Specs extends Model
   public $table = 'disposable_specs';
 
   protected $fillable = [
+    'icao_id',
     'aircraft_id',
     'subfleet_id',
     'airframe_id',
@@ -45,6 +46,7 @@ class Disposable_Specs extends Model
 
   /* Validation rules */
   public static $rules = [
+    'icao_id'     => 'nullable',
     'aircraft_id' => 'nullable|numeric',
     'subfleet_id' => 'nullable|numeric',
     'airframe_id' => 'nullable',

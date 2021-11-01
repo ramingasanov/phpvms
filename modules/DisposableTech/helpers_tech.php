@@ -1,28 +1,51 @@
 <?php
 
 use App\Models\Pirep;
-use App\Models\PirepFieldValue;
-use Modules\DisposableTech\Models\Disposable_Flaps;
+use Illuminate\Support\Facades\DB;
 use Modules\DisposableTech\Models\Disposable_Runways;
 use Modules\DisposableTech\Models\Disposable_Specs;
+use Modules\DisposableTech\Models\Disposable_Tech;
 
 if (!function_exists('Dispo_GetAcSpecs')) {
-  // Get Technical Specs of an Aircraft or its Subfleet
-  // Return Collection
+  // Get Specs of an Aircraft or its Subfleet or ICAO Type
   function Dispo_GetAcSpecs($aircraft) {
-    $specs = Disposable_Specs::where('aircraft_id', $aircraft->id)->where('active', true)
-                  ->orwhere('subfleet_id', $aircraft->subfleet_id)->where('active', true)
-                  ->get();
+    $specs = Disposable_Specs::where(['aircraft_id' => $aircraft->id, 'active' => true])->orderby('saircraft')->get();
+    if (!count($specs)) { $specs = Dispo_GetSubfleetSpecs_withID($aircraft->subfleet_id); }
+    if (!count($specs)) { $specs = Dispo_GetICAOSpecs($aircraft->icao); }
+
+    return $specs;
+  }
+}
+
+if (!function_exists('Dispo_GetSubfleetSpecs_withID')) {
+  // Get Specs of a Subfleet
+  function Dispo_GetSubfleetSpecs_withID($subfleet_id) {
+    $specs = Disposable_Specs::where(['subfleet_id' => $subfleet_id, 'active' => true])->orderby('saircraft')->get();
     return $specs;
   }
 }
 
 if (!function_exists('Dispo_GetSubfleetSpecs')) {
-  // Get Technical Specs of a Subfleet
-  // Return Collection
+  // Get Specs of a Subfleet
   function Dispo_GetSubfleetSpecs($subfleet) {
-    $specs = Disposable_Specs::where('subfleet_id', $subfleet->id)->where('active', true)->get();
+    $specs = Disposable_Specs::where(['subfleet_id' => $subfleet->id, 'active' => true])->orderby('saircraft')->get();
     return $specs;
+  }
+}
+
+if (!function_exists('Dispo_GetICAOSpecs')) {
+  // Get Specs of an ICAO Type
+  function Dispo_GetICAOSpecs($icao) {
+    $specs = Disposable_Specs::where(['icao_id' => $icao, 'active' => true])->orderby('saircraft')->get();
+    return $specs;
+  }
+}
+
+if (!function_exists('Dispo_GetICAOTech')) {
+  // Get Technical Details of an ICAO Type
+  function Dispo_GetICAOTech($icao = null) {
+    $tech = Disposable_Tech::where(['icao' => $icao, 'active' => true])->first();
+    return $tech;
   }
 }
 
@@ -31,11 +54,8 @@ if (!function_exists('Dispo_SimBriefWeight')) {
   // which needs main weights as lbs with 3 digits precision (except paxwgt)
   function Dispo_SimBriefWeight($weight_value) {
     $kgstolbs = 2.20462262185;
-    if (setting('units.weight') === 'kg') {
-      $weight_value = round(($weight_value * $kgstolbs) / 1000, 3);
-    } else {
-      $weight_value = round($weight_value / 1000, 3);
-    }
+    if (setting('units.weight') === 'kg') { $weight_value = round(($weight_value * $kgstolbs) / 1000, 3); }
+    else { $weight_value = round($weight_value / 1000, 3); }
     return $weight_value;
   }
 }
@@ -45,9 +65,7 @@ if (!function_exists('Dispo_SimBriefPaxWeight')) {
   // which needs to be lbs
   function Dispo_SimBriefPaxWeight($weight_value) {
     $kgstolbs = 2.20462262185;
-    if (setting('units.weight') === 'kg') {
-      $weight_value = round($weight_value * $kgstolbs);
-    }
+    if (setting('units.weight') === 'kg') { $weight_value = round($weight_value * $kgstolbs); }
     return $weight_value;
   }
 }
@@ -92,7 +110,6 @@ if (!function_exists('Dispo_Specs')) {
 
 if (!function_exists('Dispo_GetRunways')) {
   // Get Runways of an airport
-  // Return Collection
   function Dispo_GetRunways($icao) {
     $runways = Disposable_Runways::where('airport', $icao)->orderby('runway_ident', 'asc')->get();
     return $runways;
@@ -110,22 +127,22 @@ if (!function_exists('Dispo_AvgTaxiTime')) {
       $dep_arr = 'dpt_airport_id';
       $out_in = 'taxi-out-time';
     }
-    $pireps = Pirep::where($dep_arr, $icao)->where('state', 2)->pluck('id')->all();
-    $field_values = PirepFieldValue::whereIn('pirep_id', $pireps)->where('slug', $out_in)->orderby('created_at', 'desc')->take(100)->pluck('value')->all();
+
+    $pireps = DB::table('pireps')->select('id')->where([$dep_arr => $icao, 'state' => 2])->pluck('id')->all();
+    $field_values = DB::table('pirep_field_values')->select('value')->whereIn('pirep_id', $pireps)->where('slug', $out_in)->orderby('created_at', 'desc')->take(100)->pluck('value')->all();
     $taxi_times = collect();
+
     foreach ($field_values as $fv) {
       $duration = substr($fv, 0, stripos($fv, 'm'));
       if (is_numeric($duration) && $duration > 0) {
         $taxi_times->push($duration);
       }
     }
+
     $avg_time = $taxi_times->avg();
-    if ($avg_time > 0) {
-      $result = ceil($avg_time);
-    } else {
-      $result = $default;
-    }
-    return $result;
+    if ($avg_time > 0) { $result = ceil($avg_time); }
+
+    return isset($result) ? $result : $default ;
   }
 }
 
@@ -133,41 +150,31 @@ if (!function_exists('Dispo_CheckWeights')) {
   // Check Weights of a Pirep According to Specs
   // Return formatted string (with html tags)
   function Dispo_CheckWeights($pirepid, $slug) {
-    if(stripos($slug, '-weight') !== false)
+    if (stripos($slug, '-weight') !== false)
     {
-      $specwgt = null;
-      $specselect = 'bew';
       if ($slug === 'ramp-weight') { $specselect = 'mrw';}
       elseif ($slug === 'takeoff-weight') { $specselect = 'mtow';}
       elseif ($slug === 'landing-weight') { $specselect = 'mlw';}
 
-      $pirep = Pirep::where('id', $pirepid)->first();
-
-      if ($pirep && $slug) {
-        $pirepwgt = PirepFieldValue::select('id', 'value')->where('pirep_id', $pirep->id)->where('slug', $slug)->first();
-        $pirepac = PirepFieldValue::select('id', 'value')->where('pirep_id', $pirep->id)->where('slug', 'aircraft')->first();
+      if ($pirepid && $slug) {
+        $pirepwgt = DB::table('pirep_field_values')->select('id', 'value')->where(['pirep_id' => $pirepid, 'slug' => $slug])->first();
+        $pirepac = DB::table('pirep_field_values')->select('id', 'value')->where(['pirep_id' => $pirepid, 'slug' => 'aircraft'])->first();
       }
 
-      if ($pirepac) {
-        $specs = Disposable_Specs::select('id', 'stitle', $specselect)->where('aircraft_id', $pirep->aircraft_id)
-                              ->whereNotNull('stitle')->whereNotNull($specselect)->where('active', 1)
-                              ->orwhere('subfleet_id', $pirep->aircraft->subfleet_id)
-                              ->whereNotNull('stitle')->whereNotNull($specselect)->where('active', 1)
-                              ->get();
+      if (isset($pirepac) && isset($specselect)) {
+        $spec_pirep = Pirep::with('aircraft')->select('id', 'aircraft_id')->where('id', $pirepid)->first();
+        $specs = Dispo_GetAcSpecs($spec_pirep->aircraft);
         foreach ($specs as $spec) {
-          if (stripos($pirepac->value, $spec->stitle) !== false) {
-            $specwgt = $spec->$specselect;
-          }
+          if (filled($spec->stitle) && stripos($pirepac->value, $spec->stitle) !== false) { $specwgt = $spec->$specselect; }
         }
       }
 
-      // Check User Weight Settings and Convert Pirep Weight
-      if ($pirepwgt && setting('units.weight') === 'kg') {
-        $pirepwgt->value = $pirepwgt->value / 2.20462262185 ;
+      if (isset($pirepwgt) && setting('units.weight') === 'kg') {
+        $pirepwgt->value = round(floatval($pirepwgt->value) / 2.20462262185, 2) ;
       }
-      // Do The Final Check and Return
-      if ($pirepwgt && $specwgt && $pirepwgt->value > $specwgt) {
-        return "<span class='badge badge-danger ml-1 mr-1' title='Max: ".number_format($specwgt)." ".setting('units.weight')."'>OVERWEIGHT !</span>";
+
+      if (isset($pirepwgt) && isset($specwgt) && floatval($pirepwgt->value) > $specwgt) {
+        return '<span class="badge badge-danger ml-1 mr-1" title="Max: '.number_format($specwgt).' '.setting('units.weight').'">OVERWEIGHT !</span>';
       }
     }
   }
@@ -176,7 +183,7 @@ if (!function_exists('Dispo_CheckWeights')) {
 if (!function_exists('Dispo_Flaps')) {
   // Check Flap and Gear Speeds
   // Return formatted string (with html tags)
-  function Dispo_Flaps($aircraft_icao,$log_value) {
+  function Dispo_Flaps($aircraft_icao, $log_value) {
     // Check if this is a flap or gear related log entry
     $result = $log_value;
     $check_type = null;
@@ -202,7 +209,7 @@ if (!function_exists('Dispo_Flaps')) {
       $ops_name = substr($log_value, 0, $first_seperator);
       // Check the operation type and get gear speed from DB
       if ($ops_name === 'Gear Up') { $ops_type = 'gear_retract'; } else { $ops_type = 'gear_extend'; }
-      $gear = Disposable_Flaps::where('icao', $aircraft_icao)->where('active', 1)->select($ops_type.' as speed')->first();
+      $gear = Disposable_Tech::where(['icao' => $aircraft_icao, 'active' => 1])->select($ops_type.' as speed')->first();
       // Build new result and add overspeed warning if necessary
       if (isset($gear) && $ops_speed > 0 && $gear->speed > 0 && $ops_speed > $gear->speed) {
         $warning_badge = "<span class='badge badge-danger ml-1 mr-1' title='Max: ".$gear->speed." kts'>GEAR OVERSPEED !</span>";
@@ -215,7 +222,7 @@ if (!function_exists('Dispo_Flaps')) {
     if ($check_type === 'FLAP') {
       $flap_detent = str_replace('Flaps set to ','',substr($log_value, 0, $first_seperator));
       // Get Flap Speed Limit From DB
-      $flaps = Disposable_Flaps::where('icao', $aircraft_icao)->where('active', 1)->first();
+      $flaps = Disposable_Tech::where(['icao' => $aircraft_icao, 'active' => 1])->first();
       if (isset($flaps)) { $maxspeed = $flaps->flapspeeds()->get($flap_detent); }
       // Build new result and add overspeed warning if necessary
       $result = 'Flaps '.$flap_detent.$ops_info;

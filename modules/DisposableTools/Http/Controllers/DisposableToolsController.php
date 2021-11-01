@@ -12,36 +12,45 @@ use App\Models\Pirep;
 use App\Models\Subfleet;
 use App\Models\User;
 use App\Models\UserFieldValue;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 use Laracasts\Flash\Flash;
 
 class DisposableToolsController extends Controller
 {
   // Admin Page
-  public function admin(Request $request) {
+  public function admin()
+  {
+    // Get Settings (for Disposable Tools Module)
+    $settings = DB::table('disposable_settings')->where('key', 'LIKE', 'dtools.%')->get();
 
-    if($request->input('action') === 'whazzup') {
-      $network_selection = $request->input('network');
-      if ($network_selection === 'IVAO') {
-        $key_fn = 'dtools.whazzup_ivao_fieldname';
-        $key_ri = 'dtools.whazzup_ivao_refresh';
-      } elseif ($network_selection === 'VATSIM') {
-        $key_fn = 'dtools.whazzup_vatsim_fieldname';
-        $key_ri = 'dtools.whazzup_vatsim_refresh';
-      }
-      $field_name = $request->input('field_name');
-      $refresh_interval = $request->input('refresh_interval');
-      $this->ChangeDisposableSettings($key_fn, $field_name);
-      $this->ChangeDisposableSettings($key_ri, $refresh_interval);
-      Flash::success($network_selection.' WhazzUp Widget Settings Updated');
-    }
-
-    return view('DisposableTools::admin');
+    return view('DisposableTools::admin', [
+      'settings' => $settings,
+    ]);
   }
 
-  public function dbcheck() {
+  // Settings Update
+  public function update()
+  {
+    // Get All Items from POST
+    $formdata = Request::post();
+    $section = null;
+    foreach ($formdata as $id => $value) {
+      if ($id === 'group') { $section = $value; }
+      $setting = DB::table('disposable_settings')->where('id', $id)->first();
+      if (!$setting) { continue; }
+      Log::debug('Disposable Tools: '.$setting->group.' setting for '.$setting->name.' changed to '.$value);
+      DB::table('disposable_settings')->where(['id' => $setting->id])->update(['value' => $value]);
+    }
 
+    Flash::success($section.' Settings Saved.');
+    return redirect(route('DisposableTools.admin'));
+  }
+
+  // Database Checks
+  public function dbcheck()
+  {
     // Build Arrays from what we have
     $current_users = User::pluck('id')->toArray();
     $current_airports = Airport::pluck('id')->toArray();
@@ -66,25 +75,19 @@ class DisposableToolsController extends Controller
     $users_comp = User::whereNotIn('airline_id', $current_airlines)->pluck('id')->toArray();
     $users_field = UserFieldValue::whereNotIn('user_id', $current_users)->pluck('id')->toArray();
 
-    return view('DisposableTools::dbcheck',
-      [
-        'acars_pirep' => $acars_pirep,
-        'fleet_comp'  => $fleet_comp,
-        'flight_comp' => $flight_comp,
-        'flight_orig' => $flight_orig,
-        'flight_dest' => $flight_dest,
-        'pirep_user'  => $pirep_user,
-        'pirep_comp'  => $pirep_comp,
-        'pirep_orig'  => $pirep_orig,
-        'pirep_dest'  => $pirep_dest,
-        'pirep_acft'  => $pirep_acft,
-        'users_comp'  => $users_comp,
-        'users_field' => $users_field,
-      ]);
+    return view('DisposableTools::dbcheck', [
+      'acars_pirep' => $acars_pirep,
+      'fleet_comp'  => $fleet_comp,
+      'flight_comp' => $flight_comp,
+      'flight_orig' => $flight_orig,
+      'flight_dest' => $flight_dest,
+      'pirep_user'  => $pirep_user,
+      'pirep_comp'  => $pirep_comp,
+      'pirep_orig'  => $pirep_orig,
+      'pirep_dest'  => $pirep_dest,
+      'pirep_acft'  => $pirep_acft,
+      'users_comp'  => $users_comp,
+      'users_field' => $users_field,
+    ]);
   }
-
-  public function ChangeDisposableSettings($key_name, $key_value) {
-    DB::table('disposable_settings')->upsert([['key' => $key_name, 'value'=> $key_value]],['key'], ['value']);
-  }
-
 }

@@ -23,6 +23,7 @@ return [
   'bestairline' => 'Miglior Comp.Aerea',
   'bestpilot'   => 'Miglior Pilota',
   'landingrate' => 'Rateo Atterraggio',
+  'score'       => 'Punto',
   'ftimemultip' => 'Moltiplicatore Tempo di Volo',
   'airportinfo' => 'Informazioni Aeroporto',
   'selectap'    => 'Seleziona un Aeroporto',

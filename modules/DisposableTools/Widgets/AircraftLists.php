@@ -8,15 +8,15 @@ use App\Models\Airport;
 
 class AircraftLists extends Widget
 {
-  protected $config = ['type' => 'location']; 
+  protected $config = ['type' => 'location'];
 
-  public function run() 
+  public function run()
   {
 
     if ($this->config['type'] === 'icao') {
       $aircraft = Aircraft::selectRaw('count(id) as result, icao')->groupBy('icao')->orderBy('icao', 'asc')->get();
     } else {
-      $aircraft = Aircraft::selectRaw('count(id) as result, airport_id')->whereNotNull('airport_id')->groupBy('airport_id')->orderBy('result', 'desc')->get();
+      $aircraft = Aircraft::with('airport')->selectRaw('count(id) as result, airport_id')->whereNotNull('airport_id')->groupBy('airport_id')->orderBy('result', 'desc')->get();
     }
 
     if ($this->config['type'] === 'nohubs') {
@@ -26,8 +26,8 @@ class AircraftLists extends Widget
     }
 
     return view('DisposableTools::aircraft_lists', [
-      'aircraft' => $aircraft, 
-      'config'   => $this->config,
-      ]);
+      'aircraft' => $aircraft,
+      'config'   => $this->config
+    ]);
   }
 }

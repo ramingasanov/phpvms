@@ -8,6 +8,9 @@ Module provides some widgets and handy tools for phpVMS v7.
 * GitHub Clone : Clone/pull repository to your root/modules/DisposableTools folder
 * PhpVms Module Installer : Go to admin -> addons/modules , click Add New , select downloaded file and click Add Module
 
+Go to admin section and enable the module, that's all  
+After enabling/disabling modules an app cache cleaning process IS necessary (check admin/maintenance)
+
 ## Usage
 
 Call the widgets anywhere you want like you call/load others
@@ -139,18 +142,19 @@ By design widget will refresh its data every 60 seconds automatically when visib
 Shows a Leaflet map of your flights, user pireps or fleet locations. With configuration options results can be limited to an airline, an airport etc.  
 Leatlet map itself can be configured/re-styled via duplicated widget blade file if needed.  
 
-Has 3 main options, these are `source`, `visible` and `limit`.  
+Has 3 main options, these are `source`, `visible` and `limit`. And one conditional option called `airline` which is used to get an airline's fleet.
 Visible and limit should be used in custom cases, provided defaults for them are ok for generic usage.  
 
 if used `source` *can* be an **airport_id** (4 letter ICAO code), an **airline_id** or **user** (not user_id, plain text *user*) or **fleet**.  
 if used `visible` *must* be either false or true (it show visible flights or hides them - default is true like phpvms and only visible flights are used)  
 if used `limit` *must* be a numeric value like **50**, which will limit the flights being drawn on the map. Default is *null* so all flights are drawn.  
+when `'source' => 'fleet'` is used then you can use the `'airline' => $airline_id` (or `'airline' => 3` etc) to filter the results to that airline only.  
 
-* `['source' => 'LTAI']`
-* `['source' => $airport->id]`
-* `['source' => $airline->id, 'limit' => 200]`
-* `['source' => 'user', 'limit' => 100]`
-* `['source' => 'fleet']`
+* `['source' => $airport->id]` *(Will display ALL in/out flights of that Airport)*
+* `['source' => $airline->id, 'limit' => 200]` *(Will display 200 flights of that Airline)*
+* `['source' => 'user', 'limit' => 100]` *(Will display last 100 pireps for the user)*
+* `['source' => 'fleet']` *( All Fleet Members Shown on the map)*
+* `['source' => 'fleet', 'airline' => $airline->id ]` *(Only selected Airline's fleet will be displayed)*
 
 To use the widget at phpvms Flights (list/search) page, there is no need to define a source, just call the widget directly (maybe with some limits).  
 Widget will follow your admin side settings to filter results (like pilots only see their airline's flights or flight's from their current location)  
@@ -227,14 +231,14 @@ Displays an "airline" leaderboard according to **flights**, **flight time** or *
 There are three main options.They are `count`, `type` and `period`;
 
 `count` can be **any number** you want (except 0 of course)  
-`type` can be **flights**, **time** or **distance**  
-`period` can be **currentm**, **lastm**, **prevm**, **currenty** or **lasty**
+`type` can be **flights**, **time**, **distance**, **landingrate**, **score**  
+`period` can be **currentm**, **lastm**, **prevm**, **currenty**, **lasty**, **prevy**
 
 * `['count' => 5, 'type' => 'flights']`
 * `['count' => 10, 'type' => 'time']`
 * `['count' => 8, 'type' => 'distance']`
 
-Default options will give you overall top 3 airlines by their flight counts. If you want to see your "Best" airline, just set the count to 1
+Default options will give you overall top 3 airlines by their flight counts. If you want to see your "Best" airline, just set count to 1
 
 ### Top Airports
 
@@ -257,8 +261,8 @@ Displays a "pilot" leaderboard according to **flights**, **flight time**, **dist
 Widget has four main options called `count`, `type`, `period` and `hub`;
 
 `count` can be **any number** you want (except 0 of course)  
-`type` can be **flights**, **time**, **distance** or **landingrate**  
-`period` can be **currentm**, **lastm**, **prevm**, **currenty** or **lasty**  
+`type` can be **flights**, **time**, **distance**, **landingrate**, **score**  
+`period` can be **currentm**, **lastm**, **prevm**, **currenty**, **lasty**, **prevy**  
 `hub` can be any **airport id** (4 letter icao identifier), prefably one of your hubs  
 
 * `['count' => 5, 'type' => 'flights']`
@@ -268,7 +272,7 @@ Widget has four main options called `count`, `type`, `period` and `hub`;
 * `['count' => 1, 'type' => 'landingrate', 'hub' => 'LTAI']`
 * `['count' => 1, 'type' => 'landingrate', 'hub' => $hub->id]`
 
-Default options will give you the overall top 3 pilots by their flight counts. If you want to see your "Best" pilot, just set the count to 1  
+Default options will give you the overall top 3 pilots by their flight counts. If you want to see your "Best" pilot, just set count to 1  
 
 ### WhazzUp Widgets (IVAO & VATSIM)
 
@@ -295,76 +299,142 @@ All Disposable Modules are capable of displaying customized files located under 
 
 ## Update Notes
 
+19.OCT.21
+* Fixed a date bug effecting Personal Stats, Top Pilots and Top Airlines widgets
+* Added `score` as another config option for Top Pilots and Top Airlines widgets
+* Refactored codes of mentioned widgets and their blades
+
+18.OCT.21
+* Widget and Helpers performance optimizations
+
+13.OCT.21
+* Added missing `Dispo_TimeConvert()` to module helpers.
+
+12.OCT.21
+* Reduced amount of data stored with WhazzUp Widgets to improve database operations  
+*(If you need anything else other than online pilot data like servers or observers etc, just un-comment the lines you need)*
+
+5.OCT.21
+* IVAO/VATSIM WhazzUp Widget code update (nothing visible, just logging server error response and keeping our logs clean)
+
+29.SEP.21
+* Another fix for Flights Map Widget (Hub names had a little problem, thanks to Sir Doug for pointing it out)
+
+27.SEP.21
+
+* Fixed Flights Map Widget (links to flights/pireps was not working)
+* Improved module helpers
+
+23.SEP.21
+
+* Improved the Flights Map Widget, moved all logical operations to controller
+* Added a new option to Flights Map Widget (Displaying an Airline's fleet when needed)
+* Overall code cleanup and some refactoring of widget controllers
+
+17.SEP.21
+
+* Updated Module helpers
+* Updated Widget settings backend
+
+11.SEP.21
+
+* PT-BR Translation (Thanks to Edson Felix)
+
+10.SEP.21
+
+* Fixed FlightBoard Widget (again)
+* Fixed AirportInfo Widget (php8 compatibility)
+
 07.SEP.21
+
 * Fixed RandomFlights Widget's pirep checks.
 * Improved the random flight picker (now it checks already flown flights and tries to offer something new)
 
 06.SEP.21
+
 * Fixed FlightBoard Widget
 * Added Discord Widget
 * Added RandomFlights Widget
 
 01.SEP.21
+
 * Added FlightBoard widget to display active flights (without a map)
 * Added link to DispoDbCheck to module's admin section page
 
 28.AUG.21
+
 * Added a new simple database check page for error identification ( visit `yourphpvms.com/admin/dispodbcheck` )
 * Added another failsafe to WhazzUp Widget (thanks @dougjuk for his patience during the process)
 
 22.AUG.21
+
 * Updated AirportInfo widget, it is now able to use some config options
 
 17.AUG.21
+
 * FlightsMap widget is now capable of displaying fleet member locations.
 * A little bugfix / safety measure applied to AircraftLists widget
 
 15.AUG.21
+
 * Improved AircraftLists widget with a new config option and code cleanup
 * Improved AirportAircraft widget to use DisposableAirlines routes if it is installed
 
 08.AUG.21
+
 * Another fix for SunriseSunset Widget (still uses core php methods to get times)
 
 07.AUG.21
+
 * Code cleanup on some widgets and some improvements
 * Version rounding
 
 24.JUL.21
+
 * Added IVAO and VATSIM WhazzUp Widgets
 * Improved Top Pilots widget to filter results for a Hub when needed
 * Refactored some helpers
 
 08.JUL.21
-* Italian Translation (thanks @Fabietto996)
+
+* IT Translation (thanks @Fabietto996)
 
 06.JUL.21
+
 * Improved helpers to match vmsAcars updates (Flaps & Speeds being reported)
 
 01.JUL.21
+
 * Added new widget to show active aircraft + flight bookings (via SimBrief Planning)
-* Improved German Translation (thanks @GAE074)
+* Improved DE Translation (thanks @GAE074)
 
 18.JUN.21
+
 * FlightMap Widget will show user's flown city pairs with a different color.
 
 10.JUN.21
+
 * Update helpers to show SimBrief Booking state as AC state too.
 
 03.JUN.21
+
 * Failsafe for $user (thanks @derrobin154)
-* German Translation (thanks @derrobin154)
+* DE Translation (thanks @derrobin154)
 
 29.MAY.21
+
 * Removed deprecated `Dispo_FlightTypes` function from module helpers
 
 13.MAY.21
+
 * Added a failsafe to FlightsMap (during initial setup of phpvms, admin has no home or current airport)
 
 12.MAY.21
+
 * Fixed FlightMaps Widget controller (pilot company restriction filter)
 
 11.MAY.21
+
 * Added two new widgets
 * Added Days decoding function
 * Fixed some minor errors in current widgets

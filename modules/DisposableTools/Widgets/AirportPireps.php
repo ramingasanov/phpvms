@@ -13,21 +13,23 @@ class AirportPireps extends Widget
 
   public function run()
   {
-    if(!is_numeric($this->config['count'])) { $this->config['count'] = 250; }
+    if (!is_numeric($this->config['count'])) {
+      $this->config['count'] = 250;
+    }
 
-    $pireps = Pirep::where('dpt_airport_id', $this->config['location'])
-                ->where('state', PirepState::ACCEPTED)
-                ->where('status', PirepStatus::ARRIVED)
-                ->orWhere('arr_airport_id', $this->config['location'])
-                ->where('state', PirepState::ACCEPTED)
-                ->where('status', PirepStatus::ARRIVED)
-                ->orderBy('submitted_at', 'desc')
-                ->take($this->config['count'])
-                ->get();
+    $eager_load = array('aircraft', 'arr_airport', 'dpt_airport', 'user');
+    $where = array('state' => PirepState::ACCEPTED, 'status' => PirepStatus::ARRIVED);
+
+    $pireps = Pirep::with($eager_load)
+      ->where('dpt_airport_id', $this->config['location'])->where($where)
+      ->orWhere('arr_airport_id', $this->config['location'])->where($where)
+      ->orderBy('submitted_at', 'desc')
+      ->take($this->config['count'])
+      ->get();
 
     return view('DisposableTools::airport_pireps', [
       'pireps' => $pireps,
       'config' => $this->config,
-      ]);
+    ]);
   }
 }

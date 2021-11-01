@@ -23,6 +23,7 @@ return [
   'bestairline' => 'Beste Fluggesellschaft',
   'bestpilot'   => 'Bester Pilot',
   'landingrate' => 'Landerate',
+  'score'       => 'Punktzahl',
   'ftimemultip' => 'Flugzeitmultiplikator',
   'airportinfo' => 'Flughafen-Information',
   'selectap'    => 'Bitte wählen Sie einen Flughafen',

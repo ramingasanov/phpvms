@@ -13,27 +13,21 @@ class TopAirports extends Widget
   public function run()
   {
     if ($this->config['type'] === 'dep') {
-
-      $TopAirports = Pirep::select('dpt_airport_id', DB::raw('count(dpt_airport_id) as tusage'))
+      $TopAirports = Pirep::with('dpt_airport')->select('dpt_airport_id', DB::raw('count(dpt_airport_id) as tusage'))
                           ->where('state', 2)
-                          ->orderBy('tusage', 'desc')
-                          ->groupBy('dpt_airport_id')
-                          ->take($this->config['count'])
-                          ->get();
+                          ->orderBy('tusage', 'desc')->groupBy('dpt_airport_id')
+                          ->take($this->config['count'])->get();
 
     } elseif ($this->config['type'] === 'arr') {
-
-      $TopAirports = Pirep::select('arr_airport_id', DB::raw('count(arr_airport_id) as tusage'))
+      $TopAirports = Pirep::with('arr_airport')->select('arr_airport_id', DB::raw('count(arr_airport_id) as tusage'))
                           ->where('state', 2)
-                          ->orderBy('tusage', 'desc')
-                          ->groupBy('arr_airport_id')
-                          ->take($this->config['count'])
-                          ->get();
+                          ->orderBy('tusage', 'desc')->groupBy('arr_airport_id')
+                          ->take($this->config['count'])->get();
     }
 
     return view('DisposableTools::top_airports', [
-        'tairports' => $TopAirports,
-        'config'    => $this->config,
-      ]);
+      'tairports' => $TopAirports,
+      'config'    => $this->config,
+    ]);
   }
 }

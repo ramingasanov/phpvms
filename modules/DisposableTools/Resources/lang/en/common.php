@@ -23,6 +23,7 @@ return [
   'bestairline' => 'Best Airline',
   'bestpilot'   => 'Best Pilot',
   'landingrate' => 'Landing Rate',
+  'score'       => 'Score',
   'ftimemultip' => 'Flight Time Multiplier',
   'airportinfo' => 'Airport Information',
   'selectap'    => 'Please select an Airport',
@@ -34,6 +35,7 @@ return [
   'speed'       => 'Speed',
   // Random Flights Widget
   'randomflt'   => 'Random Flight | Random Flights',
+  'completed'   => 'Completed',
   // Discord Widget
   'onlineusers' => 'Users Online',
   'channels'    => 'Public Channels',

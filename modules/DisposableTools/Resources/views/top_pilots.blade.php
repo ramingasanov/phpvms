@@ -19,7 +19,7 @@
           <tr>
             <th class="text-left">@lang('common.name')</th>
             <th>
-              @if($config['type'] === 'landingrate')
+              @if($config['type'] === 'landingrate' || $config['type'] === 'score')
                 @lang('DisposableTools::common.avg')
               @elseif($config['type'] === 'time')
                 @lang('pireps.flighttime')
@@ -35,7 +35,9 @@
         @endif
         @foreach($tpilots as $tp)
           <tr>
-            <td class="text-left"><a href="{{ route('frontend.profile.show', [$tp->user_id]) }}">{{ $tp->user->name_private ?? 'Deleted User' }}</a></td>
+            <td class="text-left">
+              <a href="{{ route('frontend.profile.show', [$tp->user_id]) }}">{{ $tp->user->name_private ?? 'Deleted User' }}</a>
+            </td>
             <td>
               @if($config['type'] === 'time')
                 @minutestotime($tp->totals)

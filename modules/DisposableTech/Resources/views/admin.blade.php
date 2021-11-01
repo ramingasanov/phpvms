@@ -4,22 +4,10 @@
 @section('content')
   <div class="card border-blue-bottom" style="margin-left:5px; margin-right:5px; margin-bottom:5px;">
     <div class="content">
-      <p>
-        This module is designed to provide aircraft technical specs and runway information, mainly for SimBrief usage.
-        <br>
-        And there are no standalone frontend views/pages. Information provided will blend in SimBrief form if you are using Disposable Theme 
-        and aircraft/subfleet specifications can be shown in aircraft details page too
-      </p>
-      <p>&nbsp;</p>
-      <p>
-        If you need to customize the layouts according to your template please copy relevant blade files from <b>modules\ModuleName\Resources\views</b> 
-        to a folder under your theme folder named <b>modules\ModuleName</b> (case sensitive) and edit files there</p>
-      <p>
-        Example Source: <b>phpvms root\Modules\DisposableTech\Resources\views\specs_table.blade.php</b> * Do Not Edit Source Files, so you can update easily<br>
-        Example 1 Target: <b>phpvms root\Resources\views\layouts\default\modules\DisposableTech\specs_table.blade.php</b><br>
-        Example 2 Target: <b>phpvms root\Resources\views\layouts\Disposable_v2\modules\DisposableTech\specs_table.blade.php</b>
-      </p>
-      <p>&nbsp;</p>
+      <p>This module is designed to provide aircraft technical details, specifications and runway information, mainly for SimBrief usage.<br>
+      <p><b>Details about the module can be found in the README.md file</b></p>
+      <p>&bull; <a href="https://github.com/FatihKoz/DisposableTech#readme" target="_blank">Online Readme</a></p>
+      <hr>
       <p>Module Developed by <a href="https://github.com/FatihKoz" target="_blank">B.Fatih KOZ</a> &copy; 2021</p>
     </div>
   </div>
@@ -32,16 +20,16 @@
       </div>
       <div class="col-sm-5">
         <div class="card border-blue-bottom" style="padding:10px;">
-            <a href="{{ route('DisposableTech.dtacspecs')}}">Define Aircraft or SubFleet Specs</a>
+            <a href="{{ route('DisposableTech.dspecs')}}">Define ICAO Type, Subfleet or Aircraft Specs</a>
             <br><br>
-            Specs will be shown at Aircraft details and Subfleet listing pages, also they may be used for SimBrief Flight planning.
+            Specs will be shown at Aircraft details and Subfleet listing pages, also they may be used for detailed SimBrief Flight planning.
         </div>
       </div>
       <div class="col-sm-5">
         <div class="card border-blue-bottom" style="padding:10px;">
-            <a href="{{ route('DisposableTech.dtacflaps')}}">Define Flap and Gear Specs</a>
+            <a href="{{ route('DisposableTech.dtech')}}">Define Maintenance Periods, Pitch, Roll, Flap and Gear Limits</a>
             <br><br>
-            Flap Names, Speeds and Gear Speeds will be used for Pirep log display and evaluation purposes.
+            Tech details, Flap and Gear Speeds may be used for Pirep evaluation purposes.
         </div>
       </div>
       <div class="col-sm-1">

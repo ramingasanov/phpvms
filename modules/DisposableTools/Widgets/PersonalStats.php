@@ -3,182 +3,162 @@
 namespace Modules\DisposableTools\Widgets;
 
 use App\Contracts\Widget;
-use App\Models\Pirep;
 use App\Models\Enums\PirepState;
 use App\Models\Enums\PirepSource;
 use Illuminate\Support\Facades\Auth;
-use Carbon;
-use Lang;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PersonalStats extends Widget
 {
   protected $config = ['disp' => null, 'user' => null, 'period' => null, 'type' => 'avglanding'];
 
-  public function run() {
+  public function run()
+  {
+    $user_id = $this->config['user'] ?? Auth::id();
+    $period = $this->config['period'];
+    $type = $this->config['type'];
 
-    $userid = $this->config['user'] ?? Auth::user()->id;
-    $periodtext = null;
-    $statname = null;
-    $currtime = Carbon::now();
-    $curryear = $currtime->format('Y');
+    $now = Carbon::now();
+    $current_year = $now->copy()->format('Y');
 
-    // Define Quarters Of Current Year
-    if($this->config['period'] === 'q1') {
-      $quarter_start = $curryear.'-01-01 00:00:01';
-      $quarter_end = $curryear.'-03-31 23:59:59';
-    }
-    elseif($this->config['period'] === 'q2') {
-      $quarter_start = $curryear.'-04-01 00:00:01';
-      $quarter_end = $curryear.'-06-30 23:59:59';
-    }
-    elseif($this->config['period'] === 'q3') {
-      $quarter_start = $curryear.'-07-01 00:00:01';
-      $quarter_end = $curryear.'-09-30 23:59:59';
-    }
-    elseif($this->config['period'] === 'q4') {
-      $quarter_start = $curryear.'-10-01 00:00:01';
-      $quarter_end = $curryear.'-12-31 23:59:59';
+    // Base Date
+    if (is_numeric($period) || $period === 'currentm' || $period === 'currenty') {
+      $b_date = $now;
+    } elseif ($period === 'lastm') {
+      $b_date = $now->subMonthNoOverflow();
+    } elseif ($period === 'prevm') {
+      $b_date = $now->subMonthsNoOverflow(2);
+    } elseif ($period === 'lasty') {
+      $b_date = $now->subYearNoOverflow();
+    } elseif ($period === 'prevy') {
+      $b_date = $now->subYearsNoOverflow(2);
     }
 
-    // Define Main Queries
-    $manualq = Pirep::where('user_id', $userid)->where('state', PirepState::ACCEPTED);
-    $acarsq = Pirep::where('user_id', $userid)->where('state', PirepState::ACCEPTED)->where('source', PirepSource::ACARS);
-    // Define Day Queries
-    if (is_numeric($this->config['period'])) {
-      $currtime = $currtime->subdays($this->config['period']);
-      $manualq = $manualq->where('submitted_at','>=', $currtime);
-      $acarsq = $acarsq->where('submitted_at','>=', $currtime);
-      $periodtext = Lang::get('DisposableTools::common.lastndays', ['period' => $this->config['period']]);
-    }
-    // Define Quarter, Month And Year Queries
-    elseif ($this->config['period'] === 'q1' || $this->config['period'] === 'q2' || $this->config['period'] === 'q3' || $this->config['period'] === 'q4') {
-      $manualq = $manualq->whereBetween('submitted_at', [$quarter_start, $quarter_end]);
-      $acarsq = $acarsq->whereBetween('submitted_at', [$quarter_start, $quarter_end]);
-      $periodtext = $curryear.'/'.strtoupper($this->config['period']);
-    }
-    elseif ($this->config['period'] === 'currentm') {
-      $manualq = $manualq->whereMonth('submitted_at', '=', $currtime->month);
-      $acarsq = $acarsq->whereMonth('submitted_at', '=', $currtime->month);
-      $periodtext = $currtime->format('F');
-    }
-    elseif ($this->config['period'] === 'lastm') {
-      $currtime = $currtime->subMonthNoOverflow();
-      $manualq = $manualq->whereMonth('submitted_at', '=', $currtime->month);
-      $acarsq = $acarsq->whereMonth('submitted_at', '=', $currtime->month);
-      $periodtext = $currtime->format('F');
-    }
-    elseif ($this->config['period'] === 'prevm') {
-      $currtime = $currtime->subMonthsNoOverflow(2);
-      $manualq = $manualq->whereMonth('submitted_at', '=', $currtime->month);
-      $acarsq = $acarsq->whereMonth('submitted_at', '=', $currtime->month);
-      $periodtext = $currtime->format('F');
-    }
-    elseif ($this->config['period'] === 'currenty') {
-      $manualq = $manualq->whereYear('submitted_at', '=', $currtime->year);
-      $acarsq = $acarsq->whereYear('submitted_at', '=', $currtime->year);
-      $periodtext = $currtime->format('Y');
-    }
-    elseif ($this->config['period'] === 'lasty') {
-      $currtime = $currtime->subYearNoOverflow();
-      $manualq = $manualq->whereYear('submitted_at', '=', $currtime->year);
-      $acarsq = $acarsq->whereYear('submitted_at', '=', $currtime->year);
-      $periodtext = $currtime->format('Y');
+    // Period Specific Start and End Dates, Period Text
+    if ($period === 'currenty' || $period === 'lasty' || $period === 'prevy') {
+      // Years
+      $s_date = $b_date->startOfYear();
+      $e_date = $b_date->copy()->endOfYear();
+      $period_text = $b_date->format('Y');
+    } elseif ($period === 'currentm' || $period === 'lastm' || $period === 'prevm') {
+      // Months
+      $s_date = $b_date->startOfMonth();
+      $e_date = $b_date->copy()->endOfMonth();
+      $period_text = $b_date->format('F');
+    } elseif (is_numeric($period)) {
+      // Days
+      $s_date = $b_date->copy()->subdays($period);
+      $e_date = $now;
+      $period_text = __('DisposableTools::common.lastndays', ['period' => $period]);
+    } elseif ($period === 'q1') {
+      // Quarter 1 JAN-FEB-MAR
+      $s_date = $current_year.'-01-01 00:00:01';
+      $e_date = $current_year.'-03-31 23:59:59';
+      $period_text = $current_year.'/'.strtoupper($period);
+    } elseif ($period === 'q2') {
+      // Quarter 2 APR-MAY-JUN
+      $s_date = $current_year.'-04-01 00:00:01';
+      $e_date = $current_year.'-06-30 23:59:59';
+      $period_text = $current_year.'/'.strtoupper($period);
+    } elseif ($period === 'q3') {
+      // Quarter 3 JUL-AUG-SEP
+      $s_date = $current_year.'-07-01 00:00:01';
+      $e_date = $current_year.'-09-30 23:59:59';
+      $period_text = $current_year.'/'.strtoupper($period);
+    } elseif ($period === 'q4') {
+      // Quarter 4 OCT-NOV-DEC
+      $s_date = $current_year.'-10-01 00:00:01';
+      $e_date = $current_year.'-12-31 23:59:59';
+      $period_text = $current_year.'/'.strtoupper($period);
+    } else {
+      // Overall
+      $s_date = '1978-07-15 00:00:01';
+      $e_date = $now;
     }
 
-    // Execute Query
+    $where = [];
+    $where['user_id'] = $user_id;
+    $where['state'] = PirepState::ACCEPTED;
+
     // Average Landing Rate - Acars Only
-    if ($this->config['type'] === 'avglanding') {
-      $PersonalStats = $acarsq->avg('landing_rate');
+    if ($type === 'avglanding') {
+      $where['source'] = PirepSource::ACARS;
+      $select_raw = 'avg(landing_rate)';
+      $stat_name = __('DisposableTools::common.avglanding');
     }
     // Average Score - Acars Only
-    elseif ($this->config['type'] === 'avgscore') {
-      $PersonalStats = $acarsq->avg('score');
+    elseif ($type === 'avgscore') {
+      $where['source'] = PirepSource::ACARS;
+      $select_raw = 'avg(score)';
+      $stat_name = __('DisposableTools::common.avgscore');
     }
-    // Average Distance - Acars Only
-    elseif ($this->config['type'] === 'avgdistance') {
-      $PersonalStats = $acarsq->avg('distance');
+    // Average Distance
+    elseif ($type === 'avgdistance') {
+      $select_raw = 'avg(distance)';
+      $stat_name = __('DisposableTools::common.avgdistance');
     }
-    // Total Distance - Acars Only
-    elseif ($this->config['type'] === 'totdistance') {
-      $PersonalStats = $acarsq->sum('distance');
+    // Total Distance
+    elseif ($type === 'totdistance') {
+      $select_raw = 'sum(distance)';
+      $stat_name = __('DisposableTools::common.totdistance');
     }
     // Average Time
-    elseif ($this->config['type'] === 'avgtime') {
-      $PersonalStats = $manualq->avg('flight_time');
+    elseif ($type === 'avgtime') {
+      $select_raw = 'avg(flight_time)';
+      $stat_name = __('DisposableTools::common.avgtime');
     }
     // Total Time
-    elseif ($this->config['type'] === 'tottime') {
-      $PersonalStats = $manualq->sum('flight_time');
+    elseif ($type === 'tottime') {
+      $select_raw = 'sum(flight_time)';
+      $stat_name = __('DisposableTools::common.tottime');
     }
     // Average Fuel
-    elseif ($this->config['type'] === 'avgfuel') {
-      $PersonalStats = $manualq->avg('fuel_used');
+    elseif ($type === 'avgfuel') {
+      $select_raw = 'avg(fuel_used)';
+      $stat_name = __('DisposableTools::common.avgfuel');
     }
     // Total Fuel
-    elseif ($this->config['type'] === 'totfuel') {
-      $PersonalStats = $manualq->sum('fuel_used');
+    elseif ($type === 'totfuel') {
+      $select_raw = 'sum(fuel_used)';
+      $stat_name = __('DisposableTools::common.totfuel');
     }
     // Total Flights
-    elseif ($this->config['type'] === 'totflight') {
-      $PersonalStats = $manualq->count('score');
+    elseif ($type === 'totflight') {
+      $select_raw = 'count(id)';
+      $stat_name = __('DisposableTools::common.totflight');
     }
 
-    // Add Unit Type If Necessary and Format The Result
-    if ($this->config['type'] === 'avglanding') {
-      $PersonalStats = number_format(round($PersonalStats)) . ' ft/min';
-      $statname = Lang::get('DisposableTools::common.avglanding');
-    }
-    elseif ($this->config['type'] === 'avgscore') {
-      $PersonalStats = number_format(round($PersonalStats));
-      $statname = Lang::get('DisposableTools::common.avgscore');
-    }
-    elseif ($this->config['type'] === 'avgtime' || $this->config['type'] === 'tottime') {
-      round($PersonalStats);
-    }
-    elseif ($this->config['type'] === 'avgdistance' || $this->config['type'] === 'totdistance') {
+    // Execute
+    $result = DB::table('pireps')->selectRaw($select_raw.' as uresult')->where($where)->whereBetween('submitted_at', [$s_date, $e_date])->value('uresult');
+
+    // Format the result according to type
+    if ($type === 'avglanding') {
+      $result = number_format($result).' ft/min';
+    } elseif ($type === 'avgscore') {
+      $result = number_format($result);
+    } elseif ($type === 'avgtime' || $type === 'tottime') {
+      $result = round($result);
+      // $result = Dispo_TimeConvert($result);
+    } elseif ($type === 'avgdistance' || $type === 'totdistance') {
       if(setting('units.distance') === 'km') {
-        $PersonalStats = number_format(round($PersonalStats * 1.852)) . ' km';
+        $result = number_format($result * 1.852).' km';
       } else {
-        $PersonalStats = number_format(round($PersonalStats)) . ' nm';
+        $result = number_format($result).' nm';
       }
-    }
-    elseif ($this->config['type'] === 'avgfuel' || $this->config['type'] === 'totfuel') {
+    } elseif ($type === 'avgfuel' || $type === 'totfuel') {
       if(setting('units.fuel') === 'kg') {
-        $PersonalStats = number_format(round($PersonalStats / 2.20462262185)) . ' kg';
+        $result = number_format($result / 2.20462262185).' kg';
       } else {
-        $PersonalStats = number_format(round($PersonalStats)) . ' lbs';
+        $result = number_format($result).' lbs';
       }
     }
 
-    // Define Text
-    if($this->config['type'] === 'avgdistance') {
-      $statname = Lang::get('DisposableTools::common.avgdistance');
-    }
-    elseif($this->config['type'] === 'totdistance') {
-      $statname = Lang::get('DisposableTools::common.totdistance');
-    }
-    elseif($this->config['type'] === 'avgtime') {
-      $statname = Lang::get('DisposableTools::common.avgtime');
-    }
-    elseif($this->config['type'] === 'tottime') {
-      $statname = Lang::get('DisposableTools::common.tottime');
-    }
-    elseif($this->config['type'] === 'avgfuel') {
-      $statname = Lang::get('DisposableTools::common.avgfuel');
-    }
-    elseif($this->config['type'] === 'totfuel') {
-      $statname = Lang::get('DisposableTools::common.totfuel');
-    }
-    elseif($this->config['type'] === 'totflight') {
-      $statname = Lang::get('DisposableTools::common.totflight');
-    }
-
-    // Return Data To Blade
     return view('DisposableTools::personal_stats', [
-      'pstat'   => $PersonalStats,
-      'sname'   => $statname,
-      'speriod' => $periodtext,
+      'pstat'   => isset($result) ? $result : __('DisposableTools::common.noreports'),
+      'sname'   => isset($stat_name) ? $stat_name : null,
+      'speriod' => isset($period_text) ? '('.$period_text.')' : null,
       'config'  => $this->config,
-      ]);
+    ]);
   }
 }

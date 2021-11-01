@@ -91,9 +91,9 @@
               @endisset
             </div>
             <div class="col text-center">
-              @isset($subfleet)
-                <b>{{ trans_choice('common.flight',2) }}:</b> {{ $subfleet->flights->count() }}
-              @endisset
+              @if(isset($subfleet) && $subfleet->flights_count > 0)
+                <b>{{ trans_choice('common.flight',2) }}:</b> {{ $subfleet->flights_count }}
+              @endif
             </div>
             <div class="col text-right">
               <b>@lang('DisposableAirlines::common.totfleet'):</b> {{ $fleet->total() }}

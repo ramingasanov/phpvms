@@ -22,6 +22,8 @@ class TechServiceProvider extends ServiceProvider
     $this->registerLinks();
 
     $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
+
+    app('arrilot.widget-namespaces')->registerNamespace('DisposableTech', 'Modules\DisposableTech\Widgets');
   }
 
   /** Register The Service Provider **/
@@ -60,14 +62,12 @@ class TechServiceProvider extends ServiceProvider
       Route::group([],
         function () {
         Route::get('disposabletech', 'TechAdminController@dtadmin')->name('techadmin');
-        // Aircraft And Subfleet Specs Admin Routes
-        Route::get('dtacspecs', 'TechSpecsController@dtspecs')->name('dtacspecs');
-        Route::post('dtstorespecs', 'TechSpecsController@dtstorespecs')->name('dtstorespecs');
-        Route::post('dtupdatespecs', 'TechSpecsController@dtupdatespecs')->name('dtupdatespecs');
+        // Addon Based Specs Admin Routes
+        Route::get('dspecs', 'TechSpecsController@dspecs')->name('dspecs');
+        Route::post('dstorespecs', 'TechSpecsController@dstorespecs')->name('dstorespecs');
         // ICAO Based Flaps Admin Routes
-        Route::get('dtacflaps', 'TechFlapsController@dtacflaps')->name('dtacflaps');
-        Route::post('dtstoreflaps', 'TechFlapsController@dtstoreflaps')->name('dtstoreflaps');
-        Route::post('dtupdateflaps', 'TechFlapsController@dtupdateflaps')->name('dtupdateflaps');
+        Route::get('dtech', 'TechFlapsController@dtech')->name('dtech');
+        Route::post('dstoretech', 'TechFlapsController@dstoretech')->name('dstoretech');
         });
     });
   }

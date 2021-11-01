@@ -8,30 +8,22 @@ use App\Repositories\AirportRepository;
 // Widget Designed By MacoFallico, slightly enhanced By FatihKoz
 class AirportInfo extends Widget
 {
-  private $airportRepo;
-
   protected $config = ['type' => 'all'];
-
-  public function __construct(
-    array $config = [],
-    AirportRepository $airportRepo
-  ) {
-    parent::__construct($config);
-    $this->airportRepo = $airportRepo;
-  }
 
   public function run()
   {
-    $airports = $this->airportRepo->select('id', 'name', 'location', 'country', 'hub')->orderBy('id')->get();
+    $airportRepo = app(AirportRepository::class);
 
-    if($this->config['type'] === 'hubs') {
-      $airports = $airports->where('hub', 1);
-      if(Dispo_Modules('DisposableHubs')) { $aptroute = 'DisposableHubs.hshow'; }
+    $where = [];
+    if ($this->config['type'] === 'hubs') {
+      $where['hub'] = 1;
+      if (Dispo_Modules('DisposableHubs')) { $aptroute = 'DisposableHubs.hshow'; }
+    }
+    elseif ($this->config['type'] === 'nohubs') {
+      $where['hub'] = 0;
     }
 
-    if($this->config['type'] === 'nohubs') {
-      $airports = $airports->where('hub', 0);
-    }
+    $airports = $airportRepo->select('id', 'iata', 'name', 'location', 'country', 'hub')->where($where)->orderBy('id')->get();
 
     return view('DisposableTools::airport_info', [
       'airports' => $airports,

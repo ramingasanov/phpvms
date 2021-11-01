@@ -1,48 +1,46 @@
 @extends('admin.app')
-@section('title', 'Disposable Flaps & Gear Specs')
+@section('title', 'Disposable ICAO Type Tech Specs')
 
 @section('content')
   <div class="card border-blue-bottom" style="margin-left:5px; margin-right:5px; margin-bottom:5px;">
     <div class="content">
-      <p>Flap and Gear specification are defined and saved per AIRCRAFT ICAO TYPE</p>
-      <p>Flap speeds are optional (only names can be defined to have better acars log display).</p>
-      <p>When defined (including Gear and Tire Speeds) all will be checked against the pirep and results will be displayed</p>
-      <p>Speeds should be defined as <b>IAS and unit type is KNOTS</b> (as per PhpVms internal unit types and acars readings)</p>
-      <p>&nbsp;</p>
+      <p>Details defined here are based on <b>AIRCRAFT ICAO TYPE</b>. All values are optional, if defined properly per ICAO type, values may be used for pirep checks and maintenance events.</p>
+      <br>
       <p>Developed by <a href="https://github.com/FatihKoz" target="_blank">B.Fatih KOZ</a> &copy; 2021</p>
     </div>
   </div>
 
-  <div class="row text-center" style="margin:10px;"><h4 style="margin: 5px; padding:0px;"><b>ICAO Type Flap And Gear Speed Definitions</b></h4></div>
+  <div class="row text-center" style="margin:10px;"><h4 style="margin: 5px; padding:0px;"><b>ICAO Type Maintenance Check Periods, Pitch, Roll, Flap And Gear Speed Definitions</b></h4></div>
 
   <div class="row" style="margin-left:5px; margin-right:5px;">
     <div class="card border-blue-bottom" style="padding:10px;">
+      {{ Form::open(array('route' => 'DisposableTech.dstoretech', 'method' => 'post')) }}
       @if($flap && $flap->id)
-        {{ Form::open(array('action' => '\Modules\DisposableTech\Http\Controllers\TechFlapsController@dtupdateflaps', 'method' => 'post')) }}
         <input type="hidden" name="id" value="{{ $flap->id }}">
-        <input type="hidden" name="edit_icao" value="{{ $flap->icao }}">
-      @else
-        {{ Form::open(array('action' => '\Modules\DisposableTech\Http\Controllers\TechFlapsController@dtstoreflaps', 'method' => 'post')) }}
+        <input type="hidden" name="icao" value="{{ $flap->icao ?? '' }}">
       @endif
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-3">
             <label class="pl-1 mb-1" for="subfleet_id">Select A Record for Editing</label>
-            <select id="flap_selection" class="form-control" onchange="checkselection()">
+            <select id="flap_selection" class="form-control select2" onchange="checkselection()">
               <option value="0">Please Select A Record</option>
               @foreach($flaps as $listflap)
-                <option value="{{ $listflap->id }}" @if($flap && $listflap->id == $flap->id) selected @endif>{{ $listflap->id }} : {{ $listflap->icao }} @if($listflap->active == 1) (Active) @endif</option>
+                <option value="{{ $listflap->id }}" @if($flap && $listflap->id == $flap->id) selected @endif>{{ $listflap->icao }} @if($listflap->active == 1) (Active) @endif</option>
               @endforeach
             </select>
           </div>
           <div class="col-sm-3 text-left align-middle"><br>
-            <a id="edit_link" style="visibility: hidden" href="{{ route('DisposableTech.dtacflaps') }}" class="btn btn-primary pl-1 mb-1">Load Selected Record For Edit</a>
+            <a id="edit_link" style="visibility: hidden" href="{{ route('DisposableTech.dtech') }}" class="btn btn-primary pl-1 mb-1">Load Selected Record For Edit</a>
+          </div>
+          <div class="col-sm-3 text-left align-middle"><br>
+            <a id="delete_link" style="visibility: hidden" href="{{ route('DisposableTech.dtech') }}" class="btn btn-danger pl-1 mb-1">Delete !</a>
           </div>
         </div>
         @if(!$flap)
           <div class="row" style="margin-bottom: 10px;">
             <div class="col-sm-3">
-              <label class="pl-1 mb-1" for="icao">ICAO Type</label>
-              <select id="icao_selection" name="icao" class="form-control">
+              <label class="pl-1 mb-1" for="icao">Or Select ICAO Type To Create New Record</label>
+              <select id="icao_selection" name="icao" class="form-control select2">
                 <option value="0">Please Select An ICAO Type Code</option>
                 @foreach($icao as $ic)
                   <option value="{{ $ic->icao }}" @if($flap && $ic->icao == $flap->icao) selected @endif>{{ $ic->icao }}</option>
@@ -51,6 +49,8 @@
             </div>
           </div>
         @endif
+        {{-- Flaps --}}
+        <hr>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-2">
             <label class="pl-1 mb-1" for="f0_name">Detent 0</label>
@@ -132,6 +132,8 @@
             </div>
           </div>
         </div>
+        {{-- Gear Speeds, Pitch and Roll --}}
+        <hr>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-2">
             <label class="pl-1 mb-1" for="gear_extend">Gear Extension Speed</label>
@@ -145,10 +147,58 @@
             <label class="pl-1 mb-1" for="gear_maxtire">Max. Tire Speed</label>
             <input name="gear_maxtire" type="number" class="form-control" placeholder="190 Kts" min="0" max="999" value="{{ $flap->gear_maxtire ?? '' }}">
           </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="max_pitch">Max. Pitch Angle (TO/LND)</label>
+            <input name="max_pitch" type="number" class="form-control" placeholder="13.5 &deg;" min="0" max="99" step="0.1" value="{{ $flap->max_pitch ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="max_roll">Max. Roll Angle (TO/LND)</label>
+            <input name="max_roll" type="number" class="form-control" placeholder="7.4 &deg;" min="0" max="99" step="0.1" value="{{ $flap->max_roll ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="avg_fuel">Avg. Fuel Burn (lbs/hour)</label>
+            <input name="avg_fuel" type="number" class="form-control" placeholder="98.42 lbs/hour" min="0" max="9999" step="0.01" value="{{ $flap->avg_fuel ?? '' }}">
+          </div>
         </div>
-
+        {{-- Maintenance Check Limits --}}
+        <hr>
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="max_cycle_a">A Check (Cycle)</label>
+            <input name="max_cycle_a" type="number" class="form-control" placeholder="250 flights" min="0" max="99999" value="{{ $flap->max_cycle_a ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="max_time_a">A Check (Flight Time)</label>
+            <input name="max_time_a" type="number" class="form-control" placeholder="500 flight hours" min="0" max="99999" value="{{ $flap->max_time_a ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="duration_a">A Check Duration (Hours)</label>
+            <input name="duration_a" type="number" class="form-control" placeholder="10 hours" min="0" max="9999" step="0.01" value="{{ $flap->duration_a ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="max_cycle_b">B Check (Cycle)</label>
+            <input name="max_cycle_b" type="number" class="form-control" placeholder="500 flights" min="0" max="99999" value="{{ $flap->max_cycle_b ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="max_time_b">B Check (Flight Time)</label>
+            <input name="max_time_b" type="number" class="form-control" placeholder="1000 flight hours" min="0" max="99999" value="{{ $flap->max_time_b ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="duration_b">B Check Duration (Hours)</label>
+            <input name="duration_b" type="number" class="form-control" placeholder="48 hours" min="0" max="9999" step="0.01" value="{{ $flap->duration_b ?? '' }}">
+          </div>
+          <div class="col-sm-2">
+            <label class="pl-1 mb-1" for="max_cycle_c">C Check (Cycle)</label>
+            <input name="max_cycle_c" type="number" class="form-control" placeholder="2500 flights" min="0" max="99999" value="{{ $flap->max_cycle_c ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="max_time_c">C Check (Flight Time)</label>
+            <input name="max_time_c" type="number" class="form-control" placeholder="5000 flight hours" min="0" max="99999" value="{{ $flap->max_time_c ?? '' }}">
+            <br>
+            <label class="pl-1 mb-1" for="duration_c">C Check Duration (Hours)</label>
+            <input name="duration_c" type="number" class="form-control" placeholder="120 hours" min="0" max="9999" step="0.01" value="{{ $flap->duration_c ?? '' }}">
+          </div>
+        </div>
+        {{-- Form Actions --}}
+        <hr>
         <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-2 text-left">
+            <input type="hidden" name="active" value="0">
             <label class="pl-1 mb-1" for="active">Active <input name="active" type="checkbox" @if($flap && $flap->active == 1) checked="true" @endif class="form-control" value="1"></label>
           </div>
           <div class="col-sm-10 text-right">
@@ -173,13 +223,17 @@
     function checkselection() {
       if (document.getElementById("flap_selection").value === "0") {
         document.getElementById('edit_link').style.visibility = 'hidden';
+        document.getElementById('delete_link').style.visibility = 'hidden';
       } else {
         document.getElementById('edit_link').style.visibility = 'visible';
+        document.getElementById('delete_link').style.visibility = 'visible';
       }
       const selectedflap = document.getElementById("flap_selection").value;
       const newlink = "?editflaps=".concat(selectedflap);
+      const deletelink = "?deleteflaps=".concat(selectedflap);
 
       document.getElementById("edit_link").href = $oldlink.concat(newlink);
+      document.getElementById("delete_link").href = $oldlink.concat(deletelink);
     }
   </script>
 @endsection

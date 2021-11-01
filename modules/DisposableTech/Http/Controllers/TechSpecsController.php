@@ -3,178 +3,103 @@
 namespace Modules\DisposableTech\Http\Controllers;
 
 use App\Contracts\Controller;
-use App\Repositories\AircraftRepository;
-use App\Repositories\SubfleetRepository;
-use Modules\DisposableTech\Models\Disposable_Specs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
+use Modules\DisposableTech\Models\Disposable_Specs;
 
 class TechSpecsController extends Controller
 {
-  private $aircraftRepo;
-  private $subfleetRepo;
-
-  public function __construct(
-      AircraftRepository $aircraftRepo,
-      SubfleetRepository $subfleetRepo
-  ) {
-      $this->aircraftRepo = $aircraftRepo;
-      $this->subfleetRepo = $subfleetRepo;
-  }
   // Admin Specs Page
-  public function dtspecs(Request $request) {
+  public function dspecs(Request $request) {
 
-    //Get SubFleet List
-    $subfleets = $this->subfleetRepo->get();
-    $aircrafts = $this->aircraftRepo->select('id', 'name', 'registration', 'icao')->get();
-    $allspecs = Disposable_Specs::get();
-    $specs = null;
+    if ($request->input('deletesp')) {
+      $specs = Disposable_Specs::where('id', $request->input('deletesp'))->first();
+      if (!$specs) {
+        Flash::error('Record Not Found !');
+        return redirect(route('DisposableTech.techadmin'));
+      } else {
+        $specs->delete();
+        Flash::warning('Record Deleted !');
+      }
+    }
 
-    if($request->input('editsp')) {
-      $specs = Disposable_Specs::where('id', $request->input('editsp'))->first();
-      if(!$specs)
-      {
+    if ($request->input('editsp')) {
+      $specs = Disposable_Specs::with('aircraft', 'subfleet')->where('id', $request->input('editsp'))->first();
+      if (!$specs) {
         Flash::error('Record Not Found !');
         return redirect(route('DisposableTech.techadmin'));
       }
     }
 
+    //Get SubFleet List
+    $icaotypes = DB::table('aircraft')->select('icao')->whereNotNull('icao')->groupBy('icao')->orderby('icao')->pluck('icao')->toArray();
+    $subfleets = DB::table('subfleets')->select('id', 'name', 'type')->orderby('name')->get();
+    $aircraft = DB::table('aircraft')->select('id', 'name', 'registration', 'icao')->orderby('registration')->get();
+    $allspecs = Disposable_Specs::with('aircraft', 'subfleet')->get();
+
     return view('DisposableTech::admin_acspecs',[
+      'icaotypes' => $icaotypes,
       'subfleets' => $subfleets,
-      'aircrafts' => $aircrafts,
+      'aircraft'  => $aircraft,
       'allspecs'  => $allspecs,
-      'specs'     => $specs,
+      'specs'     => isset($specs) ? $specs : null,
     ]);
   }
 
-  // Add Specs
-  public function dtstorespecs(Request $request) {
+  // Store Specs
+  public function dstorespecs(Request $request) {
 
-    if($request->active == 1) {
-      $active = 1;
-    } else {
-      $active = 0;
-    }
-
-    if($request->aircraft_id == 0 && $request->subfleet_id == 0) {
-      Flash::error('Nothing To Record !');
+    if (!$request->aircraft_id && !$request->subfleet_id && !$request->icao_id) {
+      Flash::error('Select at least an ICAO Type or Subfleet or Aircraft to record specs !');
       return redirect(route('DisposableTech.techadmin'));
     }
 
-    if(!$request->saircraft) {
-      Flash::error('Name Field Is Required !');
+    if (!$request->saircraft) {
+      Flash::error('Aircraft Name Field Is Required !');
       return redirect(route('DisposableTech.techadmin'));
-    }
-
-    if($request->aircraft_id != 0) {
-      $aircraft_id = $request->aircraft_id;
-      $subfleet_id = null;
-    } else {
-      $aircraft_id = null;
-      $subfleet_id = $request->subfleet_id;
     }
 
     // Create New Record
-    Disposable_Specs::create([
-      'aircraft_id' => $aircraft_id,
-      'subfleet_id' => $subfleet_id,
-      'airframe_id' => $request->airframe_id,
-      'icao'        => $request->icao,
-      'name'        => $request->name,
-      'engines'     => $request->engines,
-      'bew'         => $request->bew,
-      'dow'         => $request->dow,
-      'mzfw'        => $request->mzfw,
-      'mrw'         => $request->mrw,
-      'mtow'        => $request->mtow,
-      'mlw'         => $request->mlw,
-      'mrange'      => $request->mrange,
-      'mceiling'    => $request->mceiling,
-      'mfuel'       => $request->mfuel,
-      'mpax'        => $request->mpax,
-      'mspeed'      => $request->mspeed,
-      'cspeed'      => $request->cspeed,
-      'cat'         => $request->cat,
-      'equip'       => $request->equip,
-      'transponder' => $request->transponder,
-      'pbn'         => $request->pbn,
-      'crew'        => $request->crew,
-      'saircraft'   => $request->saircraft,
-      'stitle'      => $request->stitle,
-      'fuelfactor'  => $request->fuelfactor,
-      'cruiselevel' => $request->cruiselevel,
-      'paxwgt'      => $request->paxwgt,
-      'bagwgt'      => $request->bagwgt,
-      'active'      => $active,
-    ]);
+    Disposable_Specs::updateOrCreate(
+      [
+        'id'          => $request->id,
+      ],[
+        'icao_id'     => $request->icao_id,
+        'aircraft_id' => $request->aircraft_id,
+        'subfleet_id' => $request->subfleet_id,
+        'airframe_id' => $request->airframe_id,
+        'icao'        => $request->icao,
+        'name'        => $request->name,
+        'engines'     => $request->engines,
+        'bew'         => $request->bew,
+        'dow'         => $request->dow,
+        'mzfw'        => $request->mzfw,
+        'mrw'         => $request->mrw,
+        'mtow'        => $request->mtow,
+        'mlw'         => $request->mlw,
+        'mrange'      => $request->mrange,
+        'mceiling'    => $request->mceiling,
+        'mfuel'       => $request->mfuel,
+        'mpax'        => $request->mpax,
+        'mspeed'      => $request->mspeed,
+        'cspeed'      => $request->cspeed,
+        'cat'         => $request->cat,
+        'equip'       => $request->equip,
+        'transponder' => $request->transponder,
+        'pbn'         => $request->pbn,
+        'crew'        => $request->crew,
+        'saircraft'   => $request->saircraft,
+        'stitle'      => $request->stitle,
+        'fuelfactor'  => $request->fuelfactor,
+        'cruiselevel' => $request->cruiselevel,
+        'paxwgt'      => $request->paxwgt,
+        'bagwgt'      => $request->bagwgt,
+        'active'      => $request->active,
+      ]
+    );
 
-    Flash::success('Specifications Recorded');
-    return redirect(route('DisposableTech.dtacspecs'));
-  }
-
-  // Update Specs
-  public function dtupdatespecs(Request $request) {
-
-    if($request->active == 1) {
-      $active = 1;
-    } else {
-      $active = 0;
-    }
-
-    if($request->aircraft_id == 0 && $request->subfleet_id == 0) {
-      Flash::error('Nothing To Update !');
-      return redirect(route('DisposableTech.techadmin'));
-    }
-
-    if(!$request->saircraft) {
-      Flash::error('Name Field Is Required !');
-      return redirect(route('DisposableTech.techadmin'));
-    }
-
-    if($request->aircraft_id != 0) {
-      $aircraft_id = $request->aircraft_id;
-      $subfleet_id = null;
-    } else {
-      $aircraft_id = null;
-      $subfleet_id = $request->subfleet_id;
-    }
-
-    // Get The Record And Update
-    Disposable_Specs::where('id', $request->id)->update([
-      'id'          => $request->id,
-      'aircraft_id' => $aircraft_id,
-      'subfleet_id' => $subfleet_id,
-      'airframe_id' => $request->airframe_id,
-      'icao'        => $request->icao,
-      'name'        => $request->name,
-      'engines'     => $request->engines,
-      'bew'         => $request->bew,
-      'dow'         => $request->dow,
-      'mzfw'        => $request->mzfw,
-      'mrw'         => $request->mrw,
-      'mtow'        => $request->mtow,
-      'mlw'         => $request->mlw,
-      'mrange'      => $request->mrange,
-      'mceiling'    => $request->mceiling,
-      'mfuel'       => $request->mfuel,
-      'mpax'        => $request->mpax,
-      'mspeed'      => $request->mspeed,
-      'cspeed'      => $request->cspeed,
-      'cat'         => $request->cat,
-      'equip'       => $request->equip,
-      'transponder' => $request->transponder,
-      'pbn'         => $request->pbn,
-      'crew'        => $request->crew,
-      'saircraft'   => $request->saircraft,
-      'stitle'      => $request->stitle,
-      'fuelfactor'  => $request->fuelfactor,
-      'cruiselevel' => $request->cruiselevel,
-      'paxwgt'      => $request->paxwgt,
-      'bagwgt'      => $request->bagwgt,
-      'active'      => $active,
-    ]);
-
-    Flash::success('Specifications Updated');
-    return redirect(route('DisposableTech.dtacspecs'));
+    Flash::success('Specifications Saved');
+    return redirect(route('DisposableTech.dspecs'));
   }
 }

@@ -17,7 +17,9 @@
           <tr>
             <th class="text-left">@lang('common.name')</th>
             <th>
-              @if($config['type'] === 'time')
+              @if($config['type'] === 'landingrate' || $config['type'] === 'score')
+                @lang('DisposableTools::common.avg')
+              @elseif($config['type'] === 'time')
                 @lang('pireps.flighttime')
               @elseif($config['type'] === 'distance')
                 @lang('common.distance')

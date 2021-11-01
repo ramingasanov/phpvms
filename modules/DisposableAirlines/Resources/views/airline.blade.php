@@ -6,26 +6,38 @@
     {{-- LEFT --}}
     <div class="col-9">
       <ul class="nav nav-pills nav-fill mb-2" id="pills-tab" role="tablist">
-        <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispo-pills active" id="pills-fleet-tab" data-toggle="pill" href="#pills-fleet" role="tab" aria-controls="pills-fleet" aria-selected="true">@lang('DisposableAirlines::common.fleet')</a>
-        </li>
-        <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispo-pills" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="false">@lang('DisposableAirlines::common.pilots')</a>
-        </li>
-        <li class="nav-item pr-1 pl-1" role="presentation">
-          <a class="nav-link dispo-pills" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableAirlines::common.pireps')</a>
-        </li>
+        @if($airline->subfleets->count() > 0)
+          <li class="nav-item pr-1 pl-1" role="presentation">
+            <a class="nav-link dispo-pills active" id="pills-fleet-tab" data-toggle="pill" href="#pills-fleet" role="tab" aria-controls="pills-fleet" aria-selected="true">@lang('DisposableAirlines::common.fleet')</a>
+          </li>
+        @endif
+        @if($users->count() > 0)
+          <li class="nav-item pr-1 pl-1" role="presentation">
+            <a class="nav-link dispo-pills" id="pills-pilots-tab" data-toggle="pill" href="#pills-pilots" role="tab" aria-controls="pills-pilots" aria-selected="false">@lang('DisposableAirlines::common.pilots')</a>
+          </li>
+        @endif
+        @if($pireps->count() > 0)
+          <li class="nav-item pr-1 pl-1" role="presentation">
+            <a class="nav-link dispo-pills" id="pills-pireps-tab" data-toggle="pill" href="#pills-pireps" role="tab" aria-controls="pills-pireps" aria-selected="false">@lang('DisposableAirlines::common.pireps')</a>
+          </li>
+        @endif
       </ul>
       <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-fleet" role="tabpanel" aria-labelledby="pills-fleet-tab">
-          @include('DisposableAirlines::airline_fleet')
-        </div>
-        <div class="tab-pane fade" id="pills-pilots" role="tabpanel" aria-labelledby="pills-pilots-tab">
-          @include('DisposableAirlines::airline_pilots')
-        </div>
-        <div class="tab-pane fade" id="pills-pireps" role="tabpanel" aria-labelledby="pills-pireps-tab">
-          @include('DisposableAirlines::airline_pireps')
-        </div>
+        @if($airline->subfleets->count() > 0)
+          <div class="tab-pane fade show active" id="pills-fleet" role="tabpanel" aria-labelledby="pills-fleet-tab">
+            @include('DisposableAirlines::airline_fleet')
+          </div>
+        @endif
+        @if($users->count() > 0)
+          <div class="tab-pane fade" id="pills-pilots" role="tabpanel" aria-labelledby="pills-pilots-tab">
+            @include('DisposableAirlines::airline_pilots')
+          </div>
+        @endif
+        @if($pireps->count() > 0)
+          <div class="tab-pane fade" id="pills-pireps" role="tabpanel" aria-labelledby="pills-pireps-tab">
+            @include('DisposableAirlines::airline_pireps')
+          </div>
+        @endif
       </div>
     </div>
     {{-- RIGHT --}}
@@ -64,6 +76,7 @@
         @endif
       </div>
       @if($disptools)
+        @widget('Modules\DisposableTools\Widgets\FlightsMap', ['source' => 'fleet', 'airline' => $airline->id])
         @widget('Modules\DisposableTools\Widgets\FlightsMap', ['source' => $airline->id])
       @endif
       @if($disptools && $pireps->count() > 0)

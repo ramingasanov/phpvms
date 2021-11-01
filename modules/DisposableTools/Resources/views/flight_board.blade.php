@@ -24,7 +24,7 @@
             <td class="text-left align-middle" style="width: 50px;">
               @if(filled($flight->airline->logo))
                 <img src="{{ $flight->airline->logo }}" style="max-height: 30px;">
-              @else 
+              @else
                 {{ $flight->airline->name }}
               @endif
             </td>
@@ -44,15 +44,15 @@
             </td>
             <td class="align-middle">
               @if(Dispo_Modules('DisposableAirlines'))
-              <a href="{{ route('DisposableAirlines.daircraft', [$flight->aircraft->registration]) }}">
-                {{ $flight->aircraft->registration.' ('.$flight->aircraft->icao.')' }}
-              </a>
-              @else 
+                <a href="{{ route('DisposableAirlines.daircraft', [$flight->aircraft->registration]) }}">
+                  {{ $flight->aircraft->registration.' ('.$flight->aircraft->icao.')' }}
+                </a>
+              @else
                 {{ $flight->aircraft->registration.' ('.$flight->aircraft->icao.')' }}
               @endif
             </td>
-            <td class="align-middle">{{ optional($flight->acars)->last()->altitude }} ft</td>
-            <td class="align-middle">{{ optional($flight->acars)->last()->gs }} kts</td>
+            <td class="align-middle">{{ optional($flight->position)->altitude.' ft' }}</td>
+            <td class="align-middle">{{ optional($flight->position)->gs.' kts' }}</td>
             <td class="align-middle">{{ PirepStatus::label($flight->status) }}</td>
             <td class="text-right align-middle">
               <a href="{{ route('frontend.profile.show', [$flight->user_id]) }}">{{ $flight->user->name_private }}</a>

@@ -15,6 +15,7 @@ class Disposable_RandomFlight extends Model
     'user_id',
     'airport_id',
     'flight_id',
+    'pirep_id',
     'assign_date',
   ];
 
@@ -23,8 +24,24 @@ class Disposable_RandomFlight extends Model
     'user_id'     => 'nullable',
     'airport_id'  => 'nullable',
     'flight_id'   => 'nullable',
+    'pirep_id'    => 'nullable',
     'assign_date' => 'nullable',
   ];
+
+  // Completed Attribute
+  public function getCompletedAttribute()
+  {
+    $pirep = Pirep::where([
+      'user_id'   => $this->user_id,
+      'flight_id' => $this->flight_id,
+      'state'     => 2,
+      'status'    => 'ONB',
+    ])->whereDate('submitted_at', $this->assign_date)->first();
+
+    if (!is_null($pirep)) { $completed = true; } else { $completed = false; }
+
+    return $completed;
+  }
 
   // Relationship To User
   public function user()

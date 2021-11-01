@@ -8,15 +8,15 @@ use App\Models\Enums\PirepState;
 
 class FlightBoard extends Widget
 {
-  // Set Widget Auto Refresh Time (Seconds)
   public $reloadTimeout = 60;
 
   public function run()
   {
-    $flights = Pirep::where('state', PirepState::IN_PROGRESS)->orderby('updated_at', 'desc')->get();
+    $eager_load = array('aircraft', 'airline', 'arr_airport', 'dpt_airport', 'position', 'user');
+    $flights = Pirep::with($eager_load)->where('state', PirepState::IN_PROGRESS)->orderby('updated_at', 'desc')->get();
 
     return view('DisposableTools::flight_board',[
-      'flights' => $flights,
+      'flights' => $flights
     ]);
   }
 }

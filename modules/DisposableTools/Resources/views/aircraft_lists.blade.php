@@ -28,7 +28,7 @@
               {{ $ac->icao }}
             @else 
               <a href="{{route('frontend.airports.show', [$ac->airport_id])}}">{{ $ac->airport->name ?? $ac->airport_id }}</a>
-              @if ($ac->airport->hub == 1) <i class="fas fa-home ml-1 mr-1 float-right"></i> @endif
+              @if (optional($ac->airport)->hub == 1) <i class="fas fa-home ml-1 mr-1 float-right"></i> @endif
             @endif
           </td>
           <td class="text-right">{{ $ac->result }}</td>

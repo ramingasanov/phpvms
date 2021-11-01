@@ -10,7 +10,7 @@
     <th>@lang('common.state')</th>
     <th>@lang('common.status')</th>
   </tr>
-  @foreach($fleet->where('subfleet_id', $subfleet->id) as $aircraft)
+  @foreach($subfleet->aircraft as $aircraft)
     <tr>
       <td class="text-left">
         <a href="{{ route('DisposableAirlines.daircraft', [$aircraft->registration]) }}">{{ $aircraft->registration }} @if($aircraft->registration != $aircraft->name)'{{ $aircraft->name }}'@endif</a>

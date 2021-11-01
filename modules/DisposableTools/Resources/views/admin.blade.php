@@ -23,25 +23,7 @@
       <div class="card border-blue-bottom" style="padding:10px;">
         <b>IVAO WhazzUp Widget Settings</b>
         <br><br>
-        <form action="/admin/disposabletools" id="whazzupivao">
-          <input type="hidden" name="action" value="whazzup">
-          <input type="hidden" name="network" value="IVAO">
-          <div class="row text-center">
-            <div class="col-sm-12">
-              <label for="field_name">IVAO ID Field Name</label>
-              <input class="form-control" type="text" id="field_name" name="field_name" placeholder="IVAO" maxlength="20" value="{{ Dispo_Settings('dtools.whazzup_ivao_fieldname') }}">
-            </div>
-          </div>
-          <div class="row text-center">
-            <div class="col-sm-12">
-              <label for="refresh_interval">Refresh Interval (seconds)</label>
-              <input class="form-control" type="number" id="refresh_interval" name="refresh_interval" placeholder="60" min="15" max="1200" value="{{ Dispo_Settings('dtools.whazzup_ivao_refresh') }}">
-            </div>
-          </div>
-          <input type="submit" value="Save Widget Settings">
-        </form>
-        <br>
-        <span class="text-danger"><b>Defaults are IVAO and 60 seconds</b></span>
+        @include('DisposableTools::settings_table_section', [ 'group' => 'IVAO'])
       </div>
     </div>
 
@@ -49,25 +31,7 @@
       <div class="card border-blue-bottom" style="padding:10px;">
         <b>VATSIM WhazzUp Widget Settings</b>
         <br><br>
-        <form action="/admin/disposabletools" id="whazzupvatsim">
-          <input type="hidden" name="action" value="whazzup">
-          <input type="hidden" name="network" value="VATSIM">
-          <div class="row text-center">
-            <div class="col-sm-12">
-              <label for="field_name">VATSIM CID Field Name</label>
-              <input class="form-control" type="text" id="field_name" name="field_name" placeholder="VATSIM" maxlength="20" value="{{ Dispo_Settings('dtools.whazzup_vatsim_fieldname') }}">
-            </div>
-          </div>
-          <div class="row text-center">
-            <div class="col-sm-12">
-              <label for="refresh_interval">Refresh Interval (seconds)</label>
-              <input class="form-control" type="number" id="refresh_interval" name="refresh_interval" placeholder="60" min="15" max="1200" value="{{ Dispo_Settings('dtools.whazzup_vatsim_refresh') }}">
-            </div>
-          </div>
-          <input type="submit" value="Save Widget Settings">
-        </form>
-        <br>
-        <span class="text-danger"><b>Defaults are VATSIM and 60 seconds</b></span>
+        @include('DisposableTools::settings_table_section', [ 'group' => 'VATSIM'])
       </div>
     </div>
 

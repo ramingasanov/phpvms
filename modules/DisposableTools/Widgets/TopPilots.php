@@ -7,9 +7,7 @@ use App\Models\Pirep;
 use App\Models\User;
 use App\Models\Enums\PirepState;
 use App\Models\Enums\UserState;
-use Illuminate\Support\Facades\DB;
-use Carbon;
-use Lang;
+use Carbon\Carbon;
 
 class TopPilots extends Widget
 {
@@ -17,104 +15,67 @@ class TopPilots extends Widget
 
   public function run()
   {
+    $period = $this->config['period'];
+    $type = $this->config['type'];
 
-    $period = null;
-    $user_states = array(UserState::ACTIVE, UserState::ON_LEAVE);
-
-    // Build Pilot IDs Array
+    $user_where = [];
     if ($this->config['hub']) {
-      $pilots_array = User::where('home_airport_id', $this->config['hub'])->whereIn('state', $user_states)->pluck('id');
+      $user_where['home_airport_id'] = $this->config['hub'];
+    }
+
+    $user_states = array(UserState::ACTIVE, UserState::ON_LEAVE);
+    $users_array = User::where($user_where)->whereIn('state', $user_states)->pluck('id')->toArray();
+
+    $now = Carbon::now();
+
+    if ($period === 'currentm' || $period === 'currenty') { $b_date = $now; }
+    elseif ($period === 'lastm') { $b_date = $now->subMonthNoOverflow(); }
+    elseif ($period === 'prevm') { $b_date = $now->subMonthsNoOverflow(2); }
+    elseif ($period === 'lasty') { $b_date = $now->subYearNoOverflow(); }
+    elseif ($period === 'prevy') { $b_date = $now->subYearsNoOverflow(2); }
+
+    if ($period === 'currenty' || $period === 'lasty' || $period === 'prevy') {
+      $s_date = $b_date->startOfYear();
+      $e_date = $b_date->copy()->endOfYear();
+      $period = $b_date->format('Y');
+    } elseif ($period === 'currentm' || $period === 'lastm' || $period === 'prevm') {
+      $s_date = $b_date->startOfMonth();
+      $e_date = $b_date->copy()->endOfMonth();
+      $period = $b_date->format('F');
     } else {
-      $pilots_array = User::whereIn('state', $user_states)->pluck('id');
-    }
-    
-    if($this->config['period'])
-    {
-      $wheretype = 'whereMonth';
-      $repdate = Carbon::now();
-
-      if ($this->config['period'] === 'currentm')
-      {
-        $repsql = $repdate->month;
-        $period = $repdate->format('F');
-      }
-
-      elseif ($this->config['period'] === 'lastm')
-      {
-        $repdate = $repdate->subMonthNoOverflow();
-        $repsql = $repdate->month;
-        $period = $repdate->format('F');
-      }
-
-      elseif ($this->config['period'] === 'prevm')
-      {
-        $repdate = $repdate->subMonthNoOverflow(2);
-        $repsql = $repdate->month;
-        $period = $repdate->format('F');
-      }
-
-      elseif ($this->config['period'] === 'currenty')
-      {
-        $wheretype = 'whereYear';
-        $repsql = $repdate->year;
-        $period = $repdate->format('Y');
-      }
-
-      elseif ($this->config['period'] === 'lasty')
-      {
-        $wheretype = 'whereYear';
-        $repdate = $repdate->subYearNoOverflow();
-        $repsql = $repdate->year;
-        $period = $repdate->format('Y');
-      }
+      $s_date = '1978-07-15 00:00:01';
+      $e_date = $now;
     }
 
-    if ($this->config['type'] === 'flights')
-    {
-      $rawsql = DB::raw('count(user_id) as totals');
-      $rtype = trans_choice('common.flight',2);
-    }
-    elseif ($this->config['type'] === 'distance')
-    {
-      $rawsql = DB::raw('sum(distance) as totals');
-      $rtype = Lang::get('common.distance');
-    }
-    elseif ($this->config['type'] === 'time')
-    {
-      $rawsql = DB::raw('sum(flight_time) as totals');
-      $rtype = Lang::get('pireps.flighttime');
-    }
-    elseif ($this->config['type'] === 'landingrate')
-    {
-      $rawsql = DB::raw('avg(landing_rate) as totals');
-      $rtype = Lang::get('DisposableTools::common.landingrate');
+    if ($type === 'flights') {
+      $select_Raw = 'count(user_id)';
+      $rtype = trans_choice('common.flight', 2);
+    } elseif ($type === 'distance') {
+      $select_Raw = 'sum(distance)';
+      $rtype = __('common.distance');
+    } elseif ($type === 'time') {
+      $select_Raw = 'sum(flight_time)';
+      $rtype = __('pireps.flighttime');
+    } elseif ($type === 'landingrate') {
+      $select_Raw = 'avg(landing_rate)';
+      $rtype = __('DisposableTools::common.landingrate');
+    } elseif ($type === 'score') {
+      $select_Raw = 'avg(score)';
+      $rtype = __('DisposableTools::common.score');
     }
 
-    if ($this->config['period'])
-    {
-      $tpilots = Pirep::select('user_id', $rawsql)
-        ->whereIn('user_id', $pilots_array)
-        ->where('state', PirepState::ACCEPTED)
-        ->$wheretype('created_at', '=', $repsql)
-        ->orderBy('totals', 'desc')
-        ->groupBy('user_id')
-        ->take($this->config['count'])
-        ->get();
-    } else {
-      $tpilots = Pirep::select('user_id', $rawsql)
-        ->whereIn('user_id', $pilots_array)
-        ->where('state', PirepState::ACCEPTED)
-        ->orderBy('totals', 'desc')
-        ->groupBy('user_id')
-        ->take($this->config['count'])
-        ->get();
-    }
+    $tpilots = Pirep::with('user.airline')->selectRaw('user_id, '.$select_Raw.' as totals')
+      ->where('state', PirepState::ACCEPTED)
+      ->whereIn('user_id', $users_array)
+      ->whereBetween('created_at', [$s_date, $e_date])
+      ->orderBy('totals', 'desc')->groupBy('user_id')
+      ->take($this->config['count'])->get();
 
     return view('DisposableTools::top_pilots', [
-        'tpilots' => $tpilots,
-        'config'  => $this->config,
-        'rtype'   => $rtype,
-        'rperiod' => $period,
-        ]);
+      'config'  => $this->config,
+      'rperiod' => $period,
+      'rtype'   => $rtype,
+      'tpilots' => $tpilots,
+    ]);
   }
 }

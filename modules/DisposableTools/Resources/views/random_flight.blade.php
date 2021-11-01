@@ -12,7 +12,6 @@
           <th class="text-left">@lang('DisposableTools::common.flight')</th>
           <th>@lang('DisposableTools::common.orig')</th>
           <th>@lang('DisposableTools::common.dest')</th>
-          <th>{{ trans_choice('common.pirep', 1) }}</th>
           <th class="text-right">@lang('DisposableTools::common.expire')</th>
         </tr>
         @foreach ($random_flights as $rf)
@@ -26,14 +25,15 @@
             <td>
               <a href="{{ route('frontend.airports.show', [$rf->flight->arr_airport_id]) }}" title="{{ optional($rf->flight->arr_airport)->name }}">{{ $rf->flight->arr_airport_id }}</a>
             </td>
-            <td>
-              @if (optional($rf->pirep)->state == 2) 
-                <i class="fas fa-check-circle text-success"></i>
-              @else 
-                <i class="fas fa-times-circle text-danger"></i>
+            <td class="text-right">
+              @if ($rf->completed)
+                @lang('DisposableTools::common.completed')
+                <i class="fas fa-check-circle ml-2 text-success"></i>
+              @else
+                {{ $today->endOfDay()->DiffForHumans() }}
+                <i class="fas fa-stopwatch ml-2 text-danger"></i>
               @endif
             </td>
-            <td class="text-right">{{ Carbon::parse($rf->assign_date)->endOfDay()->DiffForHumans() }}</td>
           </tr>
         @endforeach
       </table>

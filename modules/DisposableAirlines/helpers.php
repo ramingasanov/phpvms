@@ -12,22 +12,9 @@ use Illuminate\Support\Facades\DB;
 if (!function_exists('Dispo_Modules')) {
   function Dispo_Modules($module)
   {
-    $module_enabled = false;
     $dispo_module = Module::find($module);
-    if($dispo_module) {
-      $module_enabled = $dispo_module->isEnabled();
-    }
-    return $module_enabled;
-  }
-}
-
-// Convert Minutes To Hours:Minutes
-if (!function_exists('Dispo_TimeConvert')) {
-  function Dispo_TimeConvert($minutes)
-  {
-    $hours = floor($minutes / 60);
-    $minutes = ($minutes % 60);
-    return sprintf('%02d:%02d', $hours, $minutes);
+    $is_enabled = isset($dispo_module) ? $dispo_module->isEnabled() : false;
+    return $is_enabled;
   }
 }
 
@@ -37,6 +24,21 @@ if (!function_exists('Dispo_TimeConvert')) {
 // If that module gets uninstalled or disabled, this module will work as expected with the functions below
 if(!Dispo_Modules('DisposableTools'))
 {
+  // Convert Minutes To Hours:Minutes
+  // or to any other given format
+  if (!function_exists('Dispo_TimeConvert')) {
+    function Dispo_TimeConvert($minutes, $format = '%02d:%02d')
+    {
+      $minutes = intval($minutes);
+
+      if ($minutes < 1) { return $minutes; }
+      $hours = floor($minutes / 60);
+      $minutes = ($minutes % 60);
+
+      return sprintf($format, $hours, $minutes);
+    }
+  }
+
   // Format Pirep State Badge
   // Return formatted string (with html tags)
   if (!function_exists('Dispo_PirepBadge')) {
