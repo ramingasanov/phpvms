@@ -88,6 +88,7 @@ class FlightController extends Controller
 
         /** @var User $user */
         $user = Auth::user();
+        $user->loadMissing('current_airport');
 
         if (setting('pilots.restrict_to_company')) {
             $where['airline_id'] = $user->airline_id;
@@ -127,9 +128,11 @@ class FlightController extends Controller
 
         $all_flights = $this->flightRepo->searchCriteria($request)
             ->with([
-                'dpt_airport',
-                'arr_airport',
                 'airline',
+                'alt_airport',
+                'arr_airport',
+                'dpt_airport',
+                'subfleets.airline',
                 'simbrief' => function ($query) use ($user) {
                     $query->where('user_id', $user->id);
                 }, ])
@@ -223,7 +226,19 @@ class FlightController extends Controller
      */
     public function show($id)
     {
-        $flight = $this->flightRepo->find($id);
+        $user_id = Auth::id();
+        $with_flight = [
+            'airline',
+            'alt_airport',
+            'arr_airport',
+            'dpt_airport',
+            'subfleets.airline',
+            'simbrief' => function ($query) use ($user_id) {
+                $query->where('user_id', $user_id);
+            },
+        ];
+
+        $flight = $this->flightRepo->with($with_flight)->find($id);
         if (empty($flight)) {
             Flash::error('Flight not found!');
             return redirect(route('frontend.dashboard.index'));
@@ -232,7 +247,7 @@ class FlightController extends Controller
         $map_features = $this->geoSvc->flightGeoJson($flight);
 
         // See if the user has a bid for this flight
-        $bid = Bid::where(['user_id' => Auth::id(), 'flight_id' => $flight->id])->first();
+        $bid = Bid::where(['user_id' => $user_id, 'flight_id' => $flight->id])->first();
 
         return view('flights.show', [
             'flight'       => $flight,

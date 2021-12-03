@@ -7,11 +7,13 @@ use App\Models\Enums\AircraftStatus;
 use App\Models\Traits\ExpensableTrait;
 use App\Models\Traits\FilesTrait;
 use Carbon\Carbon;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 /**
  * @property int      id
  * @property mixed    subfleet_id
  * @property string   airport_id   The apt where the aircraft is
+ * @property string   hub_id       The apt where the aircraft is based
  * @property string   ident
  * @property string   name
  * @property string   icao
@@ -21,6 +23,7 @@ use Carbon\Carbon;
  * @property float    zfw
  * @property string   hex_code
  * @property Airport  airport
+ * @property Airport  hub
  * @property Subfleet subfleet
  * @property int      status
  * @property int      state
@@ -31,12 +34,14 @@ class Aircraft extends Model
 {
     use ExpensableTrait;
     use FilesTrait;
+    use BelongsToThrough;
 
     public $table = 'aircraft';
 
     protected $fillable = [
         'subfleet_id',
         'airport_id',
+        'hub_id',
         'iata',
         'icao',
         'name',
@@ -115,9 +120,29 @@ class Aircraft extends Model
     /**
      * foreign keys
      */
+    public function airline()
+    {
+        return $this->belongsToThrough(Airline::class, Subfleet::class);
+    }
+
     public function airport()
     {
         return $this->belongsTo(Airport::class, 'airport_id');
+    }
+
+    public function hub()
+    {
+        return $this->hasOne(Airport::class, 'id', 'hub_id');
+    }
+
+    public function pireps()
+    {
+        return $this->hasMany(Pirep::class, 'aircraft_id');
+    }
+
+    public function simbriefs()
+    {
+        return $this->hasMany(SimBrief::class, 'aircraft_id');
     }
 
     public function subfleet()

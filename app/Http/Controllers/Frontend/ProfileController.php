@@ -80,22 +80,19 @@ class ProfileController extends Controller
     public function show($id)
     {
         /** @var \App\Models\User $user */
-        $user = User::with(['awards', 'fields', 'fields.field'])
-            ->where('id', $id)
-            ->first();
+        $with = ['airline', 'awards', 'current_airport', 'fields.field', 'home_airport', 'last_pirep', 'rank', 'typeratings'];
+        $user = User::with($with)->where('id', $id)->first();
 
         if (empty($user)) {
             Flash::error('User not found!');
             return redirect(route('frontend.dashboard.index'));
         }
 
-        $airports = $this->airportRepo->all();
         $userFields = $this->userRepo->getUserFields($user, true);
 
         return view('profile.index', [
             'user'       => $user,
             'userFields' => $userFields,
-            'airports'   => $airports,
             'acars'      => $this->acarsEnabled(),
         ]);
     }
@@ -112,9 +109,7 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         /** @var \App\Models\User $user */
-        $user = User::with(['fields', 'fields.field'])
-            ->where('id', Auth::user()->id)
-            ->first();
+        $user = User::with('fields.field')->where('id', Auth::id())->first();
 
         if (empty($user)) {
             Flash::error('User not found!');

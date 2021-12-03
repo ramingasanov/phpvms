@@ -136,19 +136,19 @@ class Flight extends Model
     }
 
     /**
-     * Get the flight ident, e.,g JBU1900
+     * Get the flight ident, e.,g JBU1900/C.nn/L.yy
      */
     public function getIdentAttribute(): string
     {
-        $flight_id = $this->airline->code;
+        $flight_id = optional($this->airline)->code;
         $flight_id .= $this->flight_number;
 
         if (filled($this->route_code)) {
-            $flight_id .= '-'.$this->route_code;
+            $flight_id .= '/C.'.$this->route_code;
         }
 
         if (filled($this->route_leg)) {
-            $flight_id .= '-'.$this->route_leg;
+            $flight_id .= '/L.'.$this->route_leg;
         }
 
         return $flight_id;
