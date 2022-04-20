@@ -1,28 +1,13 @@
-.navbar {
-    background-color:black;
-}
-.navbar .dropdown-menu{
-    background-color: black;
-    color: white;
+body {
+    font-family: Kanit, sans-serif;
 }
 
-.navbar .dropdown-item{
-    background-color: black;
-    color: white;
+.bg-black {
+    background: #000;
 }
 
-.dashboard-box {
-    background-color: black;
-    color: white;
-}
-
-.nav-tabs {
-    background-color: black;
-    color: white;
-}
-
-.border-black-bottom {
-    border-bottom: 3px solid black;
+.navbar .navbar-nav .nav-link:not(.btn) {
+    font-size: 100%;
 }
 
 .card.dashboard-table .card-header {

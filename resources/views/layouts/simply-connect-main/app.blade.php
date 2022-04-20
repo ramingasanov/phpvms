@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ public_asset('/assets/frontend/img/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ public_asset('/assets/frontend/img/favicon-16x16.png') }}">
   <link rel="manifest" href="{{ public_asset('/assets/frontend/img/site.webmanifest') }}">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,700,200i,300i,400i,700i" rel="stylesheet"/>
   <link href="{{ public_asset('/assets/frontend/css/bootstrap.min.css') }}" rel="stylesheet"/>
   <link href="{{ public_mix('/assets/frontend/css/now-ui-kit.css') }}" rel="stylesheet"/>
   <link href="{{ public_asset('/assets/frontend/css/styles.css') }}" rel="stylesheet"/>
@@ -36,7 +36,7 @@
 </head>
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-black mb-0">
   <a class="navbar-brand text-white" href="{{ url('/') }}" style="margin-left: 20px;">
     <img src="{{ public_asset('/assets/frontend/img/sca_chain_logo.png') }}" width="135px" alt=""/>
   </a>
@@ -49,9 +49,8 @@
   </div>
 </nav>
 <!-- End Navbar -->
-<div id="top_anchor" class="clearfix" style="height: 25px;"></div>
 <div class="wrapper">
-  <div class="clear"></div>
+  @yield('carousel')
   <div class="container-fluid">
 
     {{-- These should go where you want your content to show up --}}
@@ -60,9 +59,10 @@
     {{-- End the above block--}}
 
   </div>
-  <div class="clearfix" style="height: 200px;"></div>
 
-  <footer class="footer footer-black">
+  @yield('lists')
+
+  <footer class="footer bg-black text-white">
     <div class="container">
       <div class="copyright">
         &copy; 2021 Simply Connect Virtual Airline
