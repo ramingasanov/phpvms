@@ -32,10 +32,10 @@
 							<p>To get started visit the <a href="#">join us page</a></pclass=>
 							<p class="social-buttons mt-4 mb-0">
 								@foreach([
-									'youtube' => '#',
-									'instagram' => '#',
-									'twitter' => '#',
-									'facebook-f' => '#'
+									'youtube' => 'https://www.youtube.com/channel/UCdwdoC-FiKbgbZzbSXMGgzg',
+									'discord' => 'https://discord.gg/p8dmube',
+									'twitter' => 'https://twitter.com/agame_r',
+									'facebook-f' => 'https://www.facebook.com/insideagamer7'
 								] as $k => $v)
 								<a target="_blank" href="{{$v}}" class="social-button">
 									<i class="fab fa-{{$k}}"></i>
