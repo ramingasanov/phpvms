@@ -17,20 +17,16 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ public_asset('/assets/frontend/img/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ public_asset('/assets/frontend/img/favicon-16x16.png') }}">
   <link rel="manifest" href="{{ public_asset('/assets/frontend/img/site.webmanifest') }}">
-  <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,700,200i,300i,400i,700i" rel="stylesheet"/>
+  <link href="//fonts.googleapis.com/css?family=Kanit:200,300,400,700,200i,300i,400i,700i" rel="stylesheet"/>
   <link href="{{ public_asset('/assets/frontend/css/bootstrap.min.css') }}" rel="stylesheet"/>
   <link href="{{ public_mix('/assets/frontend/css/now-ui-kit.css') }}" rel="stylesheet"/>
   <link href="{{ public_asset('/assets/frontend/css/styles.css') }}" rel="stylesheet"/>
 
   {{-- Start of the required files in the head block --}}
   <link href="{{ public_mix('/assets/global/css/vendor.css') }}" rel="stylesheet"/>
-  <style type="text/css">
-    @yield('css')
-  </style>
 
-  <script>
-    @yield('scripts_head')
-  </script>
+  @yield('styles')
+
   {{-- End of the required stuff in the head block --}}
 
 </head>
@@ -76,7 +72,7 @@
   </footer>
 </div>
 
-<script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
+<script defer src="//use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
 
 {{-- Start of the required tags block. Don't remove these or things will break!! --}}
 <script src="{{ public_mix('/assets/global/js/vendor.js') }}"></script>
@@ -122,7 +118,7 @@ $gtag = setting('general.google_analytics_id');
 @endphp
 @if($gtag)
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ $gtag }}"></script>
+<script async src="//www.googletagmanager.com/gtag/js?id={{ $gtag }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

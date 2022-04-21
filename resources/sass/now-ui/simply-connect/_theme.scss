@@ -1,40 +1,105 @@
 body {
-    font-family: Kanit, sans-serif;
+  font-family: Kanit, sans-serif;
 }
 
 .bg-black {
-    background: #000;
+  background: #000;
+  .list-group-item {
+    background: none;
+    border-color: rgba(255, 255, 255, .025);
+  }
+}
+
+.nav-pills .nav-link, .nav-item .nav-link, .navbar, .nav-tabs .nav-link, .tag, .tag [data-role="remove"] {
+  transition: none;
+  border-radius: 0;
+}
+
+.navbar .navbar-toggler {
+  font-size: 200%;
+  width: auto;
+  height: auto;
+  padding: 8px 10px;
+  border-radius: 0;
+  margin: 0 20px 0 0;
+  background: red;
+  &.collapsed {
+    background: #050505;
+  }
 }
 
 .navbar .navbar-nav .nav-link:not(.btn) {
-    font-size: 100%;
+  font-size: 100%;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.btn) {
+  background: none;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.btn):hover {
+  background: none;
+  border-bottom-color: red;
+  border-radius: 0;
+}
+
+.navbar .navbar-nav .nav-item.active .nav-link:not(.btn),
+.navbar .navbar-nav .nav-item .nav-link:not(.btn):focus {
+  background: #fff;
+  border-radius: 0;
+  color: #000;
 }
 
 .card.dashboard-table .card-header {
-    background-color: black;
-    color: white;
-    margin-top: 0px;
-    padding: .75rem 1.25rem;
+  background-color: black;
+  color: white;
+  margin-top: 0px;
+  padding: .75rem 1.25rem;
 }
 
 a, a:focus, a:hover {
-    color: red;
+  color: red;
 }
 
-.footer-black {
-    background-color: black;
-    color: white;
+.footer .copyright {
+  font: inherit;
 }
 
 #structure-airlines > .nav-links {
-    color: white;
-}
-
-.bg-black {
-    background-color: black;
+  color: white;
 }
 
 .leaflet-marker-icon {
-    -webkit-filter: grayscale(1) invert(1);
-    filter: grayscale(1) invert(1);
+  -webkit-filter: grayscale(1) invert(1);
+  filter: grayscale(1) invert(1);
+}
+
+.social-buttons {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+  &::before {
+    content: 'Follow us:';
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+  }
+}
+
+.social-button {
+  border-radius: 3px;
+  border: 1px solid white;
+  color: white;
+  font-size: 200%;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  text-align: center;
+  width: 1.5em;
+  &:hover {
+    border-color: red;
+    color: red;
+  }
 }
