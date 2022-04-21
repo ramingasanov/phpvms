@@ -4,6 +4,10 @@ body {
 
 .bg-black {
   background: #000;
+  .list-group-item {
+    background: none;
+    border-color: rgba(255, 255, 255, .025);
+  }
 }
 
 .nav-pills .nav-link, .nav-item .nav-link, .navbar, .nav-tabs .nav-link, .tag, .tag [data-role="remove"] {

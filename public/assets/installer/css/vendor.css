@@ -15281,9 +15281,51 @@ body {
 .bg-black {
   background: #000;
 }
+.bg-black .list-group-item {
+  background: none;
+  border-color: rgba(255, 255, 255, 0.025);
+}
+
+.nav-pills .nav-link, .nav-item .nav-link, .navbar, .nav-tabs .nav-link, .tag, .tag [data-role=remove] {
+  transition: none;
+  border-radius: 0;
+}
+
+.navbar .navbar-toggler {
+  font-size: 200%;
+  width: auto;
+  height: auto;
+  padding: 8px 10px;
+  border-radius: 0;
+  margin: 0 20px 0 0;
+  background: red;
+}
+.navbar .navbar-toggler.collapsed {
+  background: #050505;
+}
 
 .navbar .navbar-nav .nav-link:not(.btn) {
   font-size: 100%;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.btn) {
+  background: none;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.btn):hover {
+  background: none;
+  border-bottom-color: red;
+  border-radius: 0;
+}
+
+.navbar .navbar-nav .nav-item.active .nav-link:not(.btn),
+.navbar .navbar-nav .nav-item .nav-link:not(.btn):focus {
+  background: #fff;
+  border-radius: 0;
+  color: #000;
 }
 
 .card.dashboard-table .card-header {
@@ -15297,21 +15339,44 @@ a, a:focus, a:hover {
   color: red;
 }
 
-.footer-black {
-  background-color: black;
-  color: white;
+.footer .copyright {
+  font: inherit;
 }
 
 #structure-airlines > .nav-links {
   color: white;
 }
 
-.bg-black {
-  background-color: black;
-}
-
 .leaflet-marker-icon {
   filter: grayscale(1) invert(1);
+}
+
+.social-buttons {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+}
+.social-buttons::before {
+  content: "Follow us:";
+  font-weight: bold;
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+}
+
+.social-button {
+  border-radius: 3px;
+  border: 1px solid white;
+  color: white;
+  font-size: 200%;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  text-align: center;
+  width: 1.5em;
+}
+.social-button:hover {
+  border-color: red;
+  color: red;
 }
 
 .select2-container {

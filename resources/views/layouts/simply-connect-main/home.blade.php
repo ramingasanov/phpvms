@@ -45,11 +45,28 @@
 						</div>
 						<div class="col-md-4">
 							<h4 class="mt-0">Today Stats</h4>
+							<ul class="list-group">
+								@foreach([
+									'Total Pilots' => 153,
+									'Total Flights' => 0,
+									'Total Hours Flown' => 0,
+									'Total Schedules' => 0,
+									'Flights Today' => 101,
+									'Flights This Month' => 1
+								] as $k => $v)
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										{{$k}}
+										<span class="badge badge-primary badge-pill">{{$v}}</span>
+									</li>
+								@endforeach
+							</ul>
+							<!--
 							<p class="mb-0">
 								{{Widget::todayStats(['type'=>'totalPireps'])}}
 								<br>
 								{{Widget::todayStats(['type'=>'totalHours'])}}
 							</p>
+							-->
 						</div>
 					</div>
 				</div>
@@ -88,7 +105,7 @@
 				</ul>
 			</div>
       <div class="col-md-6">
-				<p>SimplyConnect is a virtual airline (VA) which is an online organisation of flight simulator enthusiasts flying together in one community under one name. The idea is to make the flight simulator experience more realistic and enjoyable.</p>
+				<p><b>SimplyConnect</b> is a virtual airline (VA) which is an online organisation of flight simulator enthusiasts flying together in one community under one name. The idea is to make the flight simulator experience more realistic and enjoyable.</p>
 				<p>We operate a varied fleet of aircraft, from turboprops right up to the latest most technologically advanced jet airliners. For the more advanced pilot in command we use both IVAO and VATSIM online gaming servers and for the less experienced we have an option of flying offline for you to get your bearings, We also host weekly online/offline group events for all.</p>
 				<p>
 					<a class="btn btn-primary" href="{{url('/page/about-us')}}">Learn More</a>
@@ -118,7 +135,7 @@
 	}
 	.swiper {
 		width: 100%;
-	    height: auto;
+		height: auto;
 	}
 	.swiper-slide {
 		background: #000;
