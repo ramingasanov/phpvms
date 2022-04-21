@@ -24,13 +24,9 @@
 
   {{-- Start of the required files in the head block --}}
   <link href="{{ public_mix('/assets/global/css/vendor.css') }}" rel="stylesheet"/>
-  <style type="text/css">
-    @yield('css')
-  </style>
 
-  <script>
-    @yield('scripts_head')
-  </script>
+  @yield('styles')
+
   {{-- End of the required stuff in the head block --}}
 
 </head>
