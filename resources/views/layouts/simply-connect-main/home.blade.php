@@ -106,7 +106,7 @@
 			</div>
       <div class="col-md-6">
 				<p><b>SimplyConnect</b> is a virtual airline (VA) which is an online organisation of flight simulator enthusiasts flying together in one community under one name. The idea is to make the flight simulator experience more realistic and enjoyable.</p>
-				<p>We operate a varied fleet of aircraft, from turboprops right up to the latest most technologically advanced jet airliners. For the more advanced pilot in command we use both IVAO and VATSIM online gaming servers and for the less experienced we have an option of flying offline for you to get your bearings, We also host weekly online/offline group events for all.</p>
+				<p>We operate a varied fleet of aircraft, from turboprops right up to the latest most technologically advanced jet airliners. For the more advanced pilot in command we use both IVAO and VATSIM online gaming servers and for the less experienced we have an option of flying offline for you to get your bearings. We also host weekly online/offline group events for all.</p>
 				<p>
 					<a class="btn btn-primary" href="{{url('/page/about-us')}}">Learn More</a>
 				</p>
