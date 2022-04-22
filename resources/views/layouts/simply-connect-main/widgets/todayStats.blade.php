@@ -1,7 +1,8 @@
 @php
+    $statname = "";
     if($type === 'totalPireps') {
         $statname = 'Flights Flown';
-    } else if($type === 'totalHours') { 
+    } else if($type === 'totalHours') {
         $statname = ' Flown';
     }
 @endphp
