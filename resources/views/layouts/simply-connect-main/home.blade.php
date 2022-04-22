@@ -46,12 +46,11 @@
 							<h4 class="mt-0">Today Stats</h4>
 							<ul class="list-group">
 								@foreach([
-									'Total Pilots' => 0,
-									'Total Flights' => 0,
+									'Total Pilots' => Widget::todayStats(['type'=>'totalPilots']),
+									'Total Flights' => Widget::todayStats(['type'=>'totalFlights']),
 									'Total Hours Flown' => Widget::todayStats(['type'=>'totalHours']),
-									'Total Schedules' => 0,
-									'Flights Today' => Widget::todayStats(['type'=>'totalPireps']),
-									'Flights This Month' => 0
+									'Total Schedules' => Widget::todayStats(['type'=>'totalSchedules']),
+									'Flights Today' => Widget::todayStats(['type'=>'totalPireps'])
 								] as $k => $v)
 									<li class="list-group-item d-flex justify-content-between align-items-center">
 										{{$k}}

@@ -4,6 +4,8 @@ namespace App\Widgets;
 
 use Carbon;
 use App\Contracts\Widget;
+use App\Models\Flight;
+use App\Models\User;
 use App\Models\Enums\PirepState;
 use App\Repositories\PirepRepository;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +41,14 @@ class TodayStats extends Widget
                 PirepState::REJECTED,
             ])
             ->sum('flight_time');
+        } else if ($selection === 'totalPilots') {
+            $value = User::count();
+        } else if ($selection === 'totalFlights') {
+            $value = Flight::count();
+        } else if ($selection === 'totalSchedules') {
+            // TODO
+            $value = 0;
         }
-
 
         return view('widgets.todayStats', [
             'type' => $selection,
