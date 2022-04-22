@@ -99,8 +99,8 @@
           </li>
         @endforeach
 
-        <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdownMenuLink" role="button"
              data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
             @if (Auth::user()->avatar == null)
               <img src="\assets\frontend\img\sc_link_icon.png" style="height: 38px; width: 38px;">
