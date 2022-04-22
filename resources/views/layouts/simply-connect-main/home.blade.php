@@ -18,7 +18,6 @@
 		<div class="swiper-button-prev"></div>
 		<div class="swiper-pagination"></div>
 	</div>
-
 @endsection
 
 @section('content')
@@ -47,12 +46,12 @@
 							<h4 class="mt-0">Today Stats</h4>
 							<ul class="list-group">
 								@foreach([
-									'Total Pilots' => 153,
+									'Total Pilots' => 0,
 									'Total Flights' => 0,
-									'Total Hours Flown' => 0,
+									'Total Hours Flown' => Widget::todayStats(['type'=>'totalHours']),
 									'Total Schedules' => 0,
-									'Flights Today' => 101,
-									'Flights This Month' => 1
+									'Flights Today' => Widget::todayStats(['type'=>'totalPireps']),
+									'Flights This Month' => 0
 								] as $k => $v)
 									<li class="list-group-item d-flex justify-content-between align-items-center">
 										{{$k}}
@@ -60,13 +59,6 @@
 									</li>
 								@endforeach
 							</ul>
-							<!--
-							<p class="mb-0">
-								{{Widget::todayStats(['type'=>'totalPireps'])}}
-								<br>
-								{{Widget::todayStats(['type'=>'totalHours'])}}
-							</p>
-							-->
 						</div>
 					</div>
 				</div>
@@ -79,6 +71,8 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-md-6">
+				{{Widget::latestNews(['count' => 5])}}
+				<!--
 				<h3>Recent News</h3>
 				<ul class="list-unstyled">
 					<li class="media">
@@ -103,6 +97,7 @@
 						</div>
 					</li>
 				</ul>
+				-->
 			</div>
       <div class="col-md-6">
 				<p><b>SimplyConnect</b> is a virtual airline (VA) which is an online organisation of flight simulator enthusiasts flying together in one community under one name. The idea is to make the flight simulator experience more realistic and enjoyable.</p>
@@ -117,7 +112,7 @@
 
 @section('styles')
 	<!-- Swiper CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+  <link href="{{ public_asset('/assets/frontend/css/swiper.min.css') }}" rel="stylesheet"/>
 	<style>
 	@keyframes spin {
 		to {
@@ -155,7 +150,7 @@
 
 @section('scripts')
 	<!-- Swiper JS -->
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="{{ public_asset('/assets/frontend/js/swiper.min.js') }}"></script>
 	<!-- Initialize Swiper -->
 	<script>
 		const swiper = new Swiper(".swiper", {
