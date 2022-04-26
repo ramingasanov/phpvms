@@ -50,7 +50,7 @@
                           <div class="icon-background">
                             <i class="fas fa-plane-arrival icon"></i>
                           </div>
-                          <h3 class="header">@widget('Modules\DisposableTools\Widgets\PersonalStats', ['user' => $user->id, 'type' => 'avglanding'])</h3>
+                          <h3 class="header">@widget('DBasic::PersonalStats', ['user' => $user->id, 'type' => 'avglanding'])</h3>
                           <h5 class="description">Average Landing Rate</h5>
                         </div>
                       </div>
@@ -61,7 +61,7 @@
                           <div class="icon-background">
                             <i class="fas fa-chart-line icon"></i>
                           </div>
-                          <h3 class="header">@widget('Modules\DisposableTools\Widgets\PersonalStats', ['user' => $user->id, 'type' => 'avgscore'])</h3>
+                          <h3 class="header">@widget('DBasic::PersonalStats', ['user' => $user->id, 'type' => 'avgscore'])</h3>
                           <h5 class="description">Average Flight Score</h5>
                         </div>
                       </div>
@@ -72,7 +72,7 @@
                           <div class="icon-background"> {{--110px font-size--}}
                             <i class="fas fa-ruler icon"></i>
                           </div>
-                          <h3 class="header">@widget('Modules\DisposableTools\Widgets\PersonalStats', ['user' => $user->id, 'type' => 'avgdistance'])</h3>
+                          <h3 class="header">@widget('DBasic::PersonalStats', ['user' => $user->id, 'type' => 'avgdistance'])</h3>
                           <h5 class="description">Average Distance</h5>
                         </div>
                       </div>
@@ -83,7 +83,7 @@
                           <div class="icon-background">
                             <i class="fas fa-globe-europe icon"></i>
                           </div>
-                          <h3 class="header">@widget('Modules\DisposableTools\Widgets\PersonalStats', ['user' => $user->id, 'type' => 'totdistance'])</h3>
+                          <h3 class="header">@widget('DBasic::PersonalStats', ['user' => $user->id, 'type' => 'totdistance'])</h3>
                           <h5 class="description">Total Distance</h5>
                         </div>
                       </div>
@@ -106,9 +106,11 @@
 						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
 					</div>
           <div class="row">
-						<div class="col-md-4 pl-0">@widget('DisposableTools::RandomFlight', ['count' => 5, 'daily' => false, 'hub' => false])</div>
-						<div class="col-md-4 p-0">@widget('DisposableTools::WhazzUpVATSIM')</div>
-						{{-- <div class="col-md-4 pr-0">@widget('DisposableTools::WhazzUpIVAO')</div> --}}
+						<div class="col-md-4 pl-0">@widget('DBasic::RandomFlights', ['count' => 5, 'daily' => false, 'hub' => false])</div>
+						<div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])
+</div>
+						{{-- <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])
+</div> --}}
 					</div> --}}
 				</div>
 				<div class="col-md-4">
