@@ -17,7 +17,7 @@
       <td>{{$p->user->name_private}}</td>
       <td><a href="{{route('frontend.airports.show', [$p->dpt_airport_id])}}">{{$p->dpt_airport->name}}</a></td>
       <td><a href="{{route('frontend.airports.show', [$p->arr_airport_id])}}">{{$p->arr_airport->name}}</a></td>
-      <td></td>
+      <td>{{ optional($pirep->aircraft)->ident }}</td>
       <td>{{$p->distance}}</td>
       <td>{{ $p->landing_rate }}</td>
     </tr>
