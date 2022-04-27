@@ -7,6 +7,7 @@
 			@foreach(File::glob(public_path() . '/assets/frontend/img/sca/*.jpg') as $image)
 				<div class="swiper-slide">
 					<img
+					  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 						data-src="{{strtr($image, [public_path() . DIRECTORY_SEPARATOR => '/', DIRECTORY_SEPARATOR => '/'])}}"
 						class="swiper-lazy"
 					/>
