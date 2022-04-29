@@ -5290,6 +5290,15 @@ body {
   color: #000;
 }
 
+.card.dashboard-box .icon-background {
+  color: #808080;
+}
+.card.dashboard-box .header {
+  color: #000;
+}
+.card.dashboard-box .description {
+  color: #f00;
+}
 .card.dashboard-table .card-header {
   background-color: black;
   color: white;
