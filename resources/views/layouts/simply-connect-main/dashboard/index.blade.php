@@ -2,9 +2,9 @@
 @section('title', __('common.dashboard'))
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
+<div class="p-4">
+  <div class="row">
+    <div class="col-md-12">
             @if(Auth::user()->state === \App\Models\Enums\UserState::ON_LEAVE)
             <div class="row">
               <div class="col-sm-12">
@@ -13,16 +13,16 @@
                 </div>
               </div>
             </div>
-          @endif    
-			<div class="row">
-				<div class="col-md-12">
-					<h3>
-						My Stats
-					</h3>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2">
+          @endif
+      <div class="row">
+        <div class="col-md-12">
+          <h3>
+            My Stats
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background">
@@ -32,8 +32,8 @@
                           <h5 class="description">{{ trans_choice('common.flight', $user->flights) }}</h5>
                         </div>
                       </div>
-				</div>
-				<div class="col-md-2">
+        </div>
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background">
@@ -43,8 +43,8 @@
                           <h5 class="description">@lang('dashboard.totalhours')</h5>
                         </div>
                       </div>
-				</div>
-				<div class="col-md-2">
+        </div>
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background">
@@ -54,8 +54,8 @@
                           <h5 class="description">Average Landing Rate</h5>
                         </div>
                       </div>
-				</div>
-				<div class="col-md-2">
+        </div>
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background">
@@ -65,8 +65,8 @@
                           <h5 class="description">Average Flight Score</h5>
                         </div>
                       </div>
-				</div>
-				<div class="col-md-2">
+        </div>
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background"> {{--110px font-size--}}
@@ -76,8 +76,8 @@
                           <h5 class="description">Average Distance</h5>
                         </div>
                       </div>
-				</div>
-				<div class="col-md-2">
+        </div>
+        <div class="col-md-2">
                     <div class="card card-primary text-white dashboard-box">
                         <div class="card-body text-center">
                           <div class="icon-background">
@@ -87,33 +87,33 @@
                           <h5 class="description">Total Distance</h5>
                         </div>
                       </div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<h3>Whats Happening on Simply Connect</h3>
-					<div class="row">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <h3>Whats Happening on Simply Connect</h3>
+          <div class="row">
             <div class="card border-black-bottom dashboard-table">
               <h4 class="card-header">Latest Flights</h4>
               <div class="card-body">
-						   {{ Widget::latestPireps(['count' => 5]) }}
+                {{ Widget::latestPireps(['count' => 5]) }}
               </div>
             </div>
-					</div>
-					{{-- <div class="row">
-						<div class="col-md-4 pl-0">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>
-						<div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
-						<div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
-					</div>
+          </div>
+          {{-- <div class="row">
+            <div class="col-md-4 pl-0">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>
+            <div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
+            <div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
+          </div>
           <div class="row">
-						<div class="col-md-4 pl-0">@widget('DBasic::RandomFlights', ['count' => 5, 'daily' => false, 'hub' => false])</div>
-						<div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])
-</div>
-						{{-- <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])
-</div> --}}
-					</div> --}}
-				</div>
-				<div class="col-md-4">
+            <div class="col-md-4 pl-0">@widget('DBasic::RandomFlights', ['count' => 5, 'daily' => false, 'hub' => false])</div>
+            <div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])
+  </div>
+            <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])
+  </div>
+          </div> --}}
+        </div>
+        <div class="col-md-4">
                     <div class="nav nav-tabs" role="tablist">
                         @lang('dashboard.yourlastreport')
                       </div>
@@ -128,9 +128,9 @@
                         @endif
                       </div>
                     {{ Widget::latestNews(['count' => 5]) }}
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
