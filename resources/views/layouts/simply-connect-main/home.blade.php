@@ -107,6 +107,7 @@
 				</p>
 			</div>
     </div>
+		<iframe class="card vatsim-events mt-4" src="https://my.vatsim.net/events/today" style="height: 600px;"></iframe>
   </div>
 @endsection
 

@@ -17,15 +17,15 @@
         <div class="col-sm-3 align-top text-right">
           {{--
           !!! NOTE !!!
-           Don't remove the "save_flight" class, or the x-id attribute.
-           It will break the AJAX to save/delete
+          Don't remove the "save_flight" class, or the x-id attribute.
+          It will break the AJAX to save/delete
 
-           "x-saved-class" is the class to add/remove if the bid exists or not
-           If you change it, remember to change it in the in-array line as well
+          "x-saved-class" is the class to add/remove if the bid exists or not
+          If you change it, remember to change it in the in-array line as well
           --}}
           @if (!setting('pilots.only_flights_from_current') || $flight->dpt_airport_id == $user->current_airport->icao)
             <button class="btn btn-round btn-icon btn-icon-mini save_flight
-                           {{ isset($saved[$flight->id]) ? 'btn-danger':'' }}"
+                          {{ isset($saved[$flight->id]) ? 'btn-danger':'' }}"
                     x-id="{{ $flight->id }}"
                     x-saved-class="btn-danger"
                     type="button"
@@ -103,14 +103,14 @@
             <!-- If this flight has a briefing, show the link to view it-->
             @if ($flight->simbrief && $flight->simbrief->user_id === $user->id)
               <a href="{{ route('frontend.simbrief.briefing', $flight->simbrief->id) }}"
-                 class="btn btn-sm btn-dark">
+                class="btn btn-sm btn-dark">
                 View Simbrief Flight Plan
               </a>
             @else
             <!-- Show button if the bids-only is disable, or if bids-only is enabled, they've saved it -->
             @if ($simbrief_bids === false || ($simbrief_bids === true && isset($saved[$flight->id])))
               <a href="{{ route('frontend.simbrief.generate') }}?flight_id={{ $flight->id }}"
-                 class="btn btn-sm btn-danger">
+                class="btn btn-sm btn-danger">
                 Create Simbrief Flight Plan
               </a>
               @endif
@@ -118,12 +118,11 @@
           @endif
 
           {{-- <a href="{{ route('frontend.pireps.create') }}?flight_id={{ $flight->id }}"
-             class="btn btn-sm btn-danger">
+            class="btn btn-sm btn-danger">
             {{ __('pireps.newpirep') }}
           </a> --}}
         </div>
       </div>
     </div>
   </div>
-
 @endforeach
