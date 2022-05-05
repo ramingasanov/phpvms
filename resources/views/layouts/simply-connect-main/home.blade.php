@@ -103,7 +103,10 @@
 				-->
 			</div>
       <div class="col-md-6">
-				<iframe class="card vatsim-events mt-4" src="https://my.vatsim.net/events/today" style="height: 600px;"></iframe>
+				<div class="nav nav-tabs" role="tablist">
+					Vatsim Events
+				</div>
+				<iframe class="card border-black-bottom vatsim-events" src="https://my.vatsim.net/events/today"></iframe>
 			</div>
     </div>
   </div>
