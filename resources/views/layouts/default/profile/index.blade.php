@@ -20,7 +20,7 @@
         </p>
       </div>
         <p class="description" style="color: #9A9A9A;">
-          {{ $user->airline->name }}
+          {{ $user->airline->name ?? 'unkonwn name' }}
         </p>
       <div class="social-description">
         @if (!empty($user->rank->image_url))
