@@ -6,7 +6,7 @@
     <div class="p-4">
       <div class="row">
         <div class="col-md-12">
-          <h2><i class="fas fa-fighter-jet"></i> {{ trans_choice('common.pilot', 2) }}</h2>
+          <h2><i class="fas fa-plane"></i> {{ trans_choice('common.pilot', 2) }}</h2>
           <p class="lead mb-5">Lorem ipsum dolor sit amet.</p>
           @include('users.table')
           {{ $users->links('pagination.default') }}

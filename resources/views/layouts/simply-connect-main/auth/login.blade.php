@@ -7,11 +7,11 @@
 <div class="container-fluid">
   <div class="row no-gutter">
     <div class="col-md-8 d-none d-md-flex bg-image" style="background-image: url('/assets/frontend/img/potm/jan_2020.png')"></div>
-    
+
       <!-- LOGIN -->
-        <div class="col-md-4 text-white bg-dark">
+        <div class="col-md-4 text-white bg-black">
             <div class="login d-flex align-items-center py-5">
- 
+
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-9 mx-auto">
@@ -77,7 +77,7 @@
   </div>
 </div>
 
- 
+
     </div>
   </div>
   </div>
