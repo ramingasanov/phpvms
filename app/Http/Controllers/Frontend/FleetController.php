@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Contracts\Controller;
 
-class PublicDownloadsController extends Controller
+class FleetController extends Controller
 {
     /**
-     * Show the public download page
+     * Show the fleet page
      */
     public function index()
     {
-        return view('public-downloads');
+        return view('fleet');
     }
 }

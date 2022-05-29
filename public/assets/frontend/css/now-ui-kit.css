@@ -5253,11 +5253,8 @@ h1, h2, h3, h4, h5, h6,
   text-shadow: 1px 1px 0 #fff, 2px 2px 0 #e1cdcd;
 }
 
-.btn,
-.btn:active,
-.btn:focus,
-.btn:hover {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+.btn {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25) !important;
 }
 
 .bg-black {
@@ -5419,6 +5416,7 @@ a, a:focus, a:hover {
 }
 .row-home .col-md-6 > .card .card {
   box-shadow: none;
+  height: calc(100% - 54px);
   overflow: auto;
 }
 

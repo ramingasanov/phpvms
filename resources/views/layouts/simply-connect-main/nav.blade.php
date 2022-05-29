@@ -51,7 +51,7 @@
       @endforeach
 
       @if(!Auth::check())
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="{{ url('/docs/preregister') }}">
             <i class="far fa-id-card"></i>
             @lang('common.register')
@@ -64,15 +64,15 @@
           </a>
         </li>
       @else
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pilot Docs</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/docs/rules">Rules and Support</a>
-          <a class="dropdown-item" href="/ranks">Ranks and Aircrafts</a>
-          <a class="dropdown-item" href="/docs/searching">Finding Flights</a>
-          <a class="dropdown-item" href="/docs/acars">Setting Up ACARS</a>
-          <a class="dropdown-item" href="/docs/photo-competition">Screenshot Competition</a>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pilot Docs</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/ranks">Ranks and Aircrafts</a>
+            <a class="dropdown-item" href="/docs/searching">Finding Flights</a>
+            <a class="dropdown-item" href="/docs/acars">Setting Up ACARS</a>
+            <a class="dropdown-item" href="/docs/photo-competition">Screenshot Competition</a>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('frontend.flights.index') }}">
             <i class="fab fa-avianex"></i>
