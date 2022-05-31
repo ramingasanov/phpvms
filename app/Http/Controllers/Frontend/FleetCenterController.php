@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Contracts\Controller;
 
-class FleetController extends Controller
+class FleetCenterController extends Controller
 {
     /**
-     * Show the fleet page
+     * Show the fleet center page
      */
     public function index()
     {
-        return view('fleet');
+        return view('fleet-center');
     }
 }

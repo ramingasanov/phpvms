@@ -8,6 +8,7 @@
         <div class="col-md-12">
           <h2><i class="fas fa-plane"></i> {{ trans_choice('common.pilot', 2) }}</h2>
           <p class="lead mb-5">Lorem ipsum dolor sit amet.</p>
+          <p class="mb-5 mt-0"><img alt="" class="d-block mx-auto my-0" src="{{ public_url('/assets/frontend/img/airline-staff.svg') }}"></p>
           @include('users.table')
           {{ $users->links('pagination.default') }}
         </div>
