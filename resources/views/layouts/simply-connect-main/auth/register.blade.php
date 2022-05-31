@@ -2,7 +2,7 @@
 @section('title', __('auth.register'))
 
 @section('content')
-  <div class="row">
+  <div class="row py-4">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
 
@@ -144,7 +144,7 @@
           <div style="width: 100%; text-align: right; padding-top: 20px;">
             {{ Form::submit(__('auth.register'), [
                 'id' => 'register_button',
-                'class' => 'btn btn-danger',
+                'class' => 'btn btn-primary',
                 'disabled' => true,
                ]) }}
           </div>

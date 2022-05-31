@@ -17,15 +17,21 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label py-1 text-sm-right" for="name-field">Name</label>
+              <label class="col-sm-2 col-form-label py-1 text-sm-right" for="author-field">Name</label>
               <div class="col-sm-10">
-                <input class="form-control py-2" id="name-field" placeholder="Your Name" required type="text">
+                <input class="form-control py-2" id="author-field" placeholder="Your Name" required type="text">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label py-1 text-sm-right" for="email-field">E-Mail</label>
               <div class="col-sm-10">
-                <input class="form-control py-2" id="name-field" placeholder="email@domain.tld" required type="email">
+                <input class="form-control py-2" id="email-field" placeholder="email@domain.tld" required type="email">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label py-1 text-sm-right" for="content-field">Message</label>
+              <div class="col-sm-10">
+                <textarea class="form-control py-2" id="content-field" placeholder="Message goes here&hellip;" required style="height: 12em; min-height: 12em;"></textarea>
               </div>
             </div>
             <div class="form-group row">

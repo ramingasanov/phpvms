@@ -156,7 +156,8 @@ class RouteServiceProvider extends ServiceProvider
                 Route::get('about', 'AboutController@index')->name('about');
                 Route::get('contact', 'ContactController@index')->name('contact');
                 Route::get('donations', 'DonationsController@index')->name('donations');
-                Route::get('fleet', 'FleetController@index')->name('fleet');
+                Route::get('fleet-center', 'FleetCenterController@index')->name('fleet-center');
+                Route::get('tours', 'ToursController@index')->name('tours');
                 Route::get('r/{id}', 'PirepController@show')->name('pirep.show.public');
                 Route::get('pireps/{id}', 'PirepController@show')->name('pireps.show');
 
