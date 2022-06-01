@@ -15286,8 +15286,8 @@ p {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #893b3b;
-  font-weight: 200;
   margin-bottom: 0.5rem;
+  margin-top: 0;
   text-shadow: 1px 1px 0 #fff, 2px 2px 0 #e1cdcd;
 }
 
@@ -15300,11 +15300,19 @@ h1, h2, h3, h4, h5, h6,
 }
 .bg-black h1, .bg-black h2, .bg-black h3, .bg-black h4, .bg-black h5, .bg-black h6,
 .bg-black .h1, .bg-black .h2, .bg-black .h3, .bg-black .h4, .bg-black .h5, .bg-black .h6 {
-  text-shadow: 1px 1px 0 #000, 2px 2px 0 #333;
+  color: inherit;
+  text-shadow: none;
 }
 .bg-black .list-group-item {
   background: none;
   border-color: rgba(255, 255, 255, 0.025);
+}
+
+.dashboard-table .card-body {
+  padding: 0;
+}
+.dashboard-table .card-header {
+  text-shadow: none;
 }
 
 .nav-pills .nav-link, .nav-item .nav-link, .navbar, .nav-tabs .nav-link, .tag, .tag [data-role=remove] {

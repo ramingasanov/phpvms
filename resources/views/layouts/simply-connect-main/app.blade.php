@@ -66,7 +66,7 @@
           @foreach(File::glob(public_path() . '/assets/frontend/img/sponsors/*.png') as $logo)
             <div class="swiper-slide">
               <a class="d-block mx-3" href="https://{{basename($logo, '.png')}}" target="_blank">
-                <img alt="{{basename($logo, '.png')}}" src="{{strtr($logo, [public_path() . DIRECTORY_SEPARATOR => '/', DIRECTORY_SEPARATOR => '/'])}}">
+                <img alt="{{basename($logo, '.png')}}" src="{{strtr($logo, [public_path() . DIRECTORY_SEPARATOR => '/', DIRECTORY_SEPARATOR => '/'])}}?v=1">
               </a>
             </div>
           @endforeach
