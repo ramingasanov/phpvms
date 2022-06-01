@@ -3,5 +3,5 @@
 
 @section('content')
   {{ Widget::liveMap() }}
+  {{ Widget::latestPireps() }}
 @endsection
-

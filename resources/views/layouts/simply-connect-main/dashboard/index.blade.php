@@ -100,18 +100,16 @@
               </div>
             </div>
           </div>
-          {{-- <div class="row">
+          <div class="row">
             <div class="col-md-4 pl-0">{{Widget::TopPilotsByPeriod(['type' =>'average landing rate', 'count' => 10])}}</div>
             <div class="col-md-4 p-0">{{Widget::TopPilotsByPeriod(['type' =>'flights', 'count' => 10])}}</div>
             <div class="col-md-4 pr-0">{{Widget::TopPilotsByPeriod(['type' =>'distance', 'count' => 10])}}</div>
           </div>
           <div class="row">
             <div class="col-md-4 pl-0">@widget('DBasic::RandomFlights', ['count' => 5, 'daily' => false, 'hub' => false])</div>
-            <div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])
-  </div>
-            <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])
-  </div>
-          </div> --}}
+            <div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])</div>
+            <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])</div>
+          </div>
         </div>
         <div class="col-md-4">
                     <div class="nav nav-tabs" role="tablist">

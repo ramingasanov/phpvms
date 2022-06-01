@@ -64,8 +64,6 @@
   </div>
 </div>
 
-<div class="clearfix" style="padding-top: 25px"></div>
-
 {{--
 This table is also handled/rendered by rivets from the livemap
 Handles the updates by automatically updating the data in the row.
@@ -73,9 +71,9 @@ Handles the updates by automatically updating the data in the row.
 Same note applies from above about the data from the PIREP API being available
 and being mindful of the rivets bindings
 --}}
-<div id="live_flights" class="row">
+<div id="live_flights" class="p-4 row">
   <div class="col-md-12">
-    <div rv-hide="has_data" class="jumbotron text-center">@lang('widgets.livemap.noflights')</div>
+    <div rv-hide="has_data" class="jumbotron m-0 text-center">@lang('widgets.livemap.noflights')</div>
     <table rv-show="has_data" id="live_flights_table" class="table table-striped">
       <thead>
       <tr class="text-small header">

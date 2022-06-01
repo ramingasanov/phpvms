@@ -24,7 +24,7 @@
           <div class="tab-content">
             <div class="tab-pane fade show active" id="section-1-pane" role="tabpanel">
 
-              @foreach ([
+              @foreach([
                   0 => [
                       'division' => 'Test Division',
                       'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
@@ -34,13 +34,13 @@
                   1 => [
                       'division' => 'Test Division',
                       'download_link' => '#',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/A320.png'),
                       'number_in_fleet' => 8,
                       'title' => 'Airbus A320',
                   ],
                   2 => [
                       'division' => 'Test Division',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/A321.png'),
                       'number_in_fleet' => 8,
                       'title' => 'Airbus A321',
                   ],
@@ -76,7 +76,7 @@
                   ],
                   7 => [
                       'division' => 'Test Division',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/Boeing_737.png'),
                       'number_in_fleet' => 8,
                       'title' => 'Boeing 737',
                   ],
@@ -100,13 +100,13 @@
                   ],
                   11 => [
                       'division' => 'Test Division',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/MD_88.png'),
                       'number_in_fleet' => 3,
-                      'title' => 'Md 88',
+                      'title' => 'MD 88',
                   ],
                   12 => [
                       'division' => 'Test Division',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/Crj_550--700.png'),
                       'number_in_fleet' => 3,
                       'title' => 'Crj 500/700',
                   ],
@@ -118,7 +118,7 @@
                   ],
                   14 => [
                       'division' => 'Test Division',
-                      'image' => 'https://via.placeholder.com/600x200?text=Plane+image+goes+here.',
+                      'image' => public_url('/assets/frontend/img/fleet-center/BAE_146.png'),
                       'number_in_fleet' => 3,
                       'title' => 'Bae 146',
                   ],
@@ -136,7 +136,7 @@
                   ],
               ] as $k => $v)
                 <div class="media mt-{{ $k === 0 ? '3' : '5' }}">
-                  <img class="align-self-center mr-5" src="{{ $v['image'] }}">
+                  <img class="align-self-center mr-5 w-50" src="{{ $v['image'] }}">
                   <div class="media-body">
                     <h5 class="mt-0">
                       {{ $v['title'] }}
@@ -189,4 +189,14 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('styles')
+  <style>
+  .media img {
+    height: 200px;
+    object-fit: cover;
+    width: 600px;
+  }
+  </style>
 @endsection
