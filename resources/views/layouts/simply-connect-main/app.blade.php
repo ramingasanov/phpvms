@@ -65,8 +65,8 @@
         <div class="align-items-center d-flex swiper-wrapper">
           @foreach(File::glob(public_path() . '/assets/frontend/img/sponsors/*.png') as $logo)
             <div class="swiper-slide">
-              <a class="d-block mx-3" href="https://{{basename($logo, '.png')}}" target="_blank">
-                <img alt="{{basename($logo, '.png')}}" src="{{strtr($logo, [public_path() . DIRECTORY_SEPARATOR => '/', DIRECTORY_SEPARATOR => '/'])}}?v=1">
+              <a class="d-block mx-3" href="https://{{strtr(basename($logo, '.png'), ['__' => '/'])}}" target="_blank">
+                <img alt="{{basename(strtr($logo, ['__' => '/']), '.png')}}" src="{{strtr($logo, [public_path() . DIRECTORY_SEPARATOR => '/', DIRECTORY_SEPARATOR => '/'])}}?v=1">
               </a>
             </div>
           @endforeach
