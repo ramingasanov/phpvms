@@ -18,7 +18,8 @@
                 <h3 class="mt-0">
                   {{ $group }}
                 </h3>
-                <div class="row">
+		@foreach($files as $file)
+                <div class="row mt-3">
                   <div class="col-sm-2">
                     <img alt="{{ htmlspecialchars($group) }}" src="https://via.placeholder.com/200x200?text=200x200">
                   </div>
@@ -38,6 +39,7 @@
                     </p>
                   </div>
                 </div>
+		@endforeach
               </div>
             @endforeach
           @endif

@@ -94,7 +94,7 @@
           <h3>Whats Happening on Simply Connect</h3>
           <div class="row">
             <div class="card border-black-bottom dashboard-table">
-              <h4 class="card-header">Latest Flights</h4>
+              <h4 class="card-header bg-red">Latest Flights</h4>
               <div class="card-body">
                 {{ Widget::latestPireps(['count' => 5]) }}
               </div>

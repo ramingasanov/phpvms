@@ -1,5 +1,5 @@
 <div class="card">
-	<div class="card-header">
+	<div class="card-header bg-red">
 		<i class="fas fa-medal" style="margin-right: 5px;"></i>
 		<h4>Top {{ $count }} Pilots By {{ ucfirst($type) }}</h4>
 	</div>

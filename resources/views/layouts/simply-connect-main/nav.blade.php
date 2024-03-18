@@ -26,7 +26,15 @@
           <a class="{{ Request::path() === 'donations' ? 'active ' : "" }}dropdown-item" href="/donations"><i class="fas fa-hand-holding-usd"></i> Donations</a>
         </div>
       </li>
-
+	<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-building"></i> Virtual Companies
+        </a>
+        <div class="dropdown-menu">
+          <a class="{{ Request::path() === '/bus' ? 'active ' : '' }}dropdown-item" href="#"><i class="fas fa-bus"></i> Bus Company</a>
+          <a class="{{ Request::path() === '/truck' ? 'active ' : '' }}dropdown-item" href="#"><i class="fas fa-truck"></i> Trucking Company</a>
+        </div>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-crosshairs"></i> Operations

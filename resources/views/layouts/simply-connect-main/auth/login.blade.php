@@ -9,7 +9,7 @@
     <div class="col-md-8 d-none d-md-flex bg-image" style="background-image: url('/assets/frontend/img/potm/jan_2020.png')"></div>
 
       <!-- LOGIN -->
-        <div class="col-md-4 text-white bg-black">
+        <div class="col-md-4 text-white bg-blue">
             <div class="login d-flex align-items-center py-5">
 
         <div class="container">

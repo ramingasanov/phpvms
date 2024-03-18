@@ -1,5 +1,5 @@
 <div class="card border-black-bottom dashboard-table">
-	<h4 class="card-header">
+	<h4 class="card-header bg-red">
 		@if ($count === 1)
 			Best Pilot of {{ ucfirst($rperiod) }} By {{ ucfirst($type) }}
 		@else
@@ -17,7 +17,7 @@
 		@endif
 		@foreach($tpilots as $tp)			
 			<tr>
-				<td class="text-left"><a href="{{ route('frontend.users.show.public', [$tp->user_id]) }}">{{ $tp->user->name_private }}</a></td>
+				<td class="text-left"><a href="{{ route('frontend.users.show.public', [$tp->user_id]) }}">@if ( !empty($tp->user->name_private) ) {{ $tp->user->name_private }}@endif</a></td>
 			@if($type == 'time')
 				<td> @minutestotime($tp->totals) </td>
 			@elseif($type == 'distance')

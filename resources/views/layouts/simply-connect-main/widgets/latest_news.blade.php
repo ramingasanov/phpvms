@@ -1,4 +1,4 @@
-<div class="nav nav-tabs" role="tablist">
+<div class="nav nav-tabs bg-red text-white" role="tablist">
   @lang('widgets.latestnews.news')
 </div>
 <div class="card border-black-bottom">
