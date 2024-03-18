@@ -6,10 +6,10 @@
 
 <div class="container-fluid">
   <div class="row no-gutter">
-    <div class="col-md-8 d-none d-md-flex bg-image" style="background-image: url('/assets/frontend/img/potm/jan_2020.png')"></div>
+    <div class="col-md-8 d-none d-md-flex bg-image"></div>
 
       <!-- LOGIN -->
-        <div class="col-md-4 text-white bg-blue">
+        <div class="col-md-4 text-white bg-dark-green">
             <div class="login d-flex align-items-center py-5">
 
         <div class="container">
@@ -85,7 +85,7 @@
 
 @section('scripts')
 <script>
-  var images = ['jan_2020.png', 'jan-2020-2.jpg', 'jan-2020-3.jpg', 'feb_2021_1.png', 'feb_2021_2.png', 'feb_2021_3.png', 'mar_2021_1.png', 'mar_2021_2.png', 'mar_2021_3.png', 'apr_2022.png', 'apr_2021_2.png', 'apr_2021_3.png'];
+  var images = ['feb_2024.png', 'jan_2020.png', 'jan-2020-2.jpg', 'jan-2020-3.jpg', 'feb_2021_1.png', 'feb_2021_2.png', 'feb_2021_3.png', 'mar_2021_1.png', 'mar_2021_2.png', 'mar_2021_3.png', 'apr_2022.png', 'apr_2021_2.png', 'apr_2021_3.png'];
   document.querySelector('.bg-image').style.backgroundImage = 'url(/assets/frontend/img/potm/' + images[Math.floor(Math.random() * images.length)] + ')';
 </script>
 @endsection

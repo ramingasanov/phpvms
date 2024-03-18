@@ -5,7 +5,7 @@
 <div style="background-color: #000;">
 	<div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper-home">
 		<div class="swiper-wrapper">
-			@foreach(File::glob(public_path() . '/assets/frontend/img/sca/*.jpg') as $image)
+			@foreach(File::glob(public_path() . '/assets/frontend/img/2024_livery/*.{jpg,png}', GLOB_BRACE) as $image)
 				<div class="swiper-slide">
 					<img
 					  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
@@ -27,7 +27,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="row bg-blue text-white">
+				<div class="row bg-dark-green text-white">
 					<div class="container py-5">
 						<div class="row">
 							<div class="col-md-8">
@@ -84,7 +84,7 @@
 			</div>
       <div class="col-md-6">
 				<div class="card">
-					<div class="nav nav-tabs bg-red text-white" role="tablist">
+					<div class="nav nav-tabs bg-light-green text-white" role="tablist">
 						Vatsim Events
 					</div>
 					<iframe class="vatsim-events" src="https://my.vatsim.net/events/today"></iframe>

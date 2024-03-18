@@ -107,7 +107,15 @@
           </div>
           <div class="row">
             <div class="col-md-4 pl-0">@widget('DBasic::RandomFlights', ['count' => 5, 'daily' => false, 'hub' => false])</div>
-            <div class="col-md-4 p-0">@widget('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300])</div>
+            <div class="col-md-4 p-0">@php
+    try {
+        echo \Widget::show('DBasic::WhazzUp', ['network' => 'VATSIM', 'field_name' => 'VATSIM-ID', 'refresh' => 300]);
+    } catch (\Exception $e) {
+        \Log::error('Widget Error: ' . $e->getMessage());
+        // You can choose to display a custom message or handle the error in some way.
+        echo 'An error occurred while rendering the widget.';
+    }
+@endphp</div>
             <div class="col-md-4 pr-0">@widget('DBasic::WhazzUp', ['network' => 'IVAO', 'field_name' => 'IVAO-ID', 'refresh' => 300])</div>
           </div>
         </div>

@@ -141,8 +141,12 @@
     background: #188CC0 !important;
 }
 
-.bg-red{
-    background: #7CB855 !important;
+.bg-dark-green{
+  background: #0C282B !important;
+}
+
+.bg-light-green{
+    background: #49931A !important;
 }
 
 .bg-blue h1,
@@ -166,11 +170,15 @@
 }
 
 .btn-login {
-	background-color: #7CB855;
+	background-color: #49931A;
 }
 
 .btn-login:hover {
-        background-color: #0000004a;
+  background-color: #3C7E13;
+}
+
+.btn-login:active {
+  background-color: #5AAD29 !important;
 }
 
 .login .link{

@@ -70,14 +70,17 @@ class TopPilotsByPeriod extends Widget
             $rawsql = DB::raw('sum(flight_time) as totals');
         }
         if($selection === 'average landing rate') {
-			$rawsql = DB::raw('avg(landing_rate) as totals');
+            $rawsql = DB::raw('avg(landing_rate) as totals');
             $conditionA = 'landing_rate';
             $conditionB = '<';
             $conditionC = -10;
-		}
+        }
         if ($conditionA && $conditionB && $conditionC) {
             $tpilots = Pirep::select('user_id', $rawsql)
             ->where('state', '2')
+            ->whereHas('user', function ($query) {
+                $query->where('name', '!=', 'Deleted User');
+            })
             ->where($conditionA, $conditionB, $conditionC)
             ->$wheretype('created_at', '=', $repsql)
             ->groupBy('user_id')
@@ -88,6 +91,9 @@ class TopPilotsByPeriod extends Widget
         } else {
             $tpilots = Pirep::select('user_id', $rawsql)
             ->where('state', '2')
+            ->whereHas('user', function ($query) {
+                $query->where('name', '!=', 'Deleted User');
+            })
             ->$wheretype('created_at', '=', $repsql)
             ->orderBy('totals', 'desc')
             ->groupBy('user_id')
@@ -95,12 +101,11 @@ class TopPilotsByPeriod extends Widget
             ->get();
         }
 
-
         return view('widgets.toppilotsbyperiod', [
             'tpilots' => $tpilots,
             'type'    => $selection,
             'count'   => $this->config['count'],
             'rperiod' => $period,
-            ]);
+        ]);
     }
 }
